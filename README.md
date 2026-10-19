@@ -5,7 +5,7 @@
 Krigsvold is an independent Light and Dark color family derived from the owner-supplied Krigsvold website stylesheet. Warm paper, deep navy, glacier blue, and muted bronze form its identity. Its twelve source colors are preserved as reference values; 88 semantic roles per mode adapt them for interfaces, syntax, charts, and terminals.
 
 **Version:** 1.0.0.  
-**Planned website:** [krigsvoldtheme.dev](https://krigsvoldtheme.dev/). No domain or hosting changes are made by this repository.
+**Website:** [krigsvoldtheme.dev](https://krigsvoldtheme.dev/).
 
 ## Included
 
@@ -16,9 +16,13 @@ Krigsvold is an independent Light and Dark color family derived from the owner-s
 - Local Roboto and Roboto Slab fonts, the shared JHCU footer, a privacy notice, and consent-gated Analytics.
 - Automated contrast, native-profile, and browser checks.
 
+## Zsh prompt
+
+Light and Dark `.zsh-theme` downloads are available on the website and in `ports/zsh/`. They work with plain Zsh or Oh My Zsh; see [installation and behavior](docs/ports.md#zsh-prompt-themes).
+
 ## Develop
 
-Requires Node.js 20.19+ and npm.
+Development requires Node.js 20.19+, npm, and Zsh 5.9+ for the prompt tests.
 
 ```sh
 npm install

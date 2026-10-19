@@ -155,7 +155,7 @@ try {
     await page.setViewportSize({width:390,height:844});
     await page.goto(base+'/');
     await page.screenshot({path:'artifacts/qa/mobile.png'});
-    for(const file of ['favicon.svg','favicon.ico','apple-touch-icon.png','site.webmanifest','downloads/krigsvold-light.terminal','downloads/krigsvold-dark.terminal']) assert.equal((await page.request.get(base+'/'+file)).ok(),true);
+    for(const file of ['favicon.svg','favicon.ico','apple-touch-icon.png','site.webmanifest','downloads/krigsvold-light.terminal','downloads/krigsvold-dark.terminal','downloads/krigsvold-light.zsh-theme','downloads/krigsvold-dark.zsh-theme']) assert.equal((await page.request.get(base+'/'+file)).ok(),true);
     await page.goto(base+'/privacy-and-cookie-notice/');
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,'Privacy notice overflows');
   });
@@ -247,6 +247,7 @@ try {
       }
       await page.locator('.css-instructions').evaluate(e=>{e.open=true;});
       await page.locator('.terminal-download details').evaluate(e=>{e.open=true;});
+      await page.locator('.zsh-download details').evaluate(e=>{e.open=true;});
       await assertFits(`${width}px expanded download instructions`);
     }
     await page.setViewportSize({width:307,height:844});

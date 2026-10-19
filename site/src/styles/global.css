@@ -53,3 +53,8 @@ main,.mast nav,.brand,.brand>span,.specimen-stage,.note-content,.contrast-inspec
   .view-switch,.mode-switch{flex-wrap:wrap}
   .view-switch button{flex:1 1 auto}
 }
+
+/* Shell prompt download, kept separate from terminal emulator profiles. */
+.zsh-download{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:20px 30px;padding:28px 0;margin-top:28px;border-block:1px solid var(--krigsvold-line)}
+.zsh-download h3{font-size:26px;margin:0 0 12px;letter-spacing:-.6px}.zsh-download p{font-size:14px;line-height:1.8;margin:0 0 16px;overflow-wrap:anywhere}.zsh-download pre{max-width:100%;overflow:auto;padding:18px;background:var(--krigsvold-panel2);font:12px/1.8 ui-monospace,monospace;margin:0}.zsh-files{display:flex;flex-direction:column;justify-content:center;gap:12px;min-width:0}.zsh-files a{padding:16px;border:1px solid var(--krigsvold-control-line);display:flex;flex-direction:column;gap:7px;text-decoration:none;font-size:14px}.zsh-files a:hover{text-decoration:underline}.zsh-files code{font-size:11px}.zsh-download details{grid-column:1/-1;font-size:14px;min-width:0}.zsh-download summary{padding:4px 0;font-weight:600}.zsh-download details p{margin-top:16px}.zsh-download details pre{margin-top:12px}.zsh-download>div{min-width:0}
+@media(max-width:650px){.zsh-download{grid-template-columns:minmax(0,1fr);gap:20px;padding:24px 0}.zsh-download p{font-size:13px}.zsh-download pre{font-size:11px;padding:14px}}

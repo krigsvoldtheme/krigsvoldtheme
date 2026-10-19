@@ -3,6 +3,7 @@ import {join} from 'node:path';
 import {themes,heritage,design} from '../src/palettes.mjs';
 import {terminal,vscode} from '../src/ports.mjs';
 import {terminalApp} from '../src/terminal-app.mjs';
+import {zshTheme} from '../src/zsh-theme.mjs';
 const {version}=JSON.parse(await readFile(new URL('../package.json',import.meta.url),'utf8'));
 const outputs=['artifacts','site/public/downloads'];
 const banner=`/* Krigsvold Theme ${version}. Generated from src/palettes.mjs. Do not edit directly. */\n`;
@@ -19,9 +20,12 @@ for(const dir of outputs){
     save(t.id+'.json',JSON.stringify({version,...t},null,2)+'\n'),
     save(t.id+'-terminal.json',JSON.stringify({version,...terminal(t)},null,2)+'\n'),
     save(t.id+'.terminal',terminalApp(t)),
+    save(t.id+'.zsh-theme',zshTheme(t,version)),
     save(t.id+'-vscode.json',JSON.stringify(vscode(t),null,2)+'\n')])
  ]);
 }
 await mkdir('ports/terminal-app',{recursive:true});
 for(const t of modes) await writeFile(join('ports/terminal-app',t.id+'.terminal'),terminalApp(t),'utf8');
-console.log('Generated CSS, JSON, native Terminal.app profiles, and VS Code theme files.');
+await mkdir('ports/zsh',{recursive:true});
+for(const t of modes) await writeFile(join('ports/zsh',t.id+'.zsh-theme'),zshTheme(t,version),'utf8');
+console.log('Generated CSS, JSON, native Terminal.app profiles, Zsh prompts, and VS Code theme files.');
