@@ -21,16 +21,20 @@ if(kind==='npm'){
  });
 }
 if(kind==='vim'){
- test('both variants load and switch in Vim and Neovim',()=>{
-  let checked=0;
-  for(const [bin,args] of [['vim',['-Nu','NONE','-n','-es']],['nvim',['--headless','-u','NONE','-n']]]){
-   const probe=spawnSync(bin,['--version'],{encoding:'utf8'});if(probe.error)continue;
-   for(const mode of ['light','dark']){
-    const script=`set rtp^=${process.cwd()}\nsyntax on\nset termguicolors\nset background=${mode}\ncolorscheme ${family}\nif g:colors_name !=# '${family}-${mode}' | cquit 1 | endif\nif synIDattr(hlID('Normal'),'fg#') !=? '${themes[mode].tokens.text}' | cquit 2 | endif\nif synIDattr(hlID('Normal'),'bg#') !=? '${themes[mode].tokens.bg}' | cquit 3 | endif\nset notermguicolors\ncolorscheme ${family}-${mode}\nif str2nr(synIDattr(hlID('Normal'),'fg','cterm')) < 16 | cquit 4 | endif\nqa!\n`;
-    const r=spawnSync(bin,[...args,'-S','/dev/stdin'],{input:script,encoding:'utf8'});assert.equal(r.status,0,bin+' '+mode+' '+r.stderr+r.stdout);checked++;
+ test('both variants load and switch in Vim and Neovim',async()=>{
+  const dir=await mkdtemp(join(tmpdir(),'theme-vim-'));let checked=0;
+  try{
+   for(const [bin,args] of [['vim',['-Nu','NONE','-n','-es','-V1']],['nvim',['--headless','-u','NONE','-n']]]){
+    const probe=spawnSync(bin,['--version'],{encoding:'utf8'});if(probe.error)continue;
+    for(const mode of ['light','dark']){
+     const file=join(dir,bin+'-'+mode+'.vim');
+     const script=`set rtp^=${process.cwd()}\nsyntax on\nset termguicolors\nset background=${mode}\ncolorscheme ${family}\ncall assert_equal('${family}-${mode}',g:colors_name)\ncall assert_equal('${themes[mode].tokens.text.toLowerCase()}',tolower(synIDattr(hlID('Normal'),'fg','gui')))\ncall assert_equal('${themes[mode].tokens.bg.toLowerCase()}',tolower(synIDattr(hlID('Normal'),'bg','gui')))\nset notermguicolors\ncolorscheme ${family}-${mode}\ncall assert_true(str2nr(synIDattr(hlID('Normal'),'fg','cterm')) >= 16)\nif !empty(v:errors)\n  for err in v:errors | echom err | endfor\n  cquit 1\nendif\nqa!\n`;
+     await writeFile(file,script);
+     const r=spawnSync(bin,[...args,'-S',file],{encoding:'utf8'});assert.equal(r.status,0,bin+' '+mode+' '+r.stderr+r.stdout);checked++;
+    }
    }
-  }
-  assert.ok(checked>=4,'Install Vim and Neovim to run the native smoke tests.');
+   assert.ok(checked>=4,'Install Vim and Neovim to run the native smoke tests.');
+  }finally{await rm(dir,{recursive:true,force:true});}
  });
 }
 if(kind==='emacs'){
