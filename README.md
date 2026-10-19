@@ -11,7 +11,7 @@ Krigsvold is an independent Light and Dark color family derived from the owner-s
 
 - Light and Dark palettes with namespaced `--krigsvold-*` CSS variables and structured JSON.
 - Native macOS Terminal.app profiles, generic 16-color terminal descriptors, and starter VS Code color definitions.
-- An Astro field-guide website with a switchable specimen desk, interface/code/terminal examples, searchable tokens, copyable colors, and a contrast inspector.
+- An Astro color-workbench website with a switchable specimen desk, interface/code/terminal examples, searchable tokens, copyable colors, and a contrast inspector.
 - An original faceted ice-crystal mark, SVG/ICO favicons, and Apple/Android icons.
 - Local Roboto and Roboto Slab fonts, the shared JHCU footer, a privacy notice, and consent-gated Analytics.
 - Automated contrast, native-profile, and browser checks.

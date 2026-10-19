@@ -7,6 +7,6 @@ The master mark is `site/public/krigsvold-mark.svg`: an original six-armed facet
 - Pale ice: `#D9EEF4`
 - Bronze: `#B58A3B`
 
-The SVG is used in the masthead, specimen desk, and source-palette section. `favicon.svg` is the same mark; ICO and 180/192/512 pixel PNGs derive from it. Local Roboto Slab and Roboto follow the source stylesheet's typography.
+The SVG is used in the masthead and color specimens. The cover is an abstract, geometric ice landscape drawn directly in SVG using the source palette; it is illustrative, not a depiction of a geographic location. `favicon.svg` is the same mark; ICO and 180/192/512 pixel PNGs derive from it. Local Roboto Slab and Roboto follow the source stylesheet's typography.
 
 The new mark is included under the repository's MIT license. The James Howard badge in the JHCU footer is a separate identity asset and retains its existing rights.

@@ -18,7 +18,7 @@ CSS uses `data-krigsvold="light|dark"` and `--krigsvold-*`, keeping it independe
 
 ## Website
 
-The Astro website uses a field-guide layout, local Roboto Slab/Roboto fonts, and an original ice-crystal mark. A specimen desk switches appearance and example type. A separate reference table supports palette selection, filtering, copying, and paired contrast inspection. These controls operate in the browser.
+The Astro website opens with a geometric ice landscape drawn from the source palette and a twelve-color copyable ribbon. A single workbench has Preview, Color lab, and Downloads views, addressed by URL hashes and native anchor links. JavaScript reveals one view at a time; without JavaScript all three remain readable. Browser Back/Forward and direct links restore the selected view. One appearance control updates the workbench, specimen, reference values, and contrast inspector together. The Color lab leads with foreground/background pairing, then the searchable reference. Local Roboto Slab/Roboto fonts and an original ice-crystal mark complete the identity.
 
 ## Verification scope
 

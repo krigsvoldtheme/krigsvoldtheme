@@ -12,26 +12,37 @@ const category=(key)=>key.startsWith('syntax-')?'syntax':key.startsWith('chart-'
 const downloads=[['CSS variables','Scoped Light and Dark themes','krigsvold.css'],['JSON tokens','The complete color specification','krigsvold.json'],['Light CSS','Light theme on its own','krigsvold-light.css'],['Dark CSS','Dark theme on its own','krigsvold-dark.css'],['VS Code Light','Starter color definition','krigsvold-light-vscode.json'],['VS Code Dark','Starter color definition','krigsvold-dark-vscode.json'],['Terminal Light JSON','Sixteen ANSI colors','krigsvold-light-terminal.json'],['Terminal Dark JSON','Sixteen ANSI colors','krigsvold-dark-terminal.json']];
 ---
 <BaseLayout>
-  <div class="specimen-book">
-    <header class="field-intro">
-      <div><h1>Krigsvold</h1><p class="field-tagline">Paper, sea, and ice.</p></div>
-      <p class="field-description">Warm paper for daylight. Glacier blue for the long evening. A light and dark color family drawn from the Krigsvold website palette.</p>
-    </header>
-    <div class="field-index"><span>12 source colors</span><span>88 named roles</span><span>Light &amp; Dark</span><a href="#downloads">Download v{version} ↓</a></div>
-    <section id="preview" class="field-desk" aria-label="Explore Krigsvold Light and Dark">
-      <aside class="preview-rail">
-        <img src="/krigsvold-mark.svg" width="88" height="88" alt="A faceted ice crystal" />
-        <h2>Choose your light.</h2>
-        <p>Look at the same notes, code, and terminal in either theme.</p>
-        <div class="rail-modes" role="group" aria-label="Specimen appearance"><button type="button" data-preview-mode="light" aria-pressed="true">Light <span>Paper &amp; ink</span></button><button type="button" data-preview-mode="dark" aria-pressed="false">Dark <span>Navy &amp; ice</span></button></div>
-        <div class="view-switch" role="group" aria-label="Example type"><button type="button" data-example="interface" aria-pressed="true">Interface</button><button type="button" data-example="code" aria-pressed="false">Code</button><button type="button" data-example="terminal" aria-pressed="false">Terminal</button></div>
-        <a href="#palette">Inspect the colors ↗</a>
-      </aside>
-      <div><div class="specimen-spread">{entries.map(theme=><ThemeSpecimen theme={theme}/>)}</div><p class="caption">Working color specimens. Select a swatch to copy its value.</p></div>
+  <header class="landscape-cover">
+    <div class="cover-copy"><h1>Krigsvold</h1><p class="cover-line">Paper, sea, and ice.</p><p class="cover-description">Two ways to settle into your work.<br />Warm paper by day. Deep navy after dark.</p><a class="cover-link" href="#preview">Find your light <span aria-hidden="true">↘</span></a></div>
+    <svg class="palette-landscape" viewBox="0 0 800 520" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <path fill="#0A1D35" d="M0 0h800v520H0z"/>
+      <circle cx="612" cy="117" r="44" fill="#B58A3B"/>
+      <path d="M0 130h800M0 260h800M0 390h800M200 0v520M400 0v520M600 0v520" stroke="#D9EEF4" stroke-opacity=".1" fill="none"/>
+      <path fill="#123456" d="M0 300 195 173 353 260 555 142 800 257v263H0z"/>
+      <path fill="#286A9D" d="m0 390 180-91 119 25 165-168 143 170 193 9v185H0z"/>
+      <path fill="#D9EEF4" d="m144 520 320-364 98 175 117 189z"/>
+      <path fill="#9ED5E6" d="m144 520 320-364-63 262 118 102z"/>
+      <path fill="#EEF8FA" d="m464 156 98 175-161 87z"/>
+      <path fill="#061325" d="M0 468 184 419 332 483 578 407 800 458v62H0z"/>
+      <path d="m0 489 184-49 148 64 246-76 222 51" stroke="#9ED5E6" stroke-opacity=".4" fill="none"/>
+    </svg>
+    <div class="cover-meta"><span>Light + Dark</span><span>88 color roles per theme</span><span>Open source · v{version}</span></div>
+  </header>
+  <div class="source-ribbon" aria-label="The twelve source colors; select a color to copy it">{origins.map(([name,hex])=><button type="button" data-copy={hex} style={`--source-color:${hex}`} aria-label={`Copy original ${name.toLowerCase()} ${hex}`} title={`${name} · ${hex}`}><span class="sr-only">{name}: {hex}</span></button>)}</div>
+
+  <div id="workbench" class="workbench" data-krigsvold="light">
+    <div class="workbench-toolbar">
+      <nav class="workspace-nav" aria-label="Theme workbench"><a href="#preview" data-workspace-link="preview">Preview</a><a href="#palette" data-workspace-link="palette">Color lab</a><a href="#downloads" data-workspace-link="downloads">Downloads</a></nav>
+      <div class="appearance-control" role="group" aria-label="Workbench appearance"><button type="button" data-mode="light" aria-pressed="true"><span aria-hidden="true">☀</span> Light</button><button type="button" data-mode="dark" aria-pressed="false"><span aria-hidden="true">◒</span> Dark</button></div>
+    </div>
+    <section id="preview" class="preview-workspace" data-workspace-panel aria-labelledby="preview-title" tabindex="-1">
+      <header class="workspace-heading"><div><h2 id="preview-title">A view of your next workspace.</h2><p>Same colors. Different places to use them.</p></div><div class="view-switch" role="group" aria-label="Example type"><button type="button" data-example="interface" aria-pressed="true">Interface</button><button type="button" data-example="code" aria-pressed="false">Code</button><button type="button" data-example="terminal" aria-pressed="false">Terminal</button></div></header>
+      <div class="specimen-spread">{entries.map(theme=><ThemeSpecimen theme={theme}/>)}</div>
+      <p class="caption">These are working color specimens. Click a swatch to copy its value, or open the Color lab to inspect all 88 roles.</p>
     </section>
 
-    <section id="palette" class="palette-workspace" aria-labelledby="palette-title">
-      <header class="workspace-heading"><div><h2 id="palette-title">The color reference.</h2><p>A shared set of names, with a value for each kind of light.</p></div><div class="mode-switch" role="group" aria-label="Palette appearance"><button type="button" data-palette-mode="light" aria-pressed="true">Light palette</button><button type="button" data-palette-mode="dark" aria-pressed="false">Dark palette</button></div></header>
+    <section id="palette" class="palette-workspace" data-workspace-panel aria-labelledby="palette-title" tabindex="-1">
+      <header class="workspace-heading"><div><h2 id="palette-title">Find the right relationship.</h2><p>Pair two colors, check their contrast, or look up a named role.</p></div><p class="lab-mode" data-mode-label>Light · 88 roles</p></header>
       <div class="workspace-columns">
         <div id="tokens" class="token-reference">
           <div class="token-filters"><label>Find a token<input id="token-search" type="search" placeholder="Try accent, syntax, or border" autocomplete="off" /></label><label>Show<select id="token-category"><option value="all">All roles</option><option value="interface">Interface</option><option value="status">Status</option><option value="syntax">Syntax</option><option value="charts">Charts</option></select></label></div>
@@ -52,8 +63,8 @@ const downloads=[['CSS variables','Scoped Light and Dark themes','krigsvold.css'
       </div>
     </section>
 
-    <section id="downloads" class="get-krigsvold" aria-labelledby="download-title">
-      <header class="workspace-heading"><div><h2 id="download-title">Out into the world.</h2><p>Use the palette in a website, an editor, or Terminal.app.</p></div><a class="source-link" href="https://github.com/k3jph/krigsvoldtheme">Browse the source ↗</a></header>
+    <section id="downloads" class="get-krigsvold" data-workspace-panel aria-labelledby="download-title" tabindex="-1">
+      <header class="workspace-heading"><div><h2 id="download-title">Take Krigsvold with you.</h2><p>Use the palette in a website, an editor, or Terminal.app.</p></div><a class="source-link" href="https://github.com/k3jph/krigsvoldtheme">Browse the source ↗</a></header>
       <div class="installation-grid">
         <article class="terminal-download"><div class="terminal-symbol" aria-hidden="true">&gt;_</div><h3>Terminal.app</h3><p>Native profiles for the terminal included with macOS. Background, text, cursor, selection, and all sixteen ANSI colors.</p><div class="terminal-download-links"><a href="/downloads/krigsvold-light.terminal" download>Krigsvold Light <span>↓ .terminal</span></a><a href="/downloads/krigsvold-dark.terminal" download>Krigsvold Dark <span>↓ .terminal</span></a></div><details><summary>How to install</summary><ol><li>Download either profile.</li><li>Open Terminal and choose <strong>Terminal → Settings → Profiles</strong>.</li><li>Use the action menu beneath the profiles list to choose <strong>Import</strong>, then select the downloaded file. You can also drag the file into that list.</li><li>Select Krigsvold Light or Krigsvold Dark. Choose <strong>Default</strong> if you want it for new windows.</li></ol><p><a href="https://support.apple.com/guide/terminal/import-and-export-terminal-profiles-trml4299c696/mac">Apple’s profile import guide ↗</a></p><p>These profiles have not yet been tested in Terminal.app on a Mac.</p></details></article>
         <div class="download-list">{downloads.map(([title,description,file])=><a href={`/downloads/${file}`} download><span><strong>{title}</strong><small>{description}</small></span><code>{file.endsWith('.css')?'.css':'.json'} ↓</code></a>)}</div>
@@ -69,12 +80,8 @@ const downloads=[['CSS variables','Scoped Light and Dark themes','krigsvold.css'
 &#125;</code></pre><p>Light and Dark can also live in separate parts of the same page, as they do here. The VS Code files are starter color definitions; they are not packaged extensions.</p></details>
     </section>
 
-    <section id="story" class="origin-story" aria-labelledby="story-title">
-      <div class="origin-mark"><img src="/krigsvold-mark.svg" width="160" height="160" alt="A faceted ice crystal on navy" loading="lazy"/><span>Paper. Navy. Ice.</span></div>
-      <div class="origin-prose"><h2 id="story-title">From the Krigsvold palette.</h2><p>The source stylesheet supplied for this project begins with three deep navies, a clear blue, three ice shades, warm paper, and quiet supporting colors. Those twelve references are preserved below. They give Krigsvold a cool range with a little warmth at its edges.</p><p>Light places dark ink on paper and uses blue for links and controls. Dark begins with the deepest navy and brings glacier blue forward. Bronze remains a supporting accent. Where a source color is too pale for small text, the application theme uses a darker relative.</p><p>The website keeps the source typography, Roboto Slab and Roboto. The color definitions, interface roles, syntax colors, and terminal profiles are generated together, so they can develop as one theme family.</p></div>
-      <div class="heritage-strip">{origins.map(([name,hex])=><button type="button" data-copy={hex} aria-label={`Copy original ${name.toLowerCase()} ${hex}`}><span style={`background:${hex}`}></span><strong>{name}</strong><code>{hex}</code></button>)}</div>
-    </section>
   </div>
+  <details id="story" class="palette-notes"><summary><span>About these colors</span><span aria-hidden="true">+</span></summary><div class="palette-notes-body"><h2>Twelve starting points. One family.</h2><p>The owner-supplied Krigsvold stylesheet starts with three deep navies, clear blue, three ice shades, warm paper, ink, muted gray, a pale rule, and bronze. Those original values form the twelve-color ribbon above. Select any band to copy its value.</p><p>Light places ink on paper, with blue for links and controls. Dark brings glacier blue forward against the deepest navy. Bronze stays a supporting accent; darker relatives of pale source colors keep small text readable.</p><p>Roboto Slab and Roboto carry over from that stylesheet. The interface roles, syntax colors, and terminal profiles are generated together. The faceted ice crystal is original artwork for this theme.</p><a href="https://github.com/k3jph/krigsvoldtheme">Read the specification on GitHub ↗</a></div></details>
   <p id="copy-status" class="copy-feedback" role="status" aria-live="polite"></p>
   <dialog id="copy-dialog" class="copy-dialog" aria-labelledby="copy-title"><h2 id="copy-title">Copy this value</h2><p>Clipboard access is unavailable. Select the value below and copy it.</p><label>Color value<input id="copy-value" readonly /></label><button type="button" data-copy-close>Close</button></dialog>
   <script src="../scripts/specimen.js"></script>

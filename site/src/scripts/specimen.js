@@ -1,8 +1,3 @@
-const previewModes=[...document.querySelectorAll('[data-preview-mode]')];
-for(const button of previewModes) button.addEventListener('click',()=>{
- previewModes.forEach(other=>other.setAttribute('aria-pressed',String(other===button)));
- document.querySelectorAll('.theme-specimen').forEach(panel=>{panel.hidden=panel.dataset.krigsvold!==button.dataset.previewMode;});
-});
 import { themes } from '../../../src/palettes.mjs';
 import { contrastRatio } from '../../../src/contrast.mjs';
 
@@ -18,7 +13,7 @@ document.querySelectorAll('[data-show-note]').forEach(button=>button.addEventLis
 }));
 
 let mode='light';
-const modeButtons=[...document.querySelectorAll('[data-palette-mode]')];
+const modeButtons=[...document.querySelectorAll('[data-mode]')];
 const search=document.getElementById('token-search');
 const category=document.getElementById('token-category');
 const rows=[...document.querySelectorAll('[data-token]')];
@@ -44,7 +39,10 @@ function updateContrast() {
   document.getElementById('contrast-verdict').textContent=ratio>=7?'AA and AAA for normal text':ratio>=4.5?'AA for normal text':ratio>=3?'AA for large text only':'Below AA for text';
 }
 for(const button of modeButtons) button.addEventListener('click',()=>{
-  mode=button.dataset.paletteMode;
+  mode=button.dataset.mode;
+  document.getElementById('workbench').dataset.krigsvold=mode;
+  document.querySelectorAll('.theme-specimen').forEach(panel=>{panel.hidden=panel.dataset.krigsvold!==mode;});
+  document.querySelector('[data-mode-label]').textContent=`${mode==='light'?'Light':'Dark'} · 88 roles`;
   modeButtons.forEach(other=>other.setAttribute('aria-pressed',String(other===button)));
   for(const row of rows) {
     const value=row.dataset[mode];
@@ -77,3 +75,25 @@ document.querySelectorAll('[data-copy]').forEach(button=>button.addEventListener
 }));
 document.querySelector('[data-copy-close]').addEventListener('click',()=>copyDialog.close());
 copyDialog.addEventListener('close',()=>copyOpener?.focus());
+
+const workspacePanels=[...document.querySelectorAll('[data-workspace-panel]')];
+const workspaceLinks=[...document.querySelectorAll('[data-workspace-link]')];
+function showWorkspace(id) {
+  for(const panel of workspacePanels) panel.hidden=panel.id!==id;
+  for(const link of workspaceLinks) {
+    if(link.dataset.workspaceLink===id) link.setAttribute('aria-current','location');
+    else link.removeAttribute('aria-current');
+  }
+}
+function readWorkspaceLocation() {
+  const id=location.hash.slice(1);
+  if(workspacePanels.some(panel=>panel.id===id)) showWorkspace(id);
+  else if(id==='story') document.getElementById('story').open=true;
+  else showWorkspace('preview');
+}
+for(const link of workspaceLinks) link.addEventListener('click',()=>showWorkspace(link.dataset.workspaceLink));
+// Reveal a hidden section before native anchor scrolling takes place.
+document.querySelector('.cover-link').addEventListener('click',()=>showWorkspace('preview'));
+window.addEventListener('hashchange',readWorkspaceLocation);
+showWorkspace('preview');
+readWorkspaceLocation();

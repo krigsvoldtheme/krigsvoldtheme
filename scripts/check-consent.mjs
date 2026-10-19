@@ -120,6 +120,7 @@ try {
   },{cookie:stored('accepted'),gpc:true});
   await scenario('JavaScript disabled leaves analytics off and the notice readable',async({page,requests})=>{
     assert.equal(await page.locator('#cookie-banner').isVisible(),false);
+    for(const id of ['preview','palette','downloads']) assert.equal(await page.locator('#'+id).isVisible(),true);
     await page.locator('footer a[href="/privacy-and-cookie-notice/"]').click();
     assert.equal(await page.getByRole('heading',{name:'Privacy and Cookie Notice',exact:true}).count(),1);
     assert.deepEqual(requests,[]);
@@ -132,7 +133,7 @@ try {
     assert.equal(await page.locator('img').evaluateAll(els=>els.every(e=>e.complete&&e.naturalWidth>0)),true);
     assert.equal(await page.locator('.theme-specimen[data-krigsvold="light"]').count(),1);
     assert.equal(await page.locator('.theme-specimen[data-krigsvold="dark"]').count(),1);
-    await page.getByRole('button',{name:'Dark Navy & ice',exact:true}).click();
+    await page.getByRole('button',{name:'Dark',exact:true}).click();
     assert.equal(await page.locator('.theme-specimen[data-krigsvold="dark"]').isVisible(),true);
     await page.getByRole('button',{name:'Code',exact:true}).click();
     assert.equal(await page.locator('[data-example-panel="code"]:visible').count(),1);
@@ -161,9 +162,10 @@ try {
   await scenario('token search, palette switching, copying, and contrast calculation',async({page})=>{
     await page.locator('#cookie-banner [data-cookie-reject]').click();
     await page.evaluate(()=>Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:async value=>{window.__copied=value;}}}));
+    await page.locator('[data-workspace-link=palette]').click();
     await page.locator('#token-search').fill('--krigsvold-accent');
     assert.equal(await page.locator('[data-token]:visible').count(),4);
-    await page.getByRole('button',{name:'Dark palette',exact:true}).click();
+    await page.getByRole('button',{name:'Dark',exact:true}).click();
     await page.locator('[data-token="accent"] [data-copy]').click();
     assert.equal(await page.evaluate(()=>window.__copied),'#9ED5E6');
     assert.match(await page.locator('#copy-status').textContent(),/Copied #9ED5E6/);
@@ -178,20 +180,51 @@ try {
     assert.match(await page.locator('#contrast-verdict').textContent(),/Below AA/);
     await page.locator('#contrast-foreground').selectOption('text');
     assert.match(await page.locator('#contrast-verdict').textContent(),/AA and AAA/);
-    await page.getByRole('button',{name:'Light palette',exact:true}).click();
+    await page.getByRole('button',{name:'Light',exact:true}).click();
     assert.equal(await page.locator('#contrast-sample').evaluate(e=>getComputedStyle(e).backgroundColor),'rgb(251, 250, 247)');
     await page.locator('#palette').scrollIntoViewIfNeeded();
     await page.screenshot({path:'artifacts/qa/workspace.png'});
-    await page.getByRole('button',{name:'Light Paper & ink',exact:true}).click();
+    await page.getByRole('button',{name:'Light',exact:true}).click();
+    await page.locator('[data-workspace-link=preview]').click();
     const details=page.locator('.theme-specimen[data-krigsvold="light"] [data-show-note]');
     await details.click();
     assert.equal(await details.getAttribute('aria-expanded'),'true');
     assert.equal(await page.locator('#light-note').isVisible(),true);
   });
+  await scenario('workbench navigation, history, direct links, and one appearance control',async({page})=>{
+    await page.locator('#cookie-banner [data-cookie-reject]').click();
+    assert.equal(await page.locator('#preview').isVisible(),true);
+    assert.equal(await page.locator('#palette').isVisible(),false);
+    await page.locator('[data-mode=dark]').click();
+    await page.locator('[data-workspace-link=palette]').focus();
+    await page.keyboard.press('Enter');
+    assert.equal(await page.locator('#palette').isVisible(),true);
+    assert.equal(await page.locator('#preview').isVisible(),false);
+    assert.equal(await page.locator('#workbench').getAttribute('data-krigsvold'),'dark');
+    assert.equal(await page.locator('[data-token=accent] .token-value').textContent(),'#9ED5E6');
+    await page.locator('[data-workspace-link=downloads]').click();
+    assert.equal(await page.locator('#downloads').isVisible(),true);
+    await page.goBack();
+    assert.equal(await page.locator('#palette').isVisible(),true);
+    await page.reload();
+    assert.equal(await page.locator('#palette').isVisible(),true);
+    await page.goto(base+'/#downloads');
+    assert.equal(await page.locator('#downloads').isVisible(),true);
+    for(const id of ['preview','palette','downloads']) {
+      await page.locator(`[data-workspace-link=${id}]`).click();
+      for(const width of [320,390,710,950,1440]) {
+        await page.setViewportSize({width,height:900});
+        assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,`${id} overflows at ${width}px`);
+      }
+    }
+    await page.goto(base+'/#story');
+    assert.equal(await page.locator('#story').getAttribute('open'),'');
+    assert.equal(await page.locator('.palette-notes-body').isVisible(),true);
+  });
   await scenario('clipboard unavailable gives a selectable manual-copy value',async({page})=>{
     await page.locator('#cookie-banner [data-cookie-reject]').click();
     await page.evaluate(()=>Object.defineProperty(navigator,'clipboard',{configurable:true,value:undefined}));
-    await page.getByRole('button',{name:'Dark Navy & ice',exact:true}).click();
+    await page.getByRole('button',{name:'Dark',exact:true}).click();
     const button=page.getByRole('button',{name:'Copy Krigsvold Dark accent #9ED5E6',exact:true});
     await button.click();
     assert.equal(await page.locator('#copy-dialog').isVisible(),true);
