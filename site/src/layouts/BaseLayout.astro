@@ -1,0 +1,41 @@
+---
+import SiteFooter from '../components/SiteFooter.astro';
+import CookieConsent from '../components/CookieConsent.astro';
+import '../styles/global.css';
+import '../styles/site-chrome.css';
+const { title = 'Krigsvold Theme — Light & Dark', description = 'Krigsvold Light and Dark, a distinctive open-source color theme for websites, editors, terminals, and applications, in paper, navy, ice, and bronze.' } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#061325" />
+  <meta name="description" content={description} />
+  <title>{title}</title>
+  <link rel="canonical" href={canonical} />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={new URL('/android-chrome-512x512.png', Astro.site)} />
+  <meta property="og:image:alt" content="Krigsvold's faceted ice-crystal theme mark" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="stylesheet" href="/downloads/krigsvold.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="mast">
+    <a class="brand" href="/"><img class="brand-mark" src="/krigsvold-mark.svg" width="38" height="38" alt="" /> <span>Krigsvold <small>Theme</small></span></a>
+    <nav aria-label="Site"><a href="/#story">About the palette</a><a class="gitlink" href="https://github.com/k3jph/krigsvoldtheme">GitHub ↗</a></nav>
+  </header>
+  <main id="main" tabindex="-1"><slot /></main>
+  <SiteFooter />
+  <CookieConsent />
+</body>
+</html>
