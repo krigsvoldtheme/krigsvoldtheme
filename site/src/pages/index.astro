@@ -4,6 +4,7 @@ import { contrastRatio } from '../../../src/contrast.mjs';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { version } from '../../../package.json';
 import ThemeSpecimen from '../components/ThemeSpecimen.astro';
+import AppDownloads from '../components/AppDownloads.astro';
 const entries=Object.values(themes);
 const origins=[['Navy 950',heritage.navy950],['Navy 900',heritage.navy900],['Navy 800',heritage.navy800],['Blue',heritage.blue600],['Ice 400',heritage.ice400],['Ice 200',heritage.ice200],['Ice 100',heritage.ice100],['Paper',heritage.paper],['Ink',heritage.ink],['Muted',heritage.muted],['Rule',heritage.rule],['Bronze',heritage.gold]];
 const pairs=Object.entries(themes.light.tokens);
@@ -71,6 +72,7 @@ const downloads=[['CSS variables','Scoped Light and Dark themes','krigsvold.css'
       </div>
       <article class="zsh-download" aria-labelledby="zsh-title"><div><h3 id="zsh-title">A prompt to match.</h3><p>A compact single-line prompt in glacier blue or cool blue, with bronze accents and Git state. Both variants show command failures and work with plain Zsh or Oh My Zsh. No special font required.</p><pre aria-label="Illustrative Krigsvold Zsh prompt"><code>~/projects [krigsvold +1 ~2 ?1] &gt; </code></pre></div><div class="zsh-files"><a href="/downloads/krigsvold-light.zsh-theme" download>Krigsvold Light <code>↓ .zsh-theme</code></a><a href="/downloads/krigsvold-dark.zsh-theme" download>Krigsvold Dark <code>↓ .zsh-theme</code></a></div><details><summary>Install the Zsh prompt</summary><p>Download a variant that matches your terminal background. Move it into <code>~/.config/zsh/themes/</code>:</p><pre><code>mkdir -p ~/.config/zsh/themes
 cp ~/Downloads/krigsvold-dark.zsh-theme ~/.config/zsh/themes/</code></pre><p>Add this line at the end of <code>~/.zshrc</code>, after any shell framework or prompt setup, then open a new shell:</p><pre><code>source "$HOME/.config/zsh/themes/krigsvold-dark.zsh-theme"</code></pre><p>For Light, replace <code>krigsvold-dark</code> with <code>krigsvold-light</code>. For Oh My Zsh, you can instead put the file in its custom themes directory and set <code>ZSH_THEME="krigsvold-dark"</code> before loading Oh My Zsh.</p><p>Git markers: <code>+N</code> staged, <code>~N</code> unstaged, <code>?N</code> untracked entries, <code>xN</code> conflicts. A failed command shows its exit code. Set <code>KRIGSVOLD_GIT=0</code> before sourcing to omit Git inspection. Use Zsh 5.9 or newer. Truecolor terminals use the exact role colors; other terminals use ANSI palette slots, supplied by the matching Terminal.app profile. The prompt sets no terminal background; use the matching Terminal.app profile for that.</p></details></article>
+      <AppDownloads />
       <details class="css-instructions"><summary>Use Krigsvold on a website</summary><p>Load the CSS, then set <code>data-krigsvold</code> to <code>light</code> or <code>dark</code> on the element you want to theme.</p><pre><code>&lt;link rel="stylesheet" href="krigsvold.css"&gt;
 &lt;main data-krigsvold="dark"&gt;
   &lt;article class="panel"&gt;Hello, Krigsvold.&lt;/article&gt;

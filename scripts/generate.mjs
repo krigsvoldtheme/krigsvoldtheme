@@ -29,3 +29,5 @@ for(const t of modes) await writeFile(join('ports/terminal-app',t.id+'.terminal'
 await mkdir('ports/zsh',{recursive:true});
 for(const t of modes) await writeFile(join('ports/zsh',t.id+'.zsh-theme'),zshTheme(t,version),'utf8');
 console.log('Generated CSS, JSON, native Terminal.app profiles, Zsh prompts, and VS Code theme files.');
+
+await import('./distributions.mjs');

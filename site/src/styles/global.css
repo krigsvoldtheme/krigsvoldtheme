@@ -58,3 +58,23 @@ main,.mast nav,.brand,.brand>span,.specimen-stage,.note-content,.contrast-inspec
 .zsh-download{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:20px 30px;padding:28px 0;margin-top:28px;border-block:1px solid var(--krigsvold-line)}
 .zsh-download h3{font-size:26px;margin:0 0 12px;letter-spacing:-.6px}.zsh-download p{font-size:14px;line-height:1.8;margin:0 0 16px;overflow-wrap:anywhere}.zsh-download pre{max-width:100%;overflow:auto;padding:18px;background:var(--krigsvold-panel2);font:12px/1.8 ui-monospace,monospace;margin:0}.zsh-files{display:flex;flex-direction:column;justify-content:center;gap:12px;min-width:0}.zsh-files a{padding:16px;border:1px solid var(--krigsvold-control-line);display:flex;flex-direction:column;gap:7px;text-decoration:none;font-size:14px}.zsh-files a:hover{text-decoration:underline}.zsh-files code{font-size:11px}.zsh-download details{grid-column:1/-1;font-size:14px;min-width:0}.zsh-download summary{padding:4px 0;font-weight:600}.zsh-download details p{margin-top:16px}.zsh-download details pre{margin-top:12px}.zsh-download>div{min-width:0}
 @media(max-width:650px){.zsh-download{grid-template-columns:minmax(0,1fr);gap:20px;padding:24px 0}.zsh-download p{font-size:13px}.zsh-download pre{font-size:11px;padding:14px}}
+
+/* Application downloads share a compact, wrapping layout on narrow screens. */
+.app-ports { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1.25rem; margin-top: 2rem; }
+.app-ports article { min-width: 0; padding: clamp(1rem,3vw,1.6rem); border: 1px solid var(--port-line); border-radius: .65rem; }
+.app-ports h3 { margin: 0 0 .75rem; }
+.app-ports p { margin: .65rem 0; }
+.app-ports .port-links { display: flex; flex-wrap: wrap; gap: .5rem 1rem; }
+.app-ports a { overflow-wrap: anywhere; }
+.app-ports pre { min-width: 0; max-width: 100%; overflow-x: auto; padding: 1rem; background: var(--port-panel); border-radius: .35rem; font-size: .82rem; }
+.app-ports code { overflow-wrap: anywhere; }
+.app-ports pre code { overflow-wrap: normal; }
+.app-ports details { margin-top: 1rem; }
+.app-ports summary { cursor: pointer; font-weight: 650; }
+.chatgpt-port { grid-column: 1 / -1; }
+.preset-scroll { max-width: 100%; overflow-x: auto; }
+.preset-scroll table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+.preset-scroll th,.preset-scroll td { text-align: left; padding: .6rem .35rem; border-bottom: 1px solid var(--port-line); }
+.preset-scroll button { font: inherit; color: inherit; background: var(--port-panel); border: 1px solid var(--port-line); border-radius: .2rem; padding: .25rem .4rem; cursor: pointer; }
+@media(max-width:710px) { .app-ports { grid-template-columns: minmax(0,1fr); } .chatgpt-port { grid-column: auto; } }
+@media(max-width:400px) { .preset-scroll table { font-size: .74rem; } .preset-scroll button { padding: .25rem .15rem; } }

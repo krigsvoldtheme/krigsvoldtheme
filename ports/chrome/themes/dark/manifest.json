@@ -1,0 +1,94 @@
+{
+  "manifest_version": 3,
+  "name": "Krigsvold Dark",
+  "version": "1.0.0",
+  "description": "Krigsvold Dark: a quiet color theme for your browser.",
+  "homepage_url": "https://krigsvoldtheme.dev/",
+  "theme": {
+    "colors": {
+      "frame": [
+        18,
+        52,
+        86
+      ],
+      "frame_inactive": [
+        10,
+        29,
+        53
+      ],
+      "toolbar": [
+        6,
+        19,
+        37
+      ],
+      "toolbar_text": [
+        238,
+        248,
+        250
+      ],
+      "toolbar_button_icon": [
+        158,
+        213,
+        230
+      ],
+      "tab_text": [
+        238,
+        248,
+        250
+      ],
+      "tab_background_text": [
+        179,
+        204,
+        213
+      ],
+      "background_tab": [
+        18,
+        52,
+        86
+      ],
+      "bookmark_text": [
+        238,
+        248,
+        250
+      ],
+      "button_background": [
+        10,
+        29,
+        53
+      ],
+      "ntp_background": [
+        6,
+        19,
+        37
+      ],
+      "ntp_text": [
+        238,
+        248,
+        250
+      ],
+      "ntp_link": [
+        158,
+        213,
+        230
+      ],
+      "ntp_header": [
+        52,
+        80,
+        102
+      ],
+      "omnibox_background": [
+        10,
+        29,
+        53
+      ],
+      "omnibox_text": [
+        238,
+        248,
+        250
+      ]
+    },
+    "properties": {
+      "ntp_logo_alternate": 1
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "Krigsvold Light",
+  "version": "1.0.0",
+  "format": "appearance-settings",
+  "appearance": "light",
+  "background": "#FBFAF7",
+  "foreground": "#17202A",
+  "accent": "#286A9D",
+  "contrast": 45,
+  "instructions": "Enter these values in Settings > Appearance in ChatGPT/Codex desktop. Native import serialization is pending verification against an app export. Preset-only web/mobile clients may not expose custom colors."
+}
