@@ -47,3 +47,9 @@ main,.mast nav,.brand,.brand>span,.specimen-stage,.note-content,.contrast-inspec
   .contrast-inspector{min-inline-size:0;padding:16px}
   .palette-notes{margin-inline:16px}
 }
+
+@media(max-width:400px){
+  h1{overflow-wrap:anywhere}
+  .view-switch,.mode-switch{flex-wrap:wrap}
+  .view-switch button{flex:1 1 auto}
+}

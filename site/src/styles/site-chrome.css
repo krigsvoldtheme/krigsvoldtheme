@@ -16,7 +16,7 @@
   .footer-brand img{width:44px;height:44px}
   .footer-brand-copy strong{font-size:18px}
   .footer-brand-copy>span{font-size:12px}
-  .footer-row{grid-template-columns:62px minmax(0,1fr);column-gap:12px}
+  .footer-row{grid-template-columns:minmax(62px,max-content) minmax(0,1fr);column-gap:12px}
   .privacy-page{padding-inline:16px}
   .privacy-page table{table-layout:fixed}
   .privacy-page th,.privacy-page td{overflow-wrap:anywhere}

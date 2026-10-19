@@ -230,7 +230,7 @@ try {
         offenders:[...document.body.querySelectorAll('*')].filter(e=>{
           const r=e.getBoundingClientRect();
           return r.width&&getComputedStyle(e).visibility!=='hidden'&&r.right>document.documentElement.clientWidth+1&&!e.closest('pre,.token-scroll');
-        }).map(e=>e.tagName+'.'+e.className).slice(0,12)
+        }).map(e=>({element:e.tagName+'.'+e.className,parent:e.parentElement.className,text:e.textContent.slice(0,80)})).slice(0,12)
       }));
       assert.ok(layout.width<=layout.viewport,`${label}: ${JSON.stringify(layout)}`);
     };
