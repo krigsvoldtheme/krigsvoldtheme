@@ -48,6 +48,6 @@ The exact owner-supplied stylesheet is retained in [references/krigsvold-source.
 
 The implementation begins with tooling from [Martlet Theme](https://github.com/k3jph/martlettheme), including generation, color measurement, application exports, interactive references, and privacy controls. Krigsvold has its own palette, branding, CSS namespace, website composition, and consent cookie.
 
-The original code, theme definitions, and new ice-crystal mark are MIT licensed. The James Howard identity badge retains its separate rights. Local fonts include their SIL Open Font License notices.
+The original code, theme definitions, and new ice-crystal mark are MIT licensed. The James Howard identity badge retains its separate rights. Local fonts include their license notices: SIL Open Font License 1.1 for Roboto, and Apache License 2.0 for Roboto Slab.
 
 Analytics uses the owner's shared `G-FSDET4HG4L` ID only after acceptance. `PUBLIC_GA_ID` overrides it, and an explicitly blank value disables it. See [docs/privacy.md](docs/privacy.md) and the website notice.
