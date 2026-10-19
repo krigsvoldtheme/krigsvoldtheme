@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { analyticsId } from '../data/site-settings.mjs';
+---
+<BaseLayout title="Privacy and Cookie Notice | Krigsvold" description="How Krigsvold handles optional Google Analytics, cookies, and privacy choices.">
+  <article class="privacy-page">
+    <h1>Privacy and Cookie Notice</h1>
+    <p class="updated">Last updated October 18, 2026.</p>
+    <p>Krigsvold is a website operated by James P. Howard, II. You can explore the themes and download the color definitions without an account. This notice explains the information associated with using the website and the choices you can make about optional analytics. Questions may be sent to <a href="mailto:jh@jameshoward.us">jh@jameshoward.us</a>.</p>
+
+    <h2>Information processed automatically</h2>
+    <p>When your browser requests a page or file, the hosting and delivery infrastructure may process technical information such as your IP address, the requested address, the time of the request, and browser information. This information is used to deliver and protect the website. The fonts and identity images used on Krigsvold are served with the website. Viewing a page does not require a separate request to Google Fonts or to jameshoward.us.</p>
+    <p>The theme previews run in your browser. Switching between Light and Dark does not submit your selection to a Krigsvold account or database. External links, including links to GitHub, krigsvold.org, and jameshoward.us, lead to separate websites with their own privacy practices.</p>
+
+    <h2 id="cookies">Cookies and browser storage</h2>
+    <p>Krigsvold uses a first-party cookie named <code>krigsvold-consent</code> after you accept or reject analytics. It records your choice, the policy and analytics configuration version, and an expiration time. It is used to remember your privacy choice and is not a visitor identifier. The cookie lasts for up to 365 days, is limited to this host, uses SameSite=Lax, and is marked Secure when the site is served over HTTPS. Deleting it removes the remembered choice.</p>
+    <p>Optional Google Analytics cookies are separate from this preference cookie. They are permitted only after you accept analytics. No consent cookie is created merely by browsing before making a choice, unless your browser sends Global Privacy Control, which Krigsvold records as a rejection.</p>
+
+    <h2 id="cookie-settings">Cookie Settings</h2>
+    <p>Selecting <strong>Reject analytics</strong> leaves the theme previews, color definitions, and downloads available. Selecting <strong>Accept analytics</strong> permits Google Analytics to load. You can review or change that choice through Cookie Settings in the footer. Withdrawing consent disables Analytics, removes the Analytics cookies accessible to this website, and reloads the page without the tag. It does not delete information previously received by Google.</p>
+    <p>A recognized Global Privacy Control signal keeps optional analytics off, including when this browser previously accepted analytics. With JavaScript disabled, the Analytics tag does not load. You can also remove previously stored cookies through your browser settings.</p>
+    <p><a href="#cookie-settings" data-cookie-preferences>Open Cookie Settings</a>.</p>
+
+    <h2>Google Analytics</h2>
+    {analyticsId ? <p>Krigsvold uses optional Google Analytics 4 to understand how visitors find and use the theme website. It shares the measurement ID <code>{analyticsId}</code> with jameshoward.us and other participating James Howard websites. A consent choice on this website is stored for this host; it does not automatically grant consent on the other websites.</p> : <p>Google Analytics is disabled in this build. No measurement ID is configured and no Google Analytics tag loads.</p>}
+    <p>Before acceptance, Krigsvold does not load the Analytics tag or send cookieless analytics or consent pings to Google. After acceptance, Google may receive page usage, browser, and device information and set Analytics cookies. Advertising storage, advertising user data, advertising personalization, Google Signals, and advertising personalization signals are disabled in this site's configuration. The page address supplied by Krigsvold omits its query string and fragment, and the referring address is limited to its origin.</p>
+    <table>
+      <thead><tr><th scope="col">Cookie</th><th scope="col">Purpose</th><th scope="col">Configured duration</th></tr></thead>
+      <tbody><tr><td><code>_ga</code></td><td>Distinguishes browsers for statistical measurement.</td><td>Up to one year</td></tr><tr><td><code>_ga_*</code></td><td>Maintains Analytics session information.</td><td>Up to one year</td></tr></tbody>
+    </table>
+    <p>Google may process this information outside your country. Its <a href="https://policies.google.com/privacy">Privacy Policy</a> and explanation of <a href="https://policies.google.com/technologies/partner-sites">information from sites and applications that use its services</a> describe that processing.</p>
+
+    <h2>Contact and privacy rights</h2>
+    <p>Information sent by email is handled by your email provider and the receiving mailbox and is used to respond to your request. Depending on where you live and which laws apply, you may have rights concerning access, correction, deletion, restriction, objection, portability, or a complaint to a data protection authority. Contact <a href="mailto:jh@jameshoward.us">jh@jameshoward.us</a> with questions or requests. You can withdraw optional Analytics consent directly through Cookie Settings.</p>
+
+    <h2 id="copyright">Copyright and theme licensing</h2>
+    <p>The Krigsvold code and theme definitions are distributed under the repository's <a href="/licenses/krigsvold-MIT.txt">MIT license</a>. The original ice-crystal theme mark is included under that license. The James Howard identity badge retains its separate rights. <a href="/assets/fonts/roboto-OFL.txt">Roboto</a> and <a href="/assets/fonts/roboto-slab-OFL.txt">Roboto Slab</a> are distributed with their SIL Open Font License notices. The general <a href="https://jameshoward.us/terms-of-use/">Terms of Use</a> and <a href="https://jameshoward.us/copyright/">Copyright</a> notices are also available.</p>
+
+    <h2>Changes to this notice</h2>
+    <p>This notice may change as the website develops. A material change to the Analytics consent configuration invalidates the previous consent version and requires a new choice.</p>
+  </article>
+</BaseLayout>

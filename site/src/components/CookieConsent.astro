@@ -1,0 +1,25 @@
+---
+import { analyticsId, consentVersion } from '../data/site-settings.mjs';
+---
+<div id="privacy-controls" data-ga-id={analyticsId} data-policy-version={consentVersion}>
+  <section id="cookie-banner" class="cookie-banner" role="region" aria-labelledby="cookie-title" aria-describedby="cookie-description" hidden>
+    <div>
+      <h2 id="cookie-title">Analytics cookies</h2>
+      <p id="cookie-description">Krigsvold uses optional Google Analytics to understand how visitors use the theme website. Google Analytics will not load unless you accept. Rejecting analytics does not affect the previews, colors, or downloads.</p>
+      <a href="/privacy-and-cookie-notice/">Read the privacy and cookie notice</a>
+    </div>
+    <div class="cookie-actions" role="group" aria-label="Analytics cookie choices">
+      <button type="button" data-cookie-reject>Reject analytics</button>
+      <button type="button" data-cookie-accept>Accept analytics</button>
+    </div>
+  </section>
+  <dialog id="cookie-settings-dialog" class="cookie-dialog" aria-labelledby="cookie-settings-title" aria-describedby="cookie-settings-description">
+    <h2 id="cookie-settings-title">Cookie Settings</h2>
+    <p id="cookie-settings-description">{analyticsId ? 'Choose whether this browser may load optional Google Analytics. Necessary preference storage is separate from analytics.' : 'Analytics is not enabled on this site. No Google Analytics tag is loaded.'}</p>
+    <p data-cookie-state role="status" aria-live="polite"></p>
+    {analyticsId && <div class="cookie-actions"><button type="button" data-cookie-reject>Reject analytics</button><button type="button" data-cookie-accept>Accept analytics</button></div>}
+    <p>When you make a choice, this site remembers it in a first-party preference cookie for up to a year. <a href="/privacy-and-cookie-notice/#cookies">About cookies and storage</a>.</p>
+    <button type="button" class="text-button" data-cookie-close autofocus>Close settings</button>
+  </dialog>
+</div>
+<script src="../scripts/consent.js"></script>

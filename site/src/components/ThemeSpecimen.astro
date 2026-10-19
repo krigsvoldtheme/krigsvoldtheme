@@ -1,0 +1,43 @@
+---
+import { terminal } from '../../../src/ports.mjs';
+const { theme } = Astro.props;
+const ansi=terminal(theme).ansi;
+const core=[['bg','Background'],['panel','Surface'],['panel2','Raised'],['text','Text'],['muted','Muted'],['accent','Accent']];
+---
+<article class="theme-specimen" data-krigsvold={theme.mode} hidden={theme.mode!=='light'} aria-labelledby={`${theme.mode}-title`}>
+  <header class="specimen-heading">
+    <div><h2 id={`${theme.mode}-title`}>{theme.mode === 'light' ? 'Light.' : 'Dark.'}</h2><p>{theme.mode === 'light' ? 'Warm paper and cool blue.' : 'Deep navy and glacier blue.'}</p></div>
+    <img src="/krigsvold-mark.svg" alt="" width="44" height="44" />
+  </header>
+  <div class="specimen-stage">
+    <section class="specimen-example interface-example" data-example-panel="interface" aria-label={`${theme.name} interface example`}>
+      <div class="example-windowbar"><span>Field notes</span><span class="status-pill">All changes saved</span></div>
+      <div class="note-layout"><aside aria-label="Illustrative folders"><span class="folder-active">Notes <b>12</b></span><span>References <b>8</b></span><span>Archive <b>24</b></span></aside><div class="note-content"><span class="note-date">Field journal · Entry 18</span><h3>A place for your next idea.</h3><p>A field note, a useful reference, and a little space to think.</p><button type="button" class="specimen-action" data-show-note aria-expanded="false" aria-controls={`${theme.mode}-note`}>Show the details <span aria-hidden="true">↗</span></button><p id={`${theme.mode}-note`} class="note-detail" hidden>Surfaces, text, and controls use the same named Krigsvold tokens in both themes.</p></div></div>
+    </section>
+    <section class="specimen-example code-example" data-example-panel="code" aria-label={`${theme.name} code example`} hidden>
+      <div class="example-windowbar"><span>palette.mjs</span><span>JavaScript</span></div>
+      <pre><code><span class="s-comment">// A shared vocabulary for two themes.</span>
+<span class="s-keyword">export const</span> <span class="s-variable">krigsvold</span> = &#123;
+  <span class="s-property">name</span>: <span class="s-string">'Krigsvold'</span>,
+  <span class="s-property">mode</span>: <span class="s-string">'{theme.mode}'</span>,
+  <span class="s-property">colors</span>: <span class="s-number">88</span>,
+  <span class="s-property">accent</span>: <span class="s-string">'{theme.tokens.accent}'</span>
+&#125;;
+
+<span class="s-function">paint</span>(krigsvold);</code></pre>
+    </section>
+    <section class="specimen-example terminal-example" data-example-panel="terminal" aria-label={`${theme.name} terminal example`} hidden>
+      <div class="example-windowbar"><span>Krigsvold — zsh</span><span>Terminal.app</span></div>
+      <pre><code><span style={`color:${ansi.green}`}>james@mac</span> <span style={`color:${ansi.blue}`}>~/krigsvold</span> % ls
+<span style={`color:${ansi.blue}`}>src/</span>  <span style={`color:${ansi.blue}`}>site/</span>  <span style={`color:${ansi.yellow}`}>LICENSE</span>  README.md
+
+<span style={`color:${ansi.green}`}>james@mac</span> <span style={`color:${ansi.blue}`}>~/krigsvold</span> % npm test
+<span style={`color:${ansi.green}`}>✓</span> Light and dark palettes
+<span style={`color:${ansi.green}`}>✓</span> Color profiles
+
+<span style={`color:${ansi.green}`}>james@mac</span> <span style={`color:${ansi.blue}`}>~/krigsvold</span> % <span class="terminal-cursor" aria-hidden="true"> </span></code></pre>
+      <a class="terminal-install" href={`/downloads/${theme.id}.terminal`} download>Download this Terminal.app profile ↓</a>
+    </section>
+  </div>
+  <div class="specimen-swatches" aria-label={`${theme.name} core colors`}>{core.map(([key,label])=><button type="button" data-copy={theme.tokens[key]} aria-label={`Copy ${theme.name} ${label.toLowerCase()} ${theme.tokens[key]}`} title={`Copy ${label}: ${theme.tokens[key]}`}><span class="specimen-color" style={`background:${theme.tokens[key]}`}></span><span>{label}</span><code>{theme.tokens[key]}</code></button>)}</div>
+</article>
