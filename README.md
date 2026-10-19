@@ -50,7 +50,7 @@ Terminal.app import instructions are in [docs/ports.md](docs/ports.md). The prof
 
 The exact owner-supplied stylesheet is retained in [references/krigsvold-source.css](references/krigsvold-source.css). Its twelve color variables and Roboto/Roboto Slab typography are the design inputs. Application colors, supporting hues, and the ice-crystal mark are developed for this theme.
 
-The implementation begins with tooling from [Martlet Theme](https://github.com/k3jph/martlettheme), including generation, color measurement, application exports, interactive references, and privacy controls. Krigsvold has its own palette, branding, CSS namespace, website composition, and consent cookie.
+The implementation begins with tooling from [Martlet Theme](https://github.com/martlettheme/martlettheme), including generation, color measurement, application exports, interactive references, and privacy controls. Krigsvold has its own palette, branding, CSS namespace, website composition, and consent cookie.
 
 The original code, theme definitions, and new ice-crystal mark are MIT licensed. The James Howard identity badge retains its separate rights. Local fonts include their license notices: SIL Open Font License 1.1 for Roboto, and Apache License 2.0 for Roboto Slab.
 
