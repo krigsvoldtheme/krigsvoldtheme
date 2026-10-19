@@ -1,6 +1,6 @@
 # Distribution maintenance
 
-The canonical colors remain in `src/palettes.mjs`. `src/app-ports.mjs` maps semantic roles into native Vim, Emacs, Chrome, Firefox, and manual ChatGPT settings. `scripts/distributions.mjs` and the templates under `scripts/templates/` assemble standalone distribution repositories and website archives.
+The canonical colors remain in `src/palettes.mjs`. `src/app-ports.mjs` maps semantic roles into native Vim, Emacs, Chrome, Firefox, and ChatGPT desktop imports/settings. `scripts/distributions.mjs` and the templates under `scripts/templates/` assemble standalone distribution repositories and website archives.
 
 ## Build
 
@@ -17,7 +17,7 @@ All initial package versions are 1.0.0. Future published releases need intention
 - Emacs: native -theme.el files, plus a package entry registering custom-theme-load-path. Standard font-lock, Org, UI, diff, completion, and ANSI faces. Emacs 27.1+. Not submitted to MELPA.
 - Chrome: two Manifest V3 theme-only packages, one per appearance. No JavaScript, permissions, remote assets, or new-tab replacement. These are upload/source ZIPs, not signed store installations.
 - Firefox: one Manifest V2 static theme with theme and dark_theme, stable add-on ID `krigsvold-theme@krigsvoldtheme.dev`, and no-data-collection declaration. Firefox 142+ covers that declaration on desktop and Android. Build and lint with Mozilla web-ext; permanent installation awaits Mozilla signing.
-- ChatGPT/Codex desktop: manual presets map background, foreground, and accent exactly to canonical roles, with documented Light/Dark contrast defaults. They are explicitly labeled appearance-settings, not native imports. Exact native serialization awaits the user's app export; preset-only clients may not expose full custom colors.
+- ChatGPT/Codex desktop: `.txt` files contain `codex-theme-v1:` followed by compact JSON matching a user-provided app export. Preserve `codeThemeId: codex` and `accentSource: chatgpt`; map surface/ink/accent to bg/text/accent, diffAdded/diffRemoved to success/danger, and skill to syntax-decorator. Contrast defaults are 45 for Light and 60 for Dark, fonts are null, and windows are opaque. Native payloads contain only export fields, with no project metadata. Manual appearance-settings JSON remains available. The website has copy buttons and text downloads. Format/round-trip checks pass; actual app import remains a manual acceptance check. Preset-only clients may not expose custom colors.
 
 The website builds expose all archives under /downloads/. Source ZIPs contain license notices. Native editor packages have no network behavior. Browser themes affect browser UI; websites retain their own styles. Native import into ChatGPT and marketplace/store publication are separate acceptance steps.
 

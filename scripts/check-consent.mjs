@@ -155,9 +155,30 @@ try {
     await page.setViewportSize({width:390,height:844});
     await page.goto(base+'/');
     await page.screenshot({path:'artifacts/qa/mobile.png'});
-    for(const file of ['favicon.svg','favicon.ico','apple-touch-icon.png','site.webmanifest','downloads/krigsvold-light.terminal','downloads/krigsvold-dark.terminal','downloads/krigsvold-light.zsh-theme','downloads/krigsvold-dark.zsh-theme', 'downloads/krigsvold-vim.zip', 'downloads/krigsvold-emacs.zip', 'downloads/krigsvold-light-chrome.zip', 'downloads/krigsvold-dark-chrome.zip', 'downloads/krigsvold-firefox.zip', 'downloads/krigsvold-light-chatgpt.json', 'downloads/krigsvold-dark-chatgpt.json', 'downloads/krigsvoldtheme-theme-1.0.0.tgz']) assert.equal((await page.request.get(base+'/'+file)).ok(),true);
+    for(const file of ['favicon.svg','favicon.ico','apple-touch-icon.png','site.webmanifest','downloads/krigsvold-light.terminal','downloads/krigsvold-dark.terminal','downloads/krigsvold-light.zsh-theme','downloads/krigsvold-dark.zsh-theme', 'downloads/krigsvold-vim.zip', 'downloads/krigsvold-emacs.zip', 'downloads/krigsvold-light-chrome.zip', 'downloads/krigsvold-dark-chrome.zip', 'downloads/krigsvold-firefox.zip', 'downloads/krigsvold-light-chatgpt.json', 'downloads/krigsvold-dark-chatgpt.json', 'downloads/krigsvold-light-chatgpt.txt', 'downloads/krigsvold-dark-chatgpt.txt', 'downloads/krigsvoldtheme-theme-1.0.0.tgz']) assert.equal((await page.request.get(base+'/'+file)).ok(),true);
     await page.goto(base+'/privacy-and-cookie-notice/');
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,'Privacy notice overflows');
+  });
+  await scenario('native desktop imports copy intact and match their downloads',async({page})=>{
+    await page.goto(base+'/#downloads');
+    await page.locator('#cookie-banner [data-cookie-reject]').click();
+    await page.evaluate(()=>Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:async value=>{window.__copied=value;}}}));
+    for(const mode of ['light','dark']){
+      const button=page.locator('.chatgpt-port [data-copy-label]').filter({hasText:mode==='light'?'Copy Light theme':'Copy Dark theme'});
+      await button.click();
+      const value=await page.evaluate(()=>window.__copied);
+      assert.ok(value.startsWith('codex-theme-v1:'));
+      const payload=JSON.parse(value.slice('codex-theme-v1:'.length));
+      assert.equal(payload.variant,mode);assert.equal(payload.codeThemeId,'codex');
+      const download=await page.request.get(base+'/downloads/krigsvold-'+mode+'-chatgpt.txt');
+      assert.equal(download.ok(),true);assert.equal((await download.text()).trim(),value);
+      assert.ok((await page.locator('#copy-status').textContent()).length<80);
+    }
+    await page.evaluate(()=>Object.defineProperty(navigator,'clipboard',{configurable:true,value:undefined}));
+    const button=page.locator('.chatgpt-port [data-copy-label]').first();
+    await button.click();
+    assert.equal(await page.locator('#copy-value').inputValue(),await button.getAttribute('data-copy'));
+    await page.locator('[data-copy-close]').click();
   });
   await scenario('token search, palette switching, copying, and contrast calculation',async({page})=>{
     await page.locator('#cookie-banner [data-cookie-reject]').click();

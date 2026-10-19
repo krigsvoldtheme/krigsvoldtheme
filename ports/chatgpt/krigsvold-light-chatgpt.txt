@@ -1,0 +1,1 @@
+codex-theme-v1:{"codeThemeId":"codex","theme":{"accent":"#286A9D","accentSource":"chatgpt","contrast":45,"fonts":{"code":null,"ui":null},"ink":"#17202A","opaqueWindows":true,"semanticColors":{"diffAdded":"#35644E","diffRemoved":"#9A3542","skill":"#655477"},"surface":"#FBFAF7"},"variant":"light"}

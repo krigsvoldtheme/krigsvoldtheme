@@ -7,5 +7,5 @@
   "foreground": "#EEF8FA",
   "accent": "#9ED5E6",
   "contrast": 60,
-  "instructions": "Enter these values in Settings > Appearance in ChatGPT/Codex desktop. Native import serialization is pending verification against an app export. Preset-only web/mobile clients may not expose custom colors."
+  "instructions": "Enter these values in Settings > Appearance in ChatGPT/Codex desktop. Preset-only web/mobile clients may not expose custom colors."
 }

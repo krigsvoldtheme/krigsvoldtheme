@@ -63,9 +63,14 @@ export function firefoxTheme(themes,family,version) {
  const label=themes.light.name.replace(/ Light$/,'');
  return {manifest_version:2,name:`${label} Light & Dark`,version,description:`${label} browser colors that follow Firefox's light or dark appearance.`,homepage_url:`https://${family}theme.dev/`,browser_specific_settings:{gecko:{id:`${family}-theme@${family}theme.dev`,strict_min_version:'142.0',data_collection_permissions:{required:['none']}}},theme:firefoxColors(themes.light),dark_theme:firefoxColors(themes.dark)};
 }
-/** Manual editor values, not a claimed native import contract. */
+/** Manual editor values retained alongside native import strings. */
 export function chatgptPreset(theme,version) {
- return {name:theme.name,version,format:'appearance-settings',appearance:theme.mode,background:theme.tokens.bg,foreground:theme.tokens.text,accent:theme.tokens.accent,contrast:theme.mode==='light'?45:60,instructions:'Enter these values in Settings > Appearance in ChatGPT/Codex desktop. Native import serialization is pending verification against an app export. Preset-only web/mobile clients may not expose custom colors.'};
+ return {name:theme.name,version,format:'appearance-settings',appearance:theme.mode,background:theme.tokens.bg,foreground:theme.tokens.text,accent:theme.tokens.accent,contrast:theme.mode==='light'?45:60,instructions:'Enter these values in Settings > Appearance in ChatGPT/Codex desktop. Preset-only web/mobile clients may not expose custom colors.'};
+}
+/** Native format matched to the user-provided desktop app export. */
+export function chatgptImport(theme) {
+ const t=theme.tokens;
+ return 'codex-theme-v1:'+JSON.stringify({codeThemeId:'codex',theme:{accent:t.accent,accentSource:'chatgpt',contrast:theme.mode==='light'?45:60,fonts:{code:null,ui:null},ink:t.text,opaqueWindows:true,semanticColors:{diffAdded:t.success,diffRemoved:t.danger,skill:t['syntax-decorator']},surface:t.bg},variant:theme.mode});
 }
 export function highlightCSS(theme,version) {
  const t=theme.tokens, maps={'keyword,selector-tag,literal':'syntax-keyword','string,regexp,addition':'syntax-string','number':'syntax-number','title,function,title.function_':'syntax-function','type,built_in,title.class_':'syntax-type','variable,params':'syntax-variable','comment,quote':'syntax-comment','symbol,bullet':'syntax-constant','tag,name':'syntax-tag','attr,attribute':'syntax-attribute','deletion':'danger','meta':'syntax-decorator','operator,punctuation':'syntax-operator'};

@@ -2,7 +2,7 @@ import {readFile,writeFile,mkdir,cp,readdir} from 'node:fs/promises';
 import {join,dirname} from 'node:path';
 import {execFileSync} from 'node:child_process';
 import {themes,heritage,design} from '../src/palettes.mjs';
-import {chatgptPreset} from '../src/app-ports.mjs';
+import {chatgptPreset,chatgptImport} from '../src/app-ports.mjs';
 const {version}=JSON.parse(await readFile('package.json','utf8'));
 const family=themes.light.id.replace(/-light$/,''),org=family+'theme',label=themes.light.name.replace(/ Light$/,'');
 const kinds=['npm','vim','emacs','chrome','firefox'];
@@ -49,6 +49,9 @@ for(const kind of kinds){
 await mkdir('ports/chatgpt',{recursive:true});
 for(const t of Object.values(themes)){
  const body=json(chatgptPreset(t,version));
- for(const dir of ['ports/chatgpt','artifacts','site/public/downloads'])await writeFile(join(dir,t.id+'-chatgpt.json'),body);
+ for(const dir of ['ports/chatgpt','artifacts','site/public/downloads']){
+  await writeFile(join(dir,t.id+'-chatgpt.json'),body);
+  await writeFile(join(dir,t.id+'-chatgpt.txt'),chatgptImport(t)+'\n');
+ }
 }
 console.log(`Generated ${label} npm, Vim, Emacs, Chrome, Firefox, and ChatGPT presets.`);

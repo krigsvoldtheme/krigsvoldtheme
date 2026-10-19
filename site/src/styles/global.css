@@ -75,6 +75,6 @@ main,.mast nav,.brand,.brand>span,.specimen-stage,.note-content,.contrast-inspec
 .preset-scroll { max-width: 100%; overflow-x: auto; }
 .preset-scroll table { width: 100%; border-collapse: collapse; font-size: .9rem; }
 .preset-scroll th,.preset-scroll td { text-align: left; padding: .6rem .35rem; border-bottom: 1px solid var(--port-line); }
-.preset-scroll button { font: inherit; color: inherit; background: var(--port-panel); border: 1px solid var(--port-line); border-radius: .2rem; padding: .25rem .4rem; cursor: pointer; }
+.chatgpt-port .port-links button,.preset-scroll button { font: inherit; color: inherit; background: var(--port-panel); border: 1px solid var(--port-line); border-radius: .2rem; padding: .25rem .4rem; cursor: pointer; }
 @media(max-width:710px) { .app-ports { grid-template-columns: minmax(0,1fr); } .chatgpt-port { grid-column: auto; } }
-@media(max-width:400px) { .preset-scroll table { font-size: .74rem; } .preset-scroll button { padding: .25rem .15rem; } }
+@media(max-width:400px) { .preset-scroll table { font-size: .74rem; } .chatgpt-port .port-links button,.preset-scroll button { padding: .25rem .15rem; } }

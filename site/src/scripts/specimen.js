@@ -67,7 +67,7 @@ document.querySelectorAll('[data-copy]').forEach(button=>button.addEventListener
   try {
     if(!navigator.clipboard?.writeText) throw new Error('Clipboard unavailable');
     await navigator.clipboard.writeText(value);
-    clearTimeout(feedbackTimeout);feedback.textContent=`Copied ${value}`;
+    clearTimeout(feedbackTimeout);feedback.textContent=`Copied ${button.dataset.copyLabel || value}`;
     feedbackTimeout=setTimeout(()=>{feedback.textContent='';},3500);
   } catch {
     copyOpener=button;copyValue.value=value;copyDialog.showModal();copyValue.focus();copyValue.select();
