@@ -143,7 +143,7 @@ try {
     await page.locator('#preview').scrollIntoViewIfNeeded();
     await page.screenshot({path:'artifacts/qa/terminal.png'});
     await page.getByRole('button',{name:'Interface',exact:true}).click();
-    for(const width of [320,390,710,950,1440]) {
+    for(const width of [280,307,320,360,390,430,710,950,1440]) {
       await page.setViewportSize({width,height:900});
       assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,`Overflow at ${width}px`);
     }
@@ -212,7 +212,7 @@ try {
     assert.equal(await page.locator('#downloads').isVisible(),true);
     for(const id of ['preview','palette','downloads']) {
       await page.locator(`[data-workspace-link=${id}]`).click();
-      for(const width of [320,390,710,950,1440]) {
+      for(const width of [280,307,320,360,390,430,710,950,1440]) {
         await page.setViewportSize({width,height:900});
         assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,`${id} overflows at ${width}px`);
       }
@@ -220,6 +220,47 @@ try {
     await page.goto(base+'/#story');
     assert.equal(await page.locator('#story').getAttribute('open'),'');
     assert.equal(await page.locator('.palette-notes-body').isVisible(),true);
+  });
+  await scenario('narrow phone layouts and enlarged text stay inside the viewport',async({page})=>{
+    await page.locator('#cookie-banner [data-cookie-reject]').click();
+    const assertFits=async(label)=>{
+      const layout=await page.evaluate(()=>({
+        viewport:document.documentElement.clientWidth,
+        width:document.documentElement.scrollWidth,
+        offenders:[...document.body.querySelectorAll('*')].filter(e=>{
+          const r=e.getBoundingClientRect();
+          return r.width&&getComputedStyle(e).visibility!=='hidden'&&r.right>document.documentElement.clientWidth+1&&!e.closest('pre,.token-scroll');
+        }).map(e=>e.tagName+'.'+e.className).slice(0,12)
+      }));
+      assert.ok(layout.width<=layout.viewport,`${label}: ${JSON.stringify(layout)}`);
+    };
+    for(const width of [280,307,320,360,390,430]) {
+      await page.setViewportSize({width,height:844});
+      await page.locator('[data-workspace-link=preview]').click();
+      for(const example of ['Interface','Code','Terminal']) {
+        await page.getByRole('button',{name:example,exact:true}).click();
+        await assertFits(`${width}px ${example}`);
+      }
+      for(const view of ['palette','downloads']) {
+        await page.locator(`[data-workspace-link=${view}]`).click();
+        await assertFits(`${width}px ${view}`);
+      }
+      await page.locator('.css-instructions').evaluate(e=>{e.open=true;});
+      await page.locator('.terminal-download details').evaluate(e=>{e.open=true;});
+      await assertFits(`${width}px expanded download instructions`);
+    }
+    await page.setViewportSize({width:307,height:844});
+    await page.locator('[data-workspace-link=preview]').click();
+    await page.getByRole('button',{name:'Interface',exact:true}).click();
+    // Approximate browser text enlargement without disabling a user's zoom preferences.
+    await page.evaluate(()=>{
+      const text=[...document.querySelectorAll('h1,h2,h3,p,a,button,label,summary,.brand small,.footer-brand-copy strong,.footer-brand-copy>span')];
+      const sizes=text.map(e=>parseFloat(getComputedStyle(e).fontSize)*1.5);
+      text.forEach((e,i)=>{e.style.fontSize=sizes[i]+'px';});
+    });
+    await assertFits('307px with 150% text');
+    await page.goto(base+'/privacy-and-cookie-notice/');
+    await assertFits('307px privacy notice');
   });
   await scenario('clipboard unavailable gives a selectable manual-copy value',async({page})=>{
     await page.locator('#cookie-banner [data-cookie-reject]').click();

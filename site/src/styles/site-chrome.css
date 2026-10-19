@@ -8,3 +8,16 @@
 @media print{.cookie-banner,.cookie-dialog,#privacy-controls,.skip-link{display:none!important}}
 /* Shared JHCU footer, expressed in Krigsvold's palette. */
 .site-footer{background:#061325;color:#b3ccd5;border-top-color:#345066}.footer-brand-copy strong{color:#eef8fa;font-family:'Roboto Slab',Georgia,serif;font-weight:500}.footer-row h2{color:#eef8fa;font-family:'Roboto',Arial,sans-serif;font-weight:600}.footer-row a{color:#d9eef4}.footer-brand-copy>span{color:#b3ccd5}.footer-identity>p{color:#b3ccd5}.footer-brand img{background:#fbfaf7;border-radius:3px}.site-footer a:focus-visible{outline-color:#9ed5e6}
+
+.footer-identity,.footer-brand,.footer-brand-copy{min-inline-size:0}
+.footer-brand-copy strong{overflow-wrap:anywhere}
+@media(max-width:400px){
+  .footer-brand{gap:12px}
+  .footer-brand img{width:44px;height:44px}
+  .footer-brand-copy strong{font-size:18px}
+  .footer-brand-copy>span{font-size:12px}
+  .footer-row{grid-template-columns:62px minmax(0,1fr);column-gap:12px}
+  .privacy-page{padding-inline:16px}
+  .privacy-page table{table-layout:fixed}
+  .privacy-page th,.privacy-page td{overflow-wrap:anywhere}
+}
