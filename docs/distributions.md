@@ -1,10 +1,12 @@
+The canonical design now lives in krigsvoldtheme/npm; src/palettes.mjs re-exports the installed @krigsvold/theme. The website repacks that installed core for downloads. It never generates a second npm package. @krigsvold/astro supplies the shared document shell and component specimens.
+
 # Distribution maintenance
 
 The canonical colors remain in `src/palettes.mjs`. `src/app-ports.mjs` maps semantic roles into native Vim, Emacs, Chrome, Firefox, and ChatGPT desktop imports/settings. `scripts/distributions.mjs` and the templates under `scripts/templates/` assemble standalone distribution repositories and website archives.
 
 ## Build
 
-Run `npm run build`. Full standalone trees appear under `artifacts/repositories/{npm,vim,emacs,chrome,firefox}`. Each contains a source.json snapshot, scripts/build.mjs, verification, LICENSE, README, and a GitHub Actions workflow. These snapshots make public distributions independently reproducible without access to this source repository.
+Run `npm run build`. Full standalone trees appear under `artifacts/repositories/{vim,emacs,chrome,firefox}`. Each contains a source.json snapshot, scripts/build.mjs, verification, LICENSE, README, and a GitHub Actions workflow. These snapshots make public distributions independently reproducible without access to this source repository.
 
 After changing a palette or mapper, build and test here, then sync each generated directory into the corresponding public `krigsvoldtheme` distribution repository. Exclude ignored files: npm tarballs in the npm repo, and dist/ in the editor/browser repos. Commit the generated native files as well as source.json and the scripts. Their CI rebuilds, tests, and checks for generated-file drift. There is no automatic cross-repository write credential or publishing workflow.
 
@@ -12,7 +14,7 @@ All initial package versions are 1.0.0. Future published releases need intention
 
 ## Outputs and scope
 
-- npm: `@krigsvoldtheme/theme`, with scoped CSS, complete and per-mode JSON, ESM, CommonJS, declarations, and highlight.js CSS. No runtime dependencies, install scripts, or bundled fonts. Archives are locally installable before registry publication.
+- npm: `@krigsvold/theme`, with scoped CSS, complete and per-mode JSON, ESM, CommonJS, declarations, and highlight.js CSS. Optional font styles resolve local Roboto, Roboto Slab, and Roboto Mono through pinned Fontsource dependencies, with their licenses. The core also supplies typography, spacing, shape, depth, motion, and host capabilities.
 - Vim/Neovim: root colors/ layout with explicit Light/Dark files and a background-aware dispatcher. Exact GUI/truecolor colors, xterm-256 approximations, standard editor and syntax groups, and Neovim Treesitter/LSP links. Test both editors, both appearances, and truecolor/fallback.
 - Emacs: native -theme.el files, plus a package entry registering custom-theme-load-path. Standard font-lock, Org, UI, diff, completion, and ANSI faces. Emacs 27.1+. Not submitted to MELPA.
 - Chrome: two Manifest V3 theme-only packages, one per appearance. No JavaScript, permissions, remote assets, or new-tab replacement. These are upload/source ZIPs, not signed store installations.

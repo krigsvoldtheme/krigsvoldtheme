@@ -1,3 +1,5 @@
+> This website consumes `@krigsvold/theme` and `@krigsvold/astro`. Canonical design definitions live in [krigsvoldtheme/npm](https://github.com/krigsvoldtheme/npm), extracted from krigsvold.org. `src/palettes.mjs` re-exports the installed core. The theme site must be verified against published npm releases before the originating site is migrated.
+
 # Krigsvold Theme
 
 **Paper, sea, and ice.**
@@ -60,6 +62,6 @@ Analytics uses the owner's shared `G-FSDET4HG4L` ID only after acceptance. `PUBL
 
 The public distribution repositories are [krigsvoldtheme/npm](https://github.com/krigsvoldtheme/npm), [krigsvoldtheme/vim](https://github.com/krigsvoldtheme/vim), [krigsvoldtheme/emacs](https://github.com/krigsvoldtheme/emacs), [krigsvoldtheme/chrome](https://github.com/krigsvoldtheme/chrome), and [krigsvoldtheme/firefox](https://github.com/krigsvoldtheme/firefox). Each includes a canonical color snapshot, a dependency-free build, verification, and installation instructions. Both Light and Dark are included. The website Downloads section serves the archives.
 
-The npm package is named `@krigsvoldtheme/theme`; it is prepared but not yet published to the registry. Chrome Web Store and Mozilla Add-ons publication are also pending, and Firefox archives are unsigned. ChatGPT/Codex desktop imports under `ports/chatgpt/` use the `codex-theme-v1` format matched to a desktop app export, with Light/Dark copy buttons and `.txt` downloads. Manual Appearance settings remain available as JSON.
+The npm package is named `@krigsvold/theme`; it is prepared but not yet published to the registry. Chrome Web Store and Mozilla Add-ons publication are also pending, and Firefox archives are unsigned. ChatGPT/Codex desktop imports under `ports/chatgpt/` use the `codex-theme-v1` format matched to a desktop app export, with Light/Dark copy buttons and `.txt` downloads. Manual Appearance settings remain available as JSON.
 
 Run `npm run build` to generate all formats, including standalone distribution directories under `artifacts/repositories/`. See [distribution maintenance](docs/distributions.md).

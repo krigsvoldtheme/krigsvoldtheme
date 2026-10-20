@@ -1,5 +1,6 @@
 // Stub the Google tag so verification never submits real Analytics data.
 import { chromium } from 'playwright';
+import { version as coreVersion } from '@krigsvold/theme';
 import assert from 'node:assert/strict';
 import { createServer } from 'node:http';
 import { readFile, mkdir } from 'node:fs/promises';
@@ -155,7 +156,7 @@ try {
     await page.setViewportSize({width:390,height:844});
     await page.goto(base+'/');
     await page.screenshot({path:'artifacts/qa/mobile.png'});
-    for(const file of ['favicon.svg','favicon.ico','apple-touch-icon.png','site.webmanifest','downloads/krigsvold-light.terminal','downloads/krigsvold-dark.terminal','downloads/krigsvold-light.zsh-theme','downloads/krigsvold-dark.zsh-theme', 'downloads/krigsvold-vim.zip', 'downloads/krigsvold-emacs.zip', 'downloads/krigsvold-light-chrome.zip', 'downloads/krigsvold-dark-chrome.zip', 'downloads/krigsvold-firefox.zip', 'downloads/krigsvold-light-chatgpt.json', 'downloads/krigsvold-dark-chatgpt.json', 'downloads/krigsvold-light-chatgpt.txt', 'downloads/krigsvold-dark-chatgpt.txt', 'downloads/krigsvoldtheme-theme-1.0.0.tgz']) assert.equal((await page.request.get(base+'/'+file)).ok(),true);
+    for(const file of ['favicon.svg','favicon.ico','apple-touch-icon.png','site.webmanifest','downloads/krigsvold-light.terminal','downloads/krigsvold-dark.terminal','downloads/krigsvold-light.zsh-theme','downloads/krigsvold-dark.zsh-theme', 'downloads/krigsvold-vim.zip', 'downloads/krigsvold-emacs.zip', 'downloads/krigsvold-light-chrome.zip', 'downloads/krigsvold-dark-chrome.zip', 'downloads/krigsvold-firefox.zip', 'downloads/krigsvold-light-chatgpt.json', 'downloads/krigsvold-dark-chatgpt.json', 'downloads/krigsvold-light-chatgpt.txt', 'downloads/krigsvold-dark-chatgpt.txt', `downloads/krigsvold-theme-${coreVersion}.tgz`]) assert.equal((await page.request.get(base+'/'+file)).ok(),true);
     await page.goto(base+'/privacy-and-cookie-notice/');
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,'Privacy notice overflows');
   });
@@ -295,6 +296,26 @@ try {
     assert.equal(await page.locator('#copy-value').inputValue(),'#9ED5E6');
     await page.locator('[data-copy-close]').click();
     assert.equal(await button.evaluate(e=>e===document.activeElement),true);
+  });
+  await scenario('published package roles, native controls, and reduced motion',async({page})=>{
+    await page.locator('#cookie-banner [data-cookie-reject]').click();
+    const fonts=await page.evaluate(async()=>{
+      await Promise.all(['Roboto','Roboto Slab','Roboto Mono'].map(f=>document.fonts.load(`400 16px "${f}"`)));
+      return {
+        body:getComputedStyle(document.body).fontFamily,
+        display:getComputedStyle(document.querySelector('.type-display')).fontFamily,
+        mono:getComputedStyle(document.querySelector('.foundation-grid code')).fontFamily,
+        loaded:['Roboto','Roboto Slab','Roboto Mono'].every(f=>document.fonts.check(`400 16px "${f}"`)),
+      };
+    });
+    assert.match(fonts.body,/Roboto/);assert.match(fonts.display,/Roboto Slab/);assert.match(fonts.mono,/Roboto Mono/);
+    assert.equal(fonts.loaded,true);
+    assert.equal(await page.getByRole('button',{name:'Disabled state',exact:true}).isDisabled(),true);
+    assert.equal(await page.locator('html').getAttribute('data-krigsvold'),'light');
+    await page.emulateMedia({reducedMotion:'reduce'});
+    assert.equal(await page.evaluate(()=>getComputedStyle(document.documentElement).getPropertyValue('--krigsvold-motion-duration').trim()),'0s');
+    await mkdir('artifacts/qa',{recursive:true});
+    await page.locator('.foundation-specimen').screenshot({path:'artifacts/qa/foundation.png'});
   });
   console.log(`${results.length} browser scenarios passed. Google requests were intercepted.`);
 } finally {

@@ -1,0 +1,38 @@
+---
+import { Card, Button, SectionHeading } from '@krigsvold/astro';
+import { foundation } from '@krigsvold/theme';
+---
+<section class="foundation-specimen" aria-labelledby="foundation-title">
+  <SectionHeading title="Beyond the palette." id="foundation-title" description="Typography, spacing, shape, and interaction drawn from krigsvold.org." />
+  <div class="foundation-grid">
+    <Card>
+      <h3>Roboto Slab</h3>
+      <p class="type-display">A clear horizon.</p>
+      <p>Display titles and editorial headings share a family, with separately configurable roles.</p>
+    </Card>
+    <Card>
+      <h3>Roboto</h3>
+      <p class="type-sans">Room for the next observation.</p>
+      <p>Body text, navigation, labels, and controls.</p>
+      <Button href="https://github.com/krigsvoldtheme/astro">Explore the Astro starter</Button>
+    </Card>
+    <Card>
+      <h3>Roboto Mono</h3>
+      <pre><code>const horizon = 'clear';</code></pre>
+      <p>Code and terminal text, with a public companion to the Roboto family.</p>
+      <Button disabled>Disabled state</Button>
+    </Card>
+  </div>
+  <p class="caption">Flat editorial cards, restrained corners, visible keyboard focus, and reduced-motion support. Source: <a href={`https://github.com/${foundation.sourceRepository}/tree/${foundation.sourceCommit}`}>the originating design</a>.</p>
+</section>
+<style>
+  .foundation-specimen { margin-block-start: var(--krigsvold-space-12); padding-block-start: var(--krigsvold-space-8); border-top: 1px solid var(--krigsvold-line); }
+  .foundation-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: var(--krigsvold-space-6); }
+  .foundation-grid :global(.krigsvold-card) { min-inline-size: 0; padding: var(--krigsvold-space-6); }
+  .foundation-grid h3 { font-size: 1.25rem; margin-block: 0 1rem; }
+  .type-display { font-family: var(--krigsvold-font-display); font-size: clamp(1.5rem,3vw,2rem); font-weight: 700; line-height: var(--krigsvold-leading-heading); }
+  .type-sans { font-family: var(--krigsvold-font-sans); font-size: 1.3rem; }
+  .foundation-grid p { line-height: var(--krigsvold-leading-body); }
+  .foundation-grid pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+  @media(max-width: 900px) { .foundation-grid { grid-template-columns: minmax(0,1fr); } }
+</style>
