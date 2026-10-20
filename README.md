@@ -33,7 +33,7 @@ npm run build
 npm run dev
 ```
 
-The generator uses `src/palettes.mjs` and `src/ports.mjs` to create `artifacts/`, `site/public/downloads/`, and `ports/terminal-app/`. Edit the sources, then run `npm run tokens`; do not edit generated outputs by hand.
+The generator uses `src/palettes.mjs` and `src/ports.mjs` to create `artifacts/`, `site/public/downloads/`, and `ports/terminal-app/`. Edit design definitions in the core repository and update the pinned dependency here. Edit application adapters here, then run `npm run tokens`; do not edit generated outputs by hand.
 
 For browser checks, install Chromium with `npx playwright install chromium`, then run `npm run build && npm run test:browser`. The tests intercept the Google tag and do not submit real Analytics data.
 
@@ -60,7 +60,7 @@ Analytics uses the owner's shared `G-FSDET4HG4L` ID only after acceptance. `PUBL
 
 ## Application packages
 
-The public distribution repositories are [krigsvoldtheme/npm](https://github.com/krigsvoldtheme/npm), [krigsvoldtheme/vim](https://github.com/krigsvoldtheme/vim), [krigsvoldtheme/emacs](https://github.com/krigsvoldtheme/emacs), [krigsvoldtheme/chrome](https://github.com/krigsvoldtheme/chrome), and [krigsvoldtheme/firefox](https://github.com/krigsvoldtheme/firefox). Each includes a canonical color snapshot, a dependency-free build, verification, and installation instructions. Both Light and Dark are included. The website Downloads section serves the archives.
+The public distribution repositories are [krigsvoldtheme/npm](https://github.com/krigsvoldtheme/npm), [krigsvoldtheme/vim](https://github.com/krigsvoldtheme/vim), [krigsvoldtheme/emacs](https://github.com/krigsvoldtheme/emacs), [krigsvoldtheme/chrome](https://github.com/krigsvoldtheme/chrome), and [krigsvoldtheme/firefox](https://github.com/krigsvoldtheme/firefox). The editor/browser repositories include color snapshots, dependency-free builds, verification, and installation instructions. The core and Astro packages are versioned independently. Both Light and Dark are included. The website Downloads section serves the archives.
 
 The npm package is named `@krigsvold/theme`; it is prepared but not yet published to the registry. Chrome Web Store and Mozilla Add-ons publication are also pending, and Firefox archives are unsigned. ChatGPT/Codex desktop imports under `ports/chatgpt/` use the `codex-theme-v1` format matched to a desktop app export, with Light/Dark copy buttons and `.txt` downloads. Manual Appearance settings remain available as JSON.
 

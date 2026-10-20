@@ -2,15 +2,15 @@ The canonical design now lives in krigsvoldtheme/npm; src/palettes.mjs re-export
 
 # Distribution maintenance
 
-The canonical colors remain in `src/palettes.mjs`. `src/app-ports.mjs` maps semantic roles into native Vim, Emacs, Chrome, Firefox, and ChatGPT desktop imports/settings. `scripts/distributions.mjs` and the templates under `scripts/templates/` assemble standalone distribution repositories and website archives.
+The canonical design definitions live in `krigsvoldtheme/npm`; `src/palettes.mjs` re-exports the installed core. `src/app-ports.mjs` maps semantic roles into native Vim, Emacs, Chrome, Firefox, and ChatGPT desktop imports/settings. `scripts/distributions.mjs` and the templates under `scripts/templates/` assemble standalone distribution repositories and website archives.
 
 ## Build
 
 Run `npm run build`. Full standalone trees appear under `artifacts/repositories/{vim,emacs,chrome,firefox}`. Each contains a source.json snapshot, scripts/build.mjs, verification, LICENSE, README, and a GitHub Actions workflow. These snapshots make public distributions independently reproducible without access to this source repository.
 
-After changing a palette or mapper, build and test here, then sync each generated directory into the corresponding public `krigsvoldtheme` distribution repository. Exclude ignored files: npm tarballs in the npm repo, and dist/ in the editor/browser repos. Commit the generated native files as well as source.json and the scripts. Their CI rebuilds, tests, and checks for generated-file drift. There is no automatic cross-repository write credential or publishing workflow.
+Publish design changes in the core first and deliberately update the installed version here. After changing a mapper, build and test here, then sync each generated directory into the corresponding public `krigsvoldtheme` distribution repository. Exclude ignored dist/ output in the editor/browser repositories. Commit the generated native files as well as source.json and the scripts. Their CI rebuilds, tests, and checks for generated-file drift. There is no automatic cross-repository write credential or publishing workflow.
 
-All initial package versions are 1.0.0. Future published releases need intentional version bumps; use the same upstream release version across distributions generated together. The npm scope is not reserved by the GitHub organization and must be set up separately before registry publishing.
+The npm packages use independent semantic versions: @krigsvold/theme 2.0.0 and @krigsvold/astro 1.0.0. Editor/browser ports remain at 1.0.0 and use the site release version when generated together. npm scope krigsvold and GitHub organization krigsvoldtheme are independent.
 
 ## Outputs and scope
 
