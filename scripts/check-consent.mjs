@@ -29,10 +29,12 @@ const browser = await chromium.launch({
   args: ['--no-sandbox', '--disable-dev-shm-usage']
 });
 const results = [];
+const watchdog=setTimeout(()=>{console.error('Browser scenarios exceeded 240 seconds');process.exit(1);},240000);
 const stored = (decision, extra={}) => encodeURIComponent(JSON.stringify({ decision, version:`1:${id}`, expires:Date.now()+86400000, ...extra }));
 const settings = page => page.locator('footer [data-cookie-preferences]').click();
 
 async function scenario(name, run, { cookie, gpc=false, javaScriptEnabled=true }={}) {
+  console.log('START '+name);
   const context = await browser.newContext({ viewport:{width:1440,height:1000}, javaScriptEnabled });
   const requests=[], errors=[];
   await context.route('**/*', async route => {
@@ -45,6 +47,7 @@ async function scenario(name, run, { cookie, gpc=false, javaScriptEnabled=true }
   if (cookie) await context.addCookies([{ name:'krigsvold-consent',value:cookie,url:base,sameSite:'Lax' }]);
   if (gpc) await context.addInitScript(() => Object.defineProperty(navigator,'globalPrivacyControl',{value:true}));
   const page=await context.newPage();
+  page.setDefaultTimeout(15000);
   page.on('pageerror',e=>errors.push(e.message));
   try {
     await page.goto(base+'/?q=private-search#fragment');
@@ -367,6 +370,7 @@ try {
   },{javaScriptEnabled:false});
   console.log(`${results.length} browser scenarios passed. Google requests were intercepted.`);
 } finally {
+  clearTimeout(watchdog);
   await browser.close();
   await new Promise(done=>server.close(done));
 }
