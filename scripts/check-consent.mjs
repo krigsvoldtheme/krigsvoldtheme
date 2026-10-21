@@ -346,14 +346,14 @@ try {
       assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,`Design reference overflow at ${width}px`);
     }
     await page.setViewportSize({width:307,height:900});
-    await page.addStyleTag({content:'html{font-size:150% !important}'});
+    await page.evaluate(()=>document.documentElement.style.setProperty('font-size','150%','important'));
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,'Design reference overflow with enlarged text');
     await mkdir('artifacts/qa',{recursive:true});
     await page.screenshot({path:'artifacts/qa/design-system-mobile.png'});
   });
   await scenario('layout gallery and complete examples work without JavaScript',async({page})=>{
     for(const path of ['/layouts/','/layout-examples/article/','/layout-examples/landing/','/layout-examples/documentation/']){
-      await page.goto(base+path);
+      console.log('Checking '+path);await page.goto(base+path);
       assert.equal(await page.locator('main').count(),1,path);
       assert.equal(await page.locator('h1').count(),1,path);
       assert.equal(await page.locator('footer [data-cookie-preferences]').count(),1,path);
@@ -361,7 +361,7 @@ try {
         await page.setViewportSize({width,height:900});
         assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,path+' overflow at '+width);
       }
-      await page.addStyleTag({content:'html{font-size:150% !important}'});
+      await page.evaluate(()=>document.documentElement.style.setProperty('font-size','150%','important'));
       await page.setViewportSize({width:307,height:900});
       assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,path+' enlarged text overflow');
     }

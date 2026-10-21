@@ -1,34 +1,18 @@
 # Layout release gate
 
-This branch validates `krigsvold` core 2.1.0 and Astro 1.1.0 using local release-candidate archives in `vendor/`. These archives are review fixtures. Keep this PR in draft until the package PRs pass, merge, and publish.
+This draft validates core 2.1.0 and Astro 1.1.0 through candidate archives in `vendor/`. The gallery and three standalone examples consume those actual packages. Existing routes and consent behavior remain part of verification.
 
-After publication:
+## Package release order
 
-1. Replace the two file dependencies with exact registry versions 2.1.0 and 1.1.0.
-2. Regenerate the lockfile with `npm install --prefer-online`.
-3. Remove the candidate archives.
-4. Run `npm ci`, `npm test`, `npm run build`, and `npm run test:browser`; merge only when all pass.
+- Core PR: https://github.com/krigsvoldtheme/npm/pull/2
+- Astro PR: https://github.com/krigsvoldtheme/astro/pull/2
 
-The gallery and three standalone examples read the actual candidate packages. Existing routes and consent behavior remain part of browser verification. The originating production site stays on its published dependencies until this gate has passed.
+Each package PR includes `publish.yml`, which publishes stable GitHub releases through npm trusted publishing after verification. The package repositories' `docs/releasing.md` give exact one-time npm settings. These settings must be configured by an npm maintainer before the first automated release.
 
-## Candidate changes
+1. Merge the reviewed package changes. Configure each npm package's trusted publisher with its repository, workflow filename `publish.yml`, and direct `npm publish` permission.
+2. Publish the core repository's stable GitHub release `v2.1.0`; wait for successful npm publication.
+3. Publish the Astro repository's stable GitHub release `v1.1.0`; wait for successful npm publication.
+4. Replace this site's file dependencies with exact registry versions 2.1.0 and 1.1.0. Run `npm install --prefer-online` to regenerate the lockfile.
+5. Remove the candidate archives. Run `npm ci`, `npm test`, `npm run build`, and `npm run test:browser`. Merge the demonstration site only when these pass against registry packages.
 
-- Core: https://github.com/krigsvoldtheme/npm/pull/2
-- Astro: https://github.com/krigsvoldtheme/astro/pull/2
-
-After package review and merge, run from each clean release checkout in this order:
-
-```sh
-# Core repository
-npm ci --ignore-scripts
-npm run build
-npm test
-npm publish --access public
-
-# Astro repository, after core 2.1.0 is available
-npm ci --ignore-scripts --legacy-peer-deps
-npm test
-npm publish --access public
-```
-
-Publishing requires an authorized npm session. CI's packed installs validate the unpublished candidates without requiring registry publication. Never publish the fixture archives as a substitute for the reviewed package checkouts.
+Candidate archives are review fixtures, not a production package source. Keep this PR in draft until the registry gate passes. The originating production site remains on its existing published dependencies until demonstration-site validation is complete.

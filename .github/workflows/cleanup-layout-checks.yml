@@ -12,10 +12,11 @@ jobs:
         with:
           script: |
             const branch = context.ref.replace('refs/heads/', '');
-            const runs = await github.paginate(github.rest.actions.listWorkflowRunsForRepo, { ...context.repo, branch, status: 'in_progress', per_page: 100 });
+            const current = await github.rest.actions.getWorkflowRun({ ...context.repo, run_id: context.runId });
+            const runs = await github.paginate(github.rest.actions.listWorkflowRunsForRepo, { ...context.repo, branch, per_page: 100 });
             for (const run of runs) {
-              if (run.head_sha !== context.sha && ['.github/workflows/verify.yml', '.github/workflows/ci.yml'].includes(run.path)) {
-                core.info('Cancel superseded layout check ' + run.id);
+              if (run.head_sha !== context.sha && Date.parse(run.created_at) < Date.parse(current.data.created_at) && ['queued', 'in_progress'].includes(run.status) && ['.github/workflows/verify.yml', '.github/workflows/ci.yml'].includes(run.path)) {
+                core.info('Cancel obsolete layout check ' + run.id);
                 await github.rest.actions.cancelWorkflowRun({ ...context.repo, run_id: run.id });
               }
             }
