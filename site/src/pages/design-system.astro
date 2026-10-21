@@ -8,7 +8,8 @@ const imports = [
   ['typography.css', 'Text styles inside .krigsvold; requires foundation variables.'],
   ['components.css', 'Optional interface primitives; requires color and foundation variables.'],
   ['fonts.css', 'Local font assets through the package’s pinned Fontsource dependencies.'],
-  ['full.css', 'Colors, foundation, typography, and components. Load fonts separately.'],
+  ['layout.css', 'Optional structural primitives and page chrome; requires foundation variables.'],
+  ['full.css', 'Colors, foundation, typography, components, and layouts. Load fonts separately.'],
 ];
 const components = [
   ['Layout', 'Required title; optional description, lang, mode, mainId, mainTabindex, class, bodyClass, and skipLabel. Defaults to Light. Slots: head, header, footer, and body-end. Includes a skip link and the core styles and fonts.'],
@@ -16,6 +17,18 @@ const components = [
   ['SectionHeading', 'Required title. Optional id, eyebrow, description, level (h2 or h3), align (left or center), and class hooks. Includes default and divider slots.'],
   ['Card', 'An article wrapper with a class hook and a default content slot.'],
   ['Button', 'With href, renders a link. Otherwise renders a button, defaulting to type="button". Accepts native attributes, including disabled on buttons, and a default content slot.'],
+  ['Stack', 'Vertical flow; as and space props.'],
+  ['Cluster', 'Wrapping row; as, space, and justify props.'],
+  ['Grid', 'Intrinsic grid; columns (1–4) is a maximum, plus as and space.'],
+  ['Sidebar', 'Supporting region and main content; side, space, sidebarLabel. Sidebar slot.'],
+  ['Split', 'Paired regions; ratio, align, space. Secondary slot.'],
+  ['Section', 'Section band; width and optional mode.'],
+  ['PageHeader', 'Title, summary, eyebrow; default metadata content and media slot.'],
+  ['SiteHeader', 'Project name, home, navigation links; brand, navigation, and actions slots.'],
+  ['SiteFooter', 'Navigation links; default content slot.'],
+  ['ArticleLayout', 'Complete article document; optional sidebar after content.'],
+  ['LandingLayout', 'Complete landing document; optional hero slot and modular sections.'],
+  ['DocumentationLayout', 'Complete documentation document; navigation before content.'],
 ];
 const example = `---
 import { Layout, Container, SectionHeading, Card, Button } from '@krigsvold/astro';
@@ -77,6 +90,7 @@ npm run dev`;
       <p>Source provenance: <a href={`https://github.com/${foundation.sourceRepository}/tree/${foundation.sourceCommit}`}>{foundation.sourceRepository} at {foundation.sourceCommit.slice(0,7)}</a>. The <a href="/design-system.json">JSON specification</a> also includes grouped design definitions, both semantic color modes, and host capabilities.</p>
     </section>
 
+    <section id="layouts"><h2>Layout compositions</h2><p>The layout system adds stacks, wrapping clusters, bounded grids, sidebars, and split regions, together with complete article, landing, and documentation layouts. See the <a href="/layouts/">working layout gallery and source observations</a> for examples built from the installed packages.</p></section>
     <section id="astro"><h2>Astro components and starter</h2>
       <p>The installed wrapper supports <code>astro {peerDependencies.astro}</code> with <code>@krigsvold/theme {peerDependencies['@krigsvold/theme']}</code>. Install both peer packages in an existing Astro project:</p>
       <pre><code>npm install @krigsvold/theme @krigsvold/astro</code></pre><pre><code>{example}</code></pre>

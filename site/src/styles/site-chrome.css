@@ -21,3 +21,5 @@
   .privacy-page table{table-layout:fixed}
   .privacy-page th,.privacy-page td{overflow-wrap:anywhere}
 }
+
+.layout-example .site-footer > .wrap{inline-size:min(calc(100% - 2 * var(--krigsvold-gutter)),var(--krigsvold-content-width));margin-inline:auto}

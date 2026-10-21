@@ -1,0 +1,15 @@
+---
+import HostFooter from '../../components/SiteFooter.astro';
+import CookieConsent from '../../components/CookieConsent.astro';
+import '../../styles/site-chrome.css';
+import { DocumentationLayout, SiteHeader, Stack } from '@krigsvold/astro';
+---
+<DocumentationLayout bodyClass="layout-example" title="A guide to your project" summary="Documentation with a reading column and a separate navigation region." sidebarLabel="Guide contents">
+  <SiteHeader slot="header" name="Krigsvold layout examples" links={[{href:'/layouts/',label:'Home'},{href:'/layout-examples/article/',label:'Article'}]} />
+  <nav slot="navigation" aria-label="On this page"><Stack as="ul" space="small"><li><a href="#install">Installation</a></li><li><a href="#compose">Composition</a></li><li><a href="#adapt">Adaptation</a></li></Stack></nav>
+  <h2 id="install">Installation</h2><pre><code>npm install @krigsvold/theme @krigsvold/astro</code></pre>
+  <h2 id="compose">Composition</h2><p>The navigation comes first in source order. At narrower widths it appears above the article; it does not become a hidden menu.</p>
+  <h2 id="adapt">Adaptation</h2><p>Use class hooks and namespaced layout variables for deliberate changes. Content, routes, identity, and application behavior remain yours.</p>
+  <HostFooter slot="footer" />
+<CookieConsent slot="body-end" />
+</DocumentationLayout>

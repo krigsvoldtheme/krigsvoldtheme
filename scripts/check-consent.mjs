@@ -1,6 +1,6 @@
 // Stub the Google tag so verification never submits real Analytics data.
 import { chromium } from 'playwright';
-import { version as coreVersion, foundation, design, capabilities } from '@krigsvold/theme';
+import { version as coreVersion, foundation, design, capabilities, layout } from '@krigsvold/theme';
 import { createRequire } from 'node:module';
 const { version: astroVersion } = createRequire(import.meta.url)('@krigsvold/astro/package.json');
 import assert from 'node:assert/strict';
@@ -335,8 +335,9 @@ try {
     assert.deepEqual(spec.foundation,foundation);
     assert.deepEqual(spec.design,design);
     assert.deepEqual(spec.capabilities,capabilities);
+    assert.deepEqual(spec.layout,layout);
     assert.equal(await page.locator('#foundation tbody tr').count(),Object.keys(foundation.tokens).length);
-    assert.equal(await page.locator('#astro tbody tr').count(),5);
+    assert.equal(await page.locator('#astro tbody tr').count(),17);
     for(const width of [280,307,390,1440]){
       await page.setViewportSize({width,height:900});
       assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,`Design reference overflow at ${width}px`);
@@ -347,6 +348,23 @@ try {
     await mkdir('artifacts/qa',{recursive:true});
     await page.screenshot({path:'artifacts/qa/design-system-mobile.png'});
   });
+  await scenario('layout gallery and complete examples work without JavaScript',async({page})=>{
+    for(const path of ['/layouts/','/layout-examples/article/','/layout-examples/landing/','/layout-examples/documentation/']){
+      await page.goto(base+path);
+      assert.equal(await page.locator('main').count(),1,path);
+      assert.equal(await page.locator('h1').count(),1,path);
+      assert.equal(await page.locator('footer [data-cookie-preferences]').count(),1,path);
+      for(const width of [280,307,390,768,1440]){
+        await page.setViewportSize({width,height:900});
+        assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,path+' overflow at '+width);
+      }
+      await page.addStyleTag({content:'html{font-size:150% !important}'});
+      await page.setViewportSize({width:307,height:900});
+      assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,path+' enlarged text overflow');
+    }
+    await page.setViewportSize({width:1440,height:1000});await page.goto(base+'/layouts/');
+    await mkdir('artifacts/qa',{recursive:true});await page.screenshot({path:'artifacts/qa/layout-gallery.png',fullPage:true});
+  },{javaScriptEnabled:false});
   console.log(`${results.length} browser scenarios passed. Google requests were intercepted.`);
 } finally {
   await browser.close();
