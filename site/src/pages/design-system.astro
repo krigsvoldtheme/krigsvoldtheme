@@ -1,0 +1,115 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { version as coreVersion, foundation, capabilities } from '@krigsvold/theme';
+import { version as astroVersion, peerDependencies } from '@krigsvold/astro/package.json';
+const imports = [
+  ['css', 'Light and Dark semantic color variables only.'],
+  ['foundation.css', 'Namespaced typography, spacing, shape, depth, and interaction variables.'],
+  ['typography.css', 'Text styles inside .krigsvold; requires foundation variables.'],
+  ['components.css', 'Optional interface primitives; requires color and foundation variables.'],
+  ['fonts.css', 'Local font assets through the package’s pinned Fontsource dependencies.'],
+  ['full.css', 'Colors, foundation, typography, and components. Load fonts separately.'],
+];
+const components = [
+  ['Layout', 'Required title; optional description, lang, mode, mainId, mainTabindex, class, bodyClass, and skipLabel. Defaults to Light. Slots: head, header, footer, and body-end. Includes a skip link and the core styles and fonts.'],
+  ['Container', 'width selects content, reading, or archive; content is the default. Accepts class and a default content slot.'],
+  ['SectionHeading', 'Required title. Optional id, eyebrow, description, level (h2 or h3), align (left or center), and class hooks. Includes default and divider slots.'],
+  ['Card', 'An article wrapper with a class hook and a default content slot.'],
+  ['Button', 'With href, renders a link. Otherwise renders a button, defaulting to type="button". Accepts native attributes, including disabled on buttons, and a default content slot.'],
+];
+const example = `---
+import { Layout, Container, SectionHeading, Card, Button } from '@krigsvold/astro';
+---
+<Layout title="Your website" mode="light">
+  <Container width="reading">
+    <h1>Your own identity</h1>
+    <SectionHeading title="Start here" />
+    <Card>
+      <p>Your content, using shared design definitions.</p>
+      <Button href="/about/">About</Button>
+    </Card>
+  </Container>
+</Layout>`;
+const coreExample = `import '@krigsvold/theme/full.css';
+import '@krigsvold/theme/fonts.css';`;
+const scopeExample = `<section class="krigsvold" data-krigsvold="dark">
+  <h2>Your content</h2>
+</section>`;
+const overrideExample = `.my-site {
+  --krigsvold-reading-width: 44rem;
+  --krigsvold-font-mono: 'Your licensed font', monospace;
+}`;
+const starterExample = `npm install @krigsvold/theme @krigsvold/astro
+cp -R node_modules/@krigsvold/astro/starter ./my-krigsvold-site
+cd my-krigsvold-site
+npm install
+npm run dev`;
+---
+<BaseLayout title="Krigsvold Design System" description="The published Krigsvold design contract, with package installation, typography, foundation tokens, Astro components, and integration guidance.">
+  <article class="design-reference">
+    <header>
+      <p class="reference-label">Krigsvold · Design system specification</p>
+      <h1>Build with Krigsvold.</h1>
+      <p class="reference-version">Core {coreVersion} · Astro {astroVersion}</p>
+      <p>Krigsvold’s reusable design comes from <a href={foundation.origin}>krigsvold.org</a>. The core package defines its visual vocabulary; the Astro package supplies layouts and components using those definitions. Your content, identity, navigation, and site behavior belong to your project.</p>
+      <p>This reference is built from the exact npm releases installed by this website. Token values and font roles below come directly from those packages.</p>
+      <p class="reference-links"><a href="https://www.npmjs.com/package/@krigsvold/theme">@krigsvold/theme on npm ↗</a><a href="https://www.npmjs.com/package/@krigsvold/astro">@krigsvold/astro on npm ↗</a><a href="/design-system.json" download="krigsvold-design-system.json">Download the specification as JSON ↓</a></p>
+    </header>
+    <nav class="reference-nav" aria-label="Design system sections"><a href="#adoption">Choose your imports</a><a href="#typography">Typography</a><a href="#foundation">Foundation tokens</a><a href="#astro">Astro and starter</a><a href="#behavior">Interaction and accessibility</a><a href="#integrations">Integrations</a><a href="#releases">Customization and releases</a></nav>
+
+    <section id="adoption">
+      <h2>Choose what to adopt</h2>
+      <p>For colors or styles in any web project, install the core. Add the Astro package when you want its reusable components.</p>
+      <pre><code>npm install @krigsvold/theme</code></pre>
+      <div class="reference-table" tabindex="0" role="region" aria-label="Core stylesheet imports"><table><thead><tr><th scope="col">Import</th><th scope="col">Effect</th></tr></thead><tbody>{imports.map(([path,description])=><tr><th scope="row"><code>@krigsvold/theme/{path}</code></th><td>{description}</td></tr>)}</tbody></table></div>
+      <pre><code>{coreExample}</code></pre><pre><code>{scopeExample}</code></pre>
+      <p>Color scopes can coexist on a page. Add <code>class="krigsvold"</code> to opt into typography and component styling. The core also exports ESM, CommonJS, TypeScript declarations, per-mode JSON, and highlight.js styles. The <a href="/#palette">color reference</a> shows both semantic palettes. Use purpose-based roles such as <code>--krigsvold-text</code>, <code>--krigsvold-bg</code>, and <code>--krigsvold-on-accent</code> together; source colors and semantic roles serve different purposes.</p>
+    </section>
+
+    <section id="typography"><h2>Typography</h2>
+      <div class="reference-table" tabindex="0" role="region" aria-label="Published typography roles"><table><thead><tr><th scope="col">Role</th><th scope="col">Family and weights</th><th scope="col">Use</th></tr></thead><tbody>{Object.entries(foundation.typographyRoles).map(([role,value])=><tr><th scope="row"><code>--krigsvold-font-{role}</code></th><td style={`font-family:var(--krigsvold-font-${role})`}>{value.family}<br />{value.weights.join(', ')}</td><td>{value.usage}</td></tr>)}</tbody></table></div>
+      <p>Display and serif are separate roles even where they use the same family. Monospace changes affect code and terminal roles. Optional font loading uses locally bundled open-source assets; Berkeley Mono is a personal licensed override and is not distributed.</p>
+    </section>
+
+    <section id="foundation"><h2>Foundation tokens</h2>
+      <p>These are the installed core’s exact defaults, including text sizes, line heights, spacing, widths, corners, shadows, focus dimensions, and motion. Responsive expressions are preserved as CSS values. Breakpoint tokens, where present, document the scale; ordinary CSS custom properties cannot be substituted directly into media-query conditions.</p>
+      <div class="reference-table" tabindex="0" role="region" aria-label="Published foundation token values"><table><thead><tr><th scope="col">CSS variable</th><th scope="col">Default</th></tr></thead><tbody>{Object.entries(foundation.tokens).map(([key,value])=><tr><th scope="row"><code>--krigsvold-{key}</code></th><td><code>{value}</code></td></tr>)}</tbody></table></div>
+      <p>Source provenance: <a href={`https://github.com/${foundation.sourceRepository}/tree/${foundation.sourceCommit}`}>{foundation.sourceRepository} at {foundation.sourceCommit.slice(0,7)}</a>. The <a href="/design-system.json">JSON specification</a> also includes grouped design definitions, both semantic color modes, and host capabilities.</p>
+    </section>
+
+    <section id="astro"><h2>Astro components and starter</h2>
+      <p>The installed wrapper supports <code>astro {peerDependencies.astro}</code> with <code>@krigsvold/theme {peerDependencies['@krigsvold/theme']}</code>. Install both peer packages in an existing Astro project:</p>
+      <pre><code>npm install @krigsvold/theme @krigsvold/astro</code></pre><pre><code>{example}</code></pre>
+      <div class="reference-table" tabindex="0" role="region" aria-label="Astro component contract"><table><thead><tr><th scope="col">Component</th><th scope="col">Contract</th></tr></thead><tbody>{components.map(([name,description])=><tr><th scope="row"><code>{name}</code></th><td>{description}</td></tr>)}</tbody></table></div>
+      <p>Import components from <code>@krigsvold/astro</code> or use direct paths such as <code>@krigsvold/astro/Card.astro</code>. To retain your own document shell, import <code>@krigsvold/astro/styles.css</code> and apply the core’s class and appearance attributes.</p>
+      <h3>Start a new site</h3><p>The npm package includes a neutral <code>starter/</code> directory. From an existing project or a temporary setup directory, install the packages and copy the starter to a new directory. The example below uses a POSIX shell; other systems can copy the same folder with their file manager.</p><pre><code>{starterExample}</code></pre>
+      <p>The starter currently uses Astro 7, so use Node 24 or another runtime supported by that Astro release. The starter supplies initial files; the packages supply updates afterward. Replace the sample content and metadata with your own.</p>
+    </section>
+
+    <section id="behavior"><h2>Interaction and accessibility</h2>
+      <p>The optional core components provide hover, disabled, and visible keyboard-focus styling. Motion tokens reduce to zero when <code>prefers-reduced-motion: reduce</code> is active. Use native links for navigation and native buttons for actions; retain labels, heading order, and the document skip link.</p>
+      <p>Pair foreground and background tokens deliberately. Existing contrast checks cover defined pairs, not every possible combination or application. Check normal, hover, focus, and disabled states in both appearances, with enlarged text, narrow viewports, keyboard navigation, and reduced motion. Use labels or symbols as well as color to communicate status.</p>
+      <p>Layouts and components supply primitives. Menus, dialogs, consent controls, analytics, and their behavior remain the responsibility of the consuming site. A themed page still needs application-level accessibility review.</p>
+    </section>
+
+    <section id="integrations"><h2>What each integration applies</h2>
+      <div class="reference-table" tabindex="0" role="region" aria-label="Integration capabilities"><table><thead><tr><th scope="col">Integration</th><th scope="col">Applied</th><th scope="col">Optional or host-specific</th></tr></thead><tbody>{Object.entries(capabilities).map(([host,value])=><tr><th scope="row">{host}</th><td>{value.applied.join(', ')}</td><td>{value.optional && <p>Optional: {value.optional.join(', ')}.</p>}{value.separateConfiguration && <p>Configure separately: {value.separateConfiguration.join(', ')}.</p>}{value.hostOwned && <p>Site-owned: {value.hostOwned.join(', ')}.</p>}{value.unsupported && <p>Outside this integration: {value.unsupported.join(', ')}.</p>}</td></tr>)}</tbody></table></div>
+      <p>Browser themes apply browser interface colors. Editor and terminal ports map the roles their hosts support. They do not all reproduce a web layout or change typography automatically.</p>
+    </section>
+
+    <section id="releases"><h2>Customization and releases</h2>
+      <p>Override namespaced variables within your own site scope, loaded after the package styles. This changes your installation without creating another authoritative copy of the theme.</p><pre><code>{overrideExample}</code></pre>
+      <p>The core and Astro packages are versioned independently. The release policy is semantic versioning: compatible fixes are patches, compatible additions are minor releases, and breaking changes to exports, tokens, component APIs, or documented behavior require a major release. Keep a lockfile and review updates against your application. This website pins the versions shown above; the reference changes when those pins change.</p>
+      <p>Propose shared visual changes in <a href="https://github.com/krigsvoldtheme/npm">the core repository</a>, with corresponding documentation and verification. Theme software uses the MIT license; fonts retain their bundled license notices. Heraldic artwork, personal identity, and site content are separate from the reusable design system.</p>
+    </section>
+  </article>
+</BaseLayout>
+<style>
+.design-reference{max-inline-size:76rem;margin-inline:auto;padding:clamp(2rem,5vw,4rem) clamp(1rem,4vw,3rem);min-inline-size:0;overflow-wrap:anywhere;color:var(--krigsvold-text);background:var(--krigsvold-bg)}
+.design-reference h1{font-size:clamp(2.25rem,6vw,4rem);line-height:1.1;margin-block:.8rem 1rem}.design-reference h2{font-size:clamp(1.6rem,4vw,2.2rem);margin-block:0 1rem}.design-reference h3{font-size:1.35rem}
+.design-reference p,.design-reference li{line-height:1.75}.design-reference a{color:var(--krigsvold-link)}.design-reference code{font-family:var(--krigsvold-font-mono);font-size:.85em;overflow-wrap:anywhere}
+.reference-label,.reference-version{font-family:var(--krigsvold-font-sans);color:var(--krigsvold-muted)}.reference-links,.reference-nav{display:flex;flex-wrap:wrap;gap:.8rem 1.5rem}.reference-nav{border-block:1px solid var(--krigsvold-line);padding-block:1.4rem;margin-block:2rem}
+.design-reference section{margin-block:3rem;scroll-margin-top:2rem;min-inline-size:0}.design-reference pre{max-inline-size:100%;overflow-x:auto;padding:1rem;background:var(--krigsvold-code-bg);color:var(--krigsvold-code-text);border:1px solid var(--krigsvold-line);line-height:1.7}.design-reference pre code{overflow-wrap:normal;font-size:.82rem}
+.reference-table{max-inline-size:100%;overflow-x:auto}.reference-table table{inline-size:100%;border-collapse:collapse;table-layout:fixed}.reference-table th,.reference-table td{text-align:start;vertical-align:top;padding:.8rem;border-block-end:1px solid var(--krigsvold-line);overflow-wrap:anywhere;line-height:1.6}.reference-table thead{background:var(--krigsvold-panel2)}.reference-table th:first-child{inline-size:38%}.reference-table td p{margin-block:0 .5rem}
+@media(max-width:600px){.reference-table table{font-size:.85rem}.reference-table th,.reference-table td{padding:.6rem .35rem}.reference-table th:first-child{inline-size:40%}.design-reference pre code{font-size:.75rem}}
+</style>
