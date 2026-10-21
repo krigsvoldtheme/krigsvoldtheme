@@ -74,7 +74,7 @@ npm run dev`;
     <section id="foundation"><h2>Foundation tokens</h2>
       <p>These are the installed core’s exact defaults, including text sizes, line heights, spacing, widths, corners, shadows, focus dimensions, and motion. Responsive expressions are preserved as CSS values. Breakpoint tokens, where present, document the scale; ordinary CSS custom properties cannot be substituted directly into media-query conditions.</p>
       <div class="reference-table" tabindex="0" role="region" aria-label="Published foundation token values"><table><thead><tr><th scope="col">CSS variable</th><th scope="col">Default</th></tr></thead><tbody>{Object.entries(foundation.tokens).map(([key,value])=><tr><th scope="row"><code>--krigsvold-{key}</code></th><td><code>{value}</code></td></tr>)}</tbody></table></div>
-      <p>Source provenance: <a href={`https://github.com/${foundation.sourceRepository}/tree/${foundation.sourceCommit}`}>{foundation.sourceRepository} at {foundation.sourceCommit}</a>. The <a href="/design-system.json">JSON specification</a> also includes grouped design definitions, both semantic color modes, and host capabilities.</p>
+      <p>Source provenance: <a href={`https://github.com/${foundation.sourceRepository}/tree/${foundation.sourceCommit}`}>{foundation.sourceRepository} at {foundation.sourceCommit.slice(0,7)}</a>. The <a href="/design-system.json">JSON specification</a> also includes grouped design definitions, both semantic color modes, and host capabilities.</p>
     </section>
 
     <section id="astro"><h2>Astro components and starter</h2>
@@ -105,7 +105,7 @@ npm run dev`;
   </article>
 </BaseLayout>
 <style>
-.design-reference{max-inline-size:76rem;margin-inline:auto;padding:clamp(2rem,5vw,4rem) clamp(1rem,4vw,3rem);min-inline-size:0;color:var(--krigsvold-text);background:var(--krigsvold-bg)}
+.design-reference{max-inline-size:76rem;margin-inline:auto;padding:clamp(2rem,5vw,4rem) clamp(1rem,4vw,3rem);min-inline-size:0;overflow-wrap:anywhere;color:var(--krigsvold-text);background:var(--krigsvold-bg)}
 .design-reference h1{font-size:clamp(2.25rem,6vw,4rem);line-height:1.1;margin-block:.8rem 1rem}.design-reference h2{font-size:clamp(1.6rem,4vw,2.2rem);margin-block:0 1rem}.design-reference h3{font-size:1.35rem}
 .design-reference p,.design-reference li{line-height:1.75}.design-reference a{color:var(--krigsvold-link)}.design-reference code{font-family:var(--krigsvold-font-mono);font-size:.85em;overflow-wrap:anywhere}
 .reference-label,.reference-version{font-family:var(--krigsvold-font-sans);color:var(--krigsvold-muted)}.reference-links,.reference-nav{display:flex;flex-wrap:wrap;gap:.8rem 1.5rem}.reference-nav{border-block:1px solid var(--krigsvold-line);padding-block:1.4rem;margin-block:2rem}
