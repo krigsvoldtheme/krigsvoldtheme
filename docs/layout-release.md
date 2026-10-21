@@ -1,18 +1,12 @@
-# Layout release gate
+# Layout integration
 
-This draft validates core 2.1.0 and Astro 1.1.0 through candidate archives in `vendor/`. The gallery and three standalone examples consume those actual packages. Existing routes and consent behavior remain part of verification.
+This branch consumes published registry packages `@krigsvold/theme@2.1.0` and `@krigsvold/astro@1.1.0`. The temporary candidate archives have been removed. The gallery, standalone article/landing/documentation pages, and design-system reference use the actual installed packages.
 
-## Package release order
+Package releases:
 
-- Core PR: https://github.com/krigsvoldtheme/npm/pull/2
-- Astro PR: https://github.com/krigsvoldtheme/astro/pull/2
+- https://github.com/krigsvoldtheme/npm/releases/tag/v2.1.0
+- https://github.com/krigsvoldtheme/astro/releases/tag/v1.1.0
 
-Each package PR includes `publish.yml`, which publishes stable GitHub releases through npm trusted publishing after verification. The package repositories' `docs/releasing.md` give exact one-time npm settings. These settings must be configured by an npm maintainer before the first automated release.
+Before merging, require a clean `npm ci`, all package and browser checks, and successful deployment validation. The originating production site remains on its existing published dependencies until demonstration-site validation is complete.
 
-1. Merge the reviewed package changes. Configure each npm package's trusted publisher with its repository, workflow filename `publish.yml`, and direct `npm publish` permission.
-2. Publish the core repository's stable GitHub release `v2.1.0`; wait for successful npm publication.
-3. Publish the Astro repository's stable GitHub release `v1.1.0`; wait for successful npm publication.
-4. Replace this site's file dependencies with exact registry versions 2.1.0 and 1.1.0. Run `npm install --prefer-online` to regenerate the lockfile.
-5. Remove the candidate archives. Run `npm ci`, `npm test`, `npm run build`, and `npm run test:browser`. Merge the demonstration site only when these pass against registry packages.
-
-Candidate archives are review fixtures, not a production package source. Keep this PR in draft until the registry gate passes. The originating production site remains on its existing published dependencies until demonstration-site validation is complete.
+Future stable GitHub releases publish through npm trusted publishing after verification. The package repositories document the publisher settings and release order in `docs/releasing.md`.

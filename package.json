@@ -22,7 +22,7 @@
     "node": ">=20.19.0"
   },
   "dependencies": {
-    "@krigsvold/theme": "file:vendor/krigsvold-theme-2.1.0.tgz",
-    "@krigsvold/astro": "file:vendor/krigsvold-astro-1.1.0.tgz"
+    "@krigsvold/theme": "2.1.0",
+    "@krigsvold/astro": "1.1.0"
   }
 }
