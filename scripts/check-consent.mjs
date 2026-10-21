@@ -1,7 +1,8 @@
 // Stub the Google tag so verification never submits real Analytics data.
 import { chromium } from 'playwright';
 import { version as coreVersion, foundation, design, capabilities } from '@krigsvold/theme';
-import { version as astroVersion } from '@krigsvold/astro/package.json';
+import { createRequire } from 'node:module';
+const { version: astroVersion } = createRequire(import.meta.url)('@krigsvold/astro/package.json');
 import assert from 'node:assert/strict';
 import { createServer } from 'node:http';
 import { readFile, mkdir } from 'node:fs/promises';
