@@ -1,18 +1,19 @@
 import {readFile,writeFile,mkdir,cp,readdir} from 'node:fs/promises';
 import {join,dirname} from 'node:path';
 import {execFileSync} from 'node:child_process';
+import {createRequire} from 'node:module';
 import {themes,heritage,design} from '../src/palettes.mjs';
 import {chatgptPreset,chatgptImport} from '../src/app-ports.mjs';
 const {version}=JSON.parse(await readFile('package.json','utf8'));
 const family=themes.light.id.replace(/-light$/,''),org=family+'theme',label=themes.light.name.replace(/ Light$/,'');
-const kinds=['npm','vim','emacs','chrome','firefox'];
+const kinds=['vim','emacs','chrome','firefox'];
 const source={family,label,version,themes,heritage,design};
 const license=await readFile('LICENSE','utf8');
 const build=await readFile(new URL('./templates/build-port.mjs',import.meta.url),'utf8');
 const verify=await readFile(new URL('./templates/verify-port.mjs',import.meta.url),'utf8');
 const ports=await readFile('src/app-ports.mjs','utf8');
 const json=x=>JSON.stringify(x,null,2)+'\n';
-const common=`These are generated distributions of [${label} Theme](https://${org}.dev/), version ${version}. Canonical colors and generators live in [${org}/${org}](https://github.com/${org}/${org}). The source repository may require maintainer access. This repository includes a complete color snapshot in source.json and can build without access to that repository.\n\nMIT license. Copyright 2026 James P. Howard, II.\n\n## Maintenance\n\nEdit the canonical palette and generator upstream, then run npm run build there. The complete distribution directories are emitted under artifacts/repositories/. Sync the relevant directory into this repository. To reproduce a snapshot here, run npm run build, then npm test. Node.js 22 or newer is used in CI. No registry publication runs automatically.\n`;
+const common=`These are generated distributions of [${label} Theme](https://${org}.dev/), version ${version}. Canonical theme definitions live in [${org}/npm](https://github.com/${org}/npm); application generators live in [${org}/${org}](https://github.com/${org}/${org}). The source repository may require maintainer access. This repository includes a complete color snapshot in source.json and can build without access to that repository.\n\nMIT license. Copyright 2026 James P. Howard, II.\n\n## Maintenance\n\nEdit the canonical palette and generator upstream, then run npm run build there. The complete distribution directories are emitted under artifacts/repositories/. Sync the relevant directory into this repository. To reproduce a snapshot here, run npm run build, then npm test. Node.js 22 or newer is used in CI. No registry publication runs automatically.\n`;
 for(const kind of kinds){
  const root=join('artifacts/repositories',kind);await mkdir(join(root,'scripts'),{recursive:true});
  const save=async(p,s)=>{await mkdir(dirname(join(root,p)),{recursive:true});await writeFile(join(root,p),s);};
@@ -20,10 +21,6 @@ for(const kind of kinds){
  await save('.gitignore',kind==='npm'?'node_modules/\n*.tgz\n':'node_modules/\ndist/\n*.elc\n');
  let pkg={name:`${family}-${kind}-source`,version,private:true,type:'module',license:'MIT',scripts:{build:'node scripts/build.mjs',test:'node --test scripts/verify.test.mjs'}};
  let readme=`# ${label} for ${kind==='npm'?'web projects':kind==='vim'?'Vim and Neovim':kind==='emacs'?'Emacs':kind==='chrome'?'Chrome':'Firefox'}\n\n`;
- if(kind==='npm'){
-  pkg={...pkg,name:`@${org}/theme`,private:false,description:`${label} Light and Dark CSS, JSON tokens, and highlight.js styles`,main:'./dist/index.cjs',module:'./dist/index.js',types:'./dist/index.d.ts',files:['dist','LICENSE','README.md'],sideEffects:['**/*.css'],exports:{'.':{types:'./dist/index.d.ts',import:'./dist/index.js',require:'./dist/index.cjs'},'./css':'./dist/theme.css','./light.css':'./dist/light.css','./dark.css':'./dist/dark.css','./tokens.json':'./dist/tokens.json','./light.json':'./dist/light.json','./dark.json':'./dist/dark.json','./highlight-light.css':'./dist/highlight-light.css','./highlight-dark.css':'./dist/highlight-dark.css'},publishConfig:{access:'public'},repository:{type:'git',url:`git+https://github.com/${org}/npm.git`},homepage:`https://${org}.dev/`,keywords:[family,'theme','colors','design-tokens','highlight.js'],scripts:{...pkg.scripts,prepack:'npm run build && npm test'}};
-  readme+=`Package name: \`@${org}/theme\`. **Prepared for publishing; not yet published to the npm registry.** The npm organization/scope is separate from GitHub and must be configured before publication.\n\n## Install the local archive\n\nRun \`npm run build && npm test && npm pack\` in this repository, then in your application:\n\n\`\`\`sh\nnpm install /path/to/${org}-theme-${version}.tgz\n\`\`\`\n\n## Use\n\n\`\`\`js\nimport '@${org}/theme/css';\nimport { light, dark } from '@${org}/theme';\nconsole.log(dark.tokens.accent);\n\`\`\`\n\nSet \`data-${family}="light"\` or \`data-${family}="dark"\` on the element to theme. Both can be used on different elements on one page.\n\n\`\`\`css\n.panel { background: var(--${family}-panel); color: var(--${family}-text); }\n\`\`\`\n\nCommonJS uses \`const { dark } = require('@${org}/theme');\`. CSS, per-mode JSON, complete JSON tokens, and highlight.js styles have explicit package exports; TypeScript declarations are included. For highlight.js, import \`@${org}/theme/highlight-dark.css\` (or light) instead of its default stylesheet. There are no runtime dependencies.\n\n## Publishing later\n\nAfter configuring the npm scope and signing in, review \`npm pack --dry-run\` and publish deliberately with \`npm publish --access public\`. CI only builds and tests; it never publishes.\n\n`;
- }
  if(kind==='vim') readme+=`## Install\n\nFor Vim's native package loader:\n\n\`\`\`sh\ngit clone https://github.com/${org}/vim.git ~/.vim/pack/themes/start/${family}\n\`\`\`\n\nFor Neovim's native package loader:\n\n\`\`\`sh\ngit clone https://github.com/${org}/vim.git ~/.local/share/nvim/site/pack/themes/start/${family}\n\`\`\`\n\nOr add \`${org}/vim\` to your plugin manager. The root \`colors/\` layout supports both editors.\n\n\`\`\`vim\nset termguicolors\nset background=dark\ncolorscheme ${family}\n\`\`\`\n\nChoose Light with \`set background=light\` before \`colorscheme ${family}\`. Explicit names \`${family}-light\` and \`${family}-dark\` also work. Neovim Lua: \`vim.cmd.colorscheme('${family}-dark')\`. GUI/truecolor uses the exact canonical hex colors; 256-color terminals use nearest xterm approximations. Standard syntax, editor chrome, diffs, diagnostics, and Neovim Treesitter/LSP capture links are included. Requires Vim 8+ or Neovim 0.9+; exact capture coverage depends on parser/plugin versions.\n\nFor a manual installation, copy all three files from \`colors/\` into your editor's colors directory. Run tests with full Vim and Neovim installed.\n\n`;
  if(kind==='emacs') readme+=`## Install\n\nCopy both \`-theme.el\` files into \`~/.emacs.d/themes/\`, then add to your init file:\n\n\`\`\`elisp\n(add-to-list 'custom-theme-load-path\n             (expand-file-name "themes/" user-emacs-directory))\n(load-theme '${family}-dark t)\n\`\`\`\n\nUse \`${family}-light\` for Light. Disable the current theme with \`M-x disable-theme\` before switching, to avoid layering theme faces. The \`t\` bypasses the confirmation prompt; use it after reviewing the theme source.\n\nAlternatively clone this repository and add its directory to \`custom-theme-load-path\`. \`${family}-themes.el\` registers its own directory when loaded. Emacs 27.1+ is required. Includes standard font-lock, editor UI, Org, diff, completion, and ANSI faces. GUI and truecolor terminals provide the closest match; limited-color terminals approximate colors. Not yet submitted to MELPA.\n\n`;
  if(kind==='chrome') readme+=`## Test locally\n\nRun \`npm run build\`. Open \`chrome://extensions\`, enable Developer mode, choose **Load unpacked**, and select \`themes/light\` or \`themes/dark\`. Only one Chrome theme is active at a time. These themes color browser chrome and new-tab surfaces; they do not recolor websites.\n\n## Packages\n\nBuild produces \`dist/${family}-light-chrome.zip\` and \`dist/${family}-dark-chrome.zip\`, each with manifest.json at its root. These are Chrome Web Store upload archives, not one-click signed installers. They contain no scripts, permissions, tracking, fonts, or remote assets. Manifest V3. Store registration, listing screenshots, review, and publication remain to do. Chrome may retain system colors on browser-controlled surfaces.\n\n`;
@@ -33,10 +30,7 @@ for(const kind of kinds){
  const lint=kind==='firefox'?'      - run: npx --yes web-ext@10 lint --source-dir theme --warnings-as-errors\n':'';
  await save('.github/workflows/verify.yml',`name: Verify ${label} ${kind}\non: [push, pull_request]\npermissions:\n  contents: read\njobs:\n  verify:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-node@v4\n        with:\n          node-version: '22'\n${apt}      - run: npm run build\n      - run: npm test\n${kind==='npm'?'      - run: npm pack --dry-run\n':''}${lint}      - run: git diff --exit-code\n      - uses: actions/upload-artifact@v4\n        with:\n          name: ${family}-${kind}\n          path: dist/\n`);
  execFileSync(process.execPath,['scripts/build.mjs'],{cwd:root,stdio:'pipe'});
- if(kind==='npm'){
-  const packed=JSON.parse(execFileSync('npm',['pack','--ignore-scripts','--json'],{cwd:root,encoding:'utf8',stdio:['ignore','pipe','pipe']}))[0].filename;
-  for(const dir of ['artifacts','site/public/downloads'])await cp(join(root,packed),join(dir,packed));
- }else{
+ {
   for(const file of await readdir(join(root,'dist')))for(const dir of ['artifacts','site/public/downloads']) await cp(join(root,'dist',file),join(dir,file));
   // Commit native port outputs to the canonical source repository as well.
   for(const path of kind==='vim'?[`colors/${family}.vim`,...Object.values(themes).map(t=>`colors/${t.id}.vim`)]:kind==='emacs'?[`${family}-themes.el`,...Object.values(themes).map(t=>`${t.id}-theme.el`)]:kind==='chrome'?['themes/light/manifest.json','themes/dark/manifest.json']:['theme/manifest.json']){
@@ -54,4 +48,12 @@ for(const t of Object.values(themes)){
   await writeFile(join(dir,t.id+'-chatgpt.txt'),chatgptImport(t)+'\n');
  }
 }
-console.log(`Generated ${label} npm, Vim, Emacs, Chrome, Firefox, and ChatGPT presets.`);
+console.log(`Generated ${label} Vim, Emacs, Chrome, Firefox, and ChatGPT presets.`);
+
+
+// Download the exact installed core, never synthesize an alternative npm package.
+const require=createRequire(import.meta.url);
+const coreRoot=dirname(require.resolve('@krigsvold/theme/package.json'));
+const packed=JSON.parse(execFileSync('npm',['pack','--ignore-scripts','--json','--pack-destination',process.cwd()],{cwd:coreRoot,encoding:'utf8',stdio:['ignore','pipe','pipe']}))[0].filename;
+for(const dir of ['artifacts','site/public/downloads'])await cp(packed,join(dir,packed));
+await import('node:fs/promises').then(fs=>fs.rm(packed));

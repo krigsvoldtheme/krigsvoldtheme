@@ -20,5 +20,9 @@
   },
   "engines": {
     "node": ">=20.19.0"
+  },
+  "dependencies": {
+    "@krigsvold/theme": "2.0.0",
+    "@krigsvold/astro": "1.0.0"
   }
 }
