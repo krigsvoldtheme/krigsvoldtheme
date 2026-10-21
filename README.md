@@ -1,4 +1,8 @@
-> This website consumes `@krigsvold/theme` and `@krigsvold/astro`. Canonical design definitions live in [krigsvoldtheme/npm](https://github.com/krigsvoldtheme/npm), extracted from krigsvold.org. `src/palettes.mjs` re-exports the installed core. The theme site must be verified against published npm releases before the originating site is migrated.
+## Package documentation
+
+The public [design system specification](https://krigsvoldtheme.dev/design-system/) covers installation, typography, foundation tokens, Astro components, interaction guidance, integrations, and releases. Its [JSON reference](https://krigsvoldtheme.dev/design-system.json) is generated directly from installed npm exports.
+
+> This website consumes `@krigsvold/theme` and `@krigsvold/astro`. Canonical design definitions live in [krigsvoldtheme/npm](https://github.com/krigsvoldtheme/npm), extracted from krigsvold.org. `src/palettes.mjs` re-exports the installed core. Both this theme site and krigsvold.org now use those published releases.
 
 # Krigsvold Theme
 

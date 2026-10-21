@@ -4,7 +4,7 @@ import SiteFooter from '../components/SiteFooter.astro';
 import CookieConsent from '../components/CookieConsent.astro';
 import '../styles/global.css';
 import '../styles/site-chrome.css';
-const { title = 'Krigsvold Theme — Light & Dark', description = 'Krigsvold Light and Dark, a distinctive open-source color theme for websites, editors, terminals, and applications, in paper, navy, ice, and bronze.' } = Astro.props;
+const { title = 'Krigsvold Theme — Light & Dark', description = 'Krigsvold Light and Dark, an open-source design system for websites, editors, terminals, and applications, in paper, navy, ice, and bronze.' } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
 <ThemeLayout title={title} description={description} mainId="main" mainTabindex={-1}>
@@ -25,7 +25,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 </Fragment>
   <header class="mast" slot="header">
     <a class="brand" href="/"><img class="brand-mark" src="/krigsvold-mark.svg" width="38" height="38" alt="" /> <span>Krigsvold <small>Theme</small></span></a>
-    <nav aria-label="Site"><a href="/#story">About the palette</a><a class="gitlink" href="https://github.com/krigsvoldtheme/krigsvoldtheme">GitHub ↗</a></nav>
+    <nav aria-label="Site"><a href="/#story">About the palette</a><a href="/design-system/">Design system</a><a class="gitlink" href="https://github.com/krigsvoldtheme/krigsvoldtheme">GitHub ↗</a></nav>
   </header>
   <slot />
   <SiteFooter slot="footer" />

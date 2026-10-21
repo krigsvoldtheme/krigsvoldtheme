@@ -1,5 +1,6 @@
 ---
 import {version as coreVersion} from '@krigsvold/theme';
+import {version as astroVersion} from '@krigsvold/astro/package.json';
 import {themes} from '../../../src/palettes.mjs';
 import {chatgptImport} from '../../../src/app-ports.mjs';
 import {version} from '../../../package.json';
@@ -7,9 +8,15 @@ const family=themes.light.id.replace(/-light$/,''),org=family+'theme',name=theme
 const repo=(kind)=>`https://github.com/${org}/${kind}`;
 ---
 <div class="app-ports" style={`--port-line:var(--${family}-line,${themes.light.tokens.line});--port-panel:var(--${family}-panel,${themes.light.tokens.panel})`}>
-  <article aria-labelledby="npm-title"><h3 id="npm-title">For your next web project.</h3><p>CSS, JSON tokens, JavaScript exports, TypeScript declarations, and highlight.js styles. One package, both appearances.</p><p><code>@krigsvold/theme</code></p><p class="port-links"><a href={`/downloads/krigsvold-theme-${coreVersion}.tgz`} download>Download npm archive ↓</a><a href={repo('npm')}>npm source ↗</a></p><details><summary>Use the npm package</summary><p>Install the published package from npm:</p><pre><code>npm install @krigsvold/theme</code></pre><pre><code>{`import '@krigsvold/theme/css';
+  <article aria-labelledby="npm-title"><h3 id="npm-title">For your next web project.</h3><p>Framework-independent colors, typography, spacing, shape, motion, and optional interface styles. Take the parts your project needs.</p><p><code>@krigsvold/theme</code> · v{coreVersion}</p><p class="port-links"><a href="https://www.npmjs.com/package/@krigsvold/theme">Core on npm ↗</a><a href={`/downloads/krigsvold-theme-${coreVersion}.tgz`} download>Download npm archive ↓</a><a href={repo('npm')}>npm source ↗</a></p><details><summary>Use the npm package</summary><p>Install the published package from npm:</p><pre><code>npm install @krigsvold/theme</code></pre><pre><code>{`import '@krigsvold/theme/css';
 import { dark } from '@krigsvold/theme';
 console.log(dark.tokens.accent);`}</code></pre><p>Set <code>data-{family}="light"</code> or <code>data-{family}="dark"</code> on the element to theme. Read colors using <code>var(--{family}-accent)</code>. CommonJS is supported. For highlight.js, import <code>@krigsvold/theme/highlight-dark.css</code> or its Light equivalent.</p></details></article>
+  <article aria-labelledby="astro-title"><h3 id="astro-title">Build with Astro.</h3><p>Layouts, containers, headings, cards, and buttons using the same core definitions. Start with the neutral starter or add components to your existing site.</p><p><code>@krigsvold/astro</code> · v{astroVersion}</p><p class="port-links"><a href="https://www.npmjs.com/package/@krigsvold/astro">Astro on npm ↗</a><a href="/design-system/#astro">Setup and starter guide ↗</a><a href="/design-system/">Design system specification ↗</a></p><details><summary>Use the Astro package</summary><pre><code>npm install @krigsvold/theme @krigsvold/astro</code></pre><pre><code>{`---
+import { Layout, Container, Card } from '@krigsvold/astro';
+---
+<Layout title="Your website">
+  <Container><Card><p>Your own content.</p></Card></Container>
+</Layout>`}</code></pre><p>Astro 5.14+, 6, or 7. The core is a peer dependency, so install both packages. The starter is included in the published Astro package.</p></details></article>
   <article aria-labelledby="vim-title"><h3 id="vim-title">Vim &amp; Neovim.</h3><p>Syntax, editor surfaces, diffs, and diagnostics, with truecolor and 256-color support.</p><p class="port-links"><a href={`/downloads/${family}-vim.zip`} download>Download colorschemes ↓</a><a href={repo('vim')}>Vim source ↗</a></p><details><summary>Install the Vim colorscheme</summary><p>Extract the archive and copy the files in <code>colors/</code> into <code>~/.vim/colors/</code> for Vim or <code>~/.config/nvim/colors/</code> for Neovim. Then add:</p><pre><code>{`set termguicolors
 set background=dark
 colorscheme ${family}`}</code></pre><p>Set <code>background=light</code> for Light. Explicit names <code>{family}-light</code> and <code>{family}-dark</code> also work. The source repository supports native packages and plugin managers.</p></details></article>

@@ -1,5 +1,11 @@
 # Krigsvold architecture
 
+The public [design system specification](https://krigsvoldtheme.dev/design-system/)
+and [JSON reference](https://krigsvoldtheme.dev/design-system.json) are generated
+from the installed core and Astro releases. Canonical definitions live in
+`krigsvoldtheme/npm`; `src/palettes.mjs` re-exports that installed package.
+Site layout and application port generators remain in this repository.
+
 ## Color sources and roles
 
 `references/krigsvold-source.css` preserves the supplied website stylesheet unchanged. Its twelve source color values are exported as `heritage` in `src/palettes.mjs`. The property name reflects the shared token schema; it does not assert a historical heraldic provenance for those colors.
@@ -24,4 +30,4 @@ The Astro website opens with a geometric ice landscape drawn from the source pal
 
 Tests cover a defined set of text/background pairs at 4.5:1, Light ANSI text against its background, and all archived colors in each Terminal.app profile. Browser checks exercise privacy controls, the specimen desk, copying, filtering, contrast calculations, icons, and responsive widths. These are scoped checks, not a guarantee for arbitrary color combinations or every application. Terminal.app import and rendering on macOS remain unverified here.
 
-The code began with Martlet's reusable tooling. The Krigsvold palette and layout are maintained independently. Planned domain: `krigsvoldtheme.dev`; DNS and hosting are separate release operations.
+The code began with Martlet's reusable tooling. The Krigsvold palette and layout are maintained independently. `krigsvoldtheme.dev` and krigsvold.org both consume the published core and Astro packages.
