@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { PageHeader, Section, Grid, Stack, Card, Button, Cluster, Split, SectionHeading } from '@krigsvold/astro';
+---
+<BaseLayout title="Your work, clearly presented." description="An example landing page with modular sections and contrasting appearance.">
+  <PageHeader title="Your work, clearly presented." summary="A neutral starting point for a publication, organization, or personal project." eyebrow="A place to begin" />
+  <Section aria-labelledby="examples"><Stack><SectionHeading title="Choose a composition" id="examples" /><Grid columns={3}>
+    <Card><h3>An article</h3><p>Readable prose with optional supporting material.</p><Button href="/layout-examples/article/">Read the article</Button></Card>
+    <Card><h3>Documentation</h3><p>A guide with navigation before its reading column.</p><Button href="/layout-examples/documentation/">Open the guide</Button></Card>
+    <Card><h3>Structural layouts</h3><p>Responsive arrangements that work within their available space.</p><Button href="/layouts/">Explore layouts</Button></Card>
+  </Grid></Stack></Section>
+  <Section mode="dark" aria-labelledby="appearance"><Split><div><h2 id="appearance">Dark appearance</h2><p>Both modes can coexist. Font roles and structural defaults come from the same core.</p></div><Card slot="secondary">
+    <Stack>
+      <h3>Native controls</h3>
+      <Stack space="small" class="krigsvold-ui">
+        <label for="example-name">Name</label>
+        <input id="example-name" name="name" autocomplete="name" />
+      </Stack>
+      <Cluster><Button disabled>Disabled example</Button></Cluster>
+    </Stack>
+  </Card></Split></Section>
+</BaseLayout>

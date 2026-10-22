@@ -1,0 +1,27 @@
+<header class="mast">
+    <a class="brand" href="/"><img class="brand-mark" src="/krigsvold-mark.svg" width="38" height="38" alt="" /> <span>Krigsvold <small>Theme</small></span></a>
+    <nav aria-label="Site"><a href="/#story">About the palette</a><a href="/layouts/">Layouts</a><a href="/design-system/">Design system</a><a class="gitlink" href="https://github.com/krigsvoldtheme/krigsvoldtheme">GitHub ↗</a></nav>
+  </header>
+<style>
+.mast{display:flex;justify-content:space-between;align-items:center;gap:24px;min-height:80px;padding:18px 36px;background:#061325;color:#eef8fa;border-bottom:1px solid #294054}
+.brand{color:inherit;display:flex;align-items:center;gap:12px;text-decoration:none;font:500 19px var(--krigsvold-font-display)}
+.brand-mark{width:34px;height:34px}
+.brand small{font:400 13px var(--krigsvold-font-sans);margin-left:5px;color:#b3ccd5}
+.mast nav{display:flex;gap:30px}
+.mast nav a{font-size:13px;text-decoration:none;color:#d9eef4}
+.mast nav a:hover{text-decoration:underline}
+.mast nav,.brand,.brand>span{min-inline-size:0}
+.mast :focus-visible{outline:3px solid #9ed5e6;outline-offset:4px}
+@media(max-width:700px){
+.mast{padding:16px 22px;min-height:70px;gap:14px}
+.brand{font-size:17px}
+.brand-mark{width:28px;height:28px}
+.brand small{display:none}
+.mast nav{gap:18px}
+.mast nav a{font-size:11px}
+}
+@media(max-width:400px){
+.mast{padding-inline:16px;flex-wrap:wrap}
+.mast nav{flex-wrap:wrap;gap:12px 18px}
+}
+</style>

@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Container, PageHeader, Section, Stack, Cluster, Grid, Sidebar, Split, Card, Button, SectionHeading } from '@krigsvold/astro';
+import { layout, version as coreVersion } from '@krigsvold/theme';
+import { version as astroVersion } from '@krigsvold/astro/package.json';
+const example=`---
+import { DocumentationLayout, SiteHeader } from '@krigsvold/astro';
+---
+<DocumentationLayout title="Your guide">
+  <SiteHeader slot="header" name="Your project" />
+  <nav slot="navigation" aria-label="Contents">
+    <a href="#begin">Begin here</a>
+  </nav>
+  <h2 id="begin">Begin here</h2>
+  <p>Your own content.</p>
+</DocumentationLayout>`;
+---
+<BaseLayout title="Krigsvold Layouts" description="Composable layouts and complete page examples drawn from both live Krigsvold sites.">
+  <PageHeader title="The shape of the page." summary="Structure, reading measure, and responsive composition are part of the design system." eyebrow="Krigsvold layout gallery"><p>Core {coreVersion} · Astro {astroVersion}</p></PageHeader>
+  <Section><Stack space="large">
+    <section aria-labelledby="pages"><SectionHeading title="Complete pages" id="pages" description="Neutral examples using the same layouts and tokens that ship in the packages." /><Grid columns={3}>
+      <Card><h3>Article</h3><p>A reading column, page metadata, and supporting material that follows the article.</p><Button href="/layout-examples/article/">Open article example</Button></Card>
+      <Card><h3>Landing page</h3><p>A title region, modular sections, bounded card grids, and contrasting appearance.</p><Button href="/layout-examples/landing/">Open landing example</Button></Card>
+      <Card><h3>Documentation</h3><p>Navigation before the article, with both regions remaining available on narrow screens.</p><Button href="/layout-examples/documentation/">Open documentation example</Button></Card>
+    </Grid></section>
+    <section aria-labelledby="primitives"><SectionHeading title="Structural primitives" id="primitives" description="These arrangements respond to their containing region, including nested and narrow layouts." />
+      <Stack space="large"><Cluster as="ul" space="small"><li>Stack</li><li>Cluster</li><li>Grid</li><li>Sidebar</li><li>Split</li></Cluster>
+      <Sidebar sidebarLabel="Layout notes"><div><h3>A useful reading measure</h3><p>The main region keeps a usable minimum. When a supporting region no longer fits beside it, both flow vertically in their source order.</p><p>Long references such as <code>--krigsvold-layout-sidebar-width</code> remain readable without forcing the page wider than the viewport.</p></div><Card slot="sidebar"><h3>Source order</h3><p>Article sidebars follow the content. Documentation navigation precedes it. Visual placement and reading order agree.</p></Card></Sidebar>
+      <Split><div><h3>Paired regions</h3><p>Text and supporting material can share a feature region. This family defaults to <code>{layout.defaults.splitRatio}</code>, with equal, wide-start, and wide-end options.</p></div><Card slot="secondary"><h3>Independent defaults</h3><p>Gutters, gaps, reading widths, and section rhythm come from the core package.</p></Card></Split></Stack>
+    </section>
+    <section aria-labelledby="source-sites"><SectionHeading title="Built from real pages" id="source-sites" description="Our own sites put these patterns to work." /><Grid columns={2}>{layout.sources.map(source=><Card><h3><a href={source.url}>{new URL(source.url).hostname}</a></h3></Card>)}</Grid><p>Explore the live sites for full implementations, or try the standalone examples above.</p></section>
+    <section aria-labelledby="use"><SectionHeading title="Use the composition" id="use" /><pre><code>{example}</code></pre><p><a href="/design-system/#layouts">Read the design system specification</a>. The downloaded <a href="/design-system.json">JSON reference</a> includes layout defaults and live-site links.</p></section>
+  </Stack></Section>
+  <Section mode="dark" aria-labelledby="both-modes"><Stack><h2 id="both-modes">The same structure after dark.</h2><Grid columns={2}><Card><h3>Light and Dark</h3><p>Layout consumes semantic color roles rather than embedding another palette.</p></Card><Card><h3>Framework-independent foundations</h3><p>Use the optional layout CSS directly, or use the Astro wrappers for named slots and complete documents.</p></Card></Grid></Stack></Section>
+</BaseLayout>
+<style>
+  :global(.krigsvold-page-header),:global(.krigsvold-band){overflow-wrap:anywhere}
+  :global(.krigsvold-page-header code),:global(.krigsvold-band code){overflow-wrap:anywhere}
+  :global(.krigsvold-band pre){max-inline-size:100%;overflow:auto}
+  :global(.krigsvold-band pre code){overflow-wrap:normal}
+</style>

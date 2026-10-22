@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { PageHeader, Container, Sidebar, Stack } from '@krigsvold/astro';
+---
+<BaseLayout title="A clear account of the work" description="An example article with a reading column and related material.">
+  <PageHeader title="A clear account of the work" summary="A short introduction gives the reader enough context to begin." eyebrow="An example article">
+    <p>Example author · <time datetime="2026-01-01">January 1, 2026</time></p>
+  </PageHeader>
+  <div class="krigsvold-page-body"><Container>
+    <Sidebar side="end" sidebarLabel="Related reading">
+      <article class="krigsvold-prose">
+        <h2 id="question">Begin with the question</h2><p>Long-form content needs a reliable measure and room for supporting evidence. This article shares its design definitions with the landing page, while giving the prose its own space.</p>
+        <h2 id="evidence">Present the evidence</h2><p>Figures, references, quotations, and code should remain usable when the browser is narrow or the reader enlarges the text.</p>
+        <pre><code>const longExample = 'abcdefghijklmnopqrstuvwxyz'.repeat(20);</code></pre>
+        <p><a href="/layout-examples/documentation/">Continue to the documentation example.</a></p>
+      </article>
+      <Stack slot="sidebar"><h2>Related reading</h2><p>Supporting context follows the article in both source and narrow layouts.</p><a href="/layouts/">Layout lab</a></Stack>
+    </Sidebar>
+  </Container></div>
+</BaseLayout>

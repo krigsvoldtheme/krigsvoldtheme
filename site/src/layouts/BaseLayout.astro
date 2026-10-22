@@ -1,6 +1,7 @@
 ---
 import ThemeLayout from '@krigsvold/astro/Layout.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import SiteHeader from '../components/SiteHeader.astro';
 import CookieConsent from '../components/CookieConsent.astro';
 import '../styles/global.css';
 import '../styles/site-chrome.css';
@@ -23,10 +24,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
   <link rel="manifest" href="/site.webmanifest" />
 </Fragment>
-  <header class="mast" slot="header">
-    <a class="brand" href="/"><img class="brand-mark" src="/krigsvold-mark.svg" width="38" height="38" alt="" /> <span>Krigsvold <small>Theme</small></span></a>
-    <nav aria-label="Site"><a href="/#story">About the palette</a><a href="/design-system/">Design system</a><a class="gitlink" href="https://github.com/krigsvoldtheme/krigsvoldtheme">GitHub ↗</a></nav>
-  </header>
+  <SiteHeader slot="header" />
   <slot />
   <SiteFooter slot="footer" />
   <CookieConsent slot="body-end" />

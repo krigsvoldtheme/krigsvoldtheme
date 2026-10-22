@@ -1,6 +1,6 @@
 // Stub the Google tag so verification never submits real Analytics data.
 import { chromium } from 'playwright';
-import { version as coreVersion, foundation, design, capabilities } from '@krigsvold/theme';
+import { version as coreVersion, foundation, design, capabilities, layout } from '@krigsvold/theme';
 import { createRequire } from 'node:module';
 const { version: astroVersion } = createRequire(import.meta.url)('@krigsvold/astro/package.json');
 import assert from 'node:assert/strict';
@@ -29,10 +29,12 @@ const browser = await chromium.launch({
   args: ['--no-sandbox', '--disable-dev-shm-usage']
 });
 const results = [];
+const watchdog=setTimeout(()=>{console.error('Browser scenarios exceeded 240 seconds');process.exit(1);},240000);
 const stored = (decision, extra={}) => encodeURIComponent(JSON.stringify({ decision, version:`1:${id}`, expires:Date.now()+86400000, ...extra }));
 const settings = page => page.locator('footer [data-cookie-preferences]').click();
 
 async function scenario(name, run, { cookie, gpc=false, javaScriptEnabled=true }={}) {
+  console.log('START '+name);
   const context = await browser.newContext({ viewport:{width:1440,height:1000}, javaScriptEnabled });
   const requests=[], errors=[];
   await context.route('**/*', async route => {
@@ -45,6 +47,7 @@ async function scenario(name, run, { cookie, gpc=false, javaScriptEnabled=true }
   if (cookie) await context.addCookies([{ name:'krigsvold-consent',value:cookie,url:base,sameSite:'Lax' }]);
   if (gpc) await context.addInitScript(() => Object.defineProperty(navigator,'globalPrivacyControl',{value:true}));
   const page=await context.newPage();
+  page.setDefaultTimeout(15000);
   page.on('pageerror',e=>errors.push(e.message));
   try {
     await page.goto(base+'/?q=private-search#fragment');
@@ -332,23 +335,56 @@ try {
     const spec=await response.json();
     assert.equal(spec.packages.core.version,coreVersion);
     assert.equal(spec.packages.astro.version,astroVersion);
-    assert.deepEqual(spec.foundation,foundation);
+    assert.deepEqual(spec.foundation,{origin:foundation.origin,tokens:foundation.tokens,typographyRoles:foundation.typographyRoles});
     assert.deepEqual(spec.design,design);
     assert.deepEqual(spec.capabilities,capabilities);
+    assert.deepEqual(spec.layout,{...layout,sources:layout.sources.map(({url})=>({url}))});
     assert.equal(await page.locator('#foundation tbody tr').count(),Object.keys(foundation.tokens).length);
-    assert.equal(await page.locator('#astro tbody tr').count(),5);
+    assert.equal(await page.locator('#astro tbody tr').count(),17);
     for(const width of [280,307,390,1440]){
       await page.setViewportSize({width,height:900});
       assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,`Design reference overflow at ${width}px`);
     }
     await page.setViewportSize({width:307,height:900});
-    await page.addStyleTag({content:'html{font-size:150% !important}'});
+    await page.evaluate(()=>document.documentElement.style.setProperty('font-size','150%','important'));
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,'Design reference overflow with enlarged text');
     await mkdir('artifacts/qa',{recursive:true});
     await page.screenshot({path:'artifacts/qa/design-system-mobile.png'});
   });
+  await scenario('layout gallery and complete examples work without JavaScript',async({page})=>{
+    const pageChrome=()=>page.evaluate(()=>({
+      styles:['html','body','.mast','.mast .brand','.mast nav','.site-footer','.site-footer > .wrap'].map(selector=>{
+        const style=getComputedStyle(document.querySelector(selector));
+        return ['fontFamily','fontSize','lineHeight','color','backgroundColor','margin','padding','maxWidth'].map(key=>[key,style[key]]);
+      }),
+      links:[...document.querySelectorAll('.mast a')].map(a=>[a.textContent,a.getAttribute('href')]),
+      icons:[...document.querySelectorAll('link[rel="icon"],link[rel="apple-touch-icon"],link[rel="manifest"]')].map(link=>[link.rel,link.getAttribute('href')]),
+      themeColor:document.querySelector('meta[name="theme-color"]').content,
+    }));
+    const sharedChrome=await pageChrome();
+    for(const path of ['/layouts/','/layout-examples/article/','/layout-examples/landing/','/layout-examples/documentation/']){
+      console.log('Checking '+path);await page.setViewportSize({width:1440,height:1000});await page.goto(base+path);
+      assert.deepEqual(await pageChrome(),sharedChrome,path+' must use the shared site shell');
+      assert.equal(await page.locator('main#main').count(),1,path+' shares the main landmark and skip target');
+      assert.equal(await page.locator('html').count(),1,path);
+      assert.equal(await page.locator('body').count(),1,path);
+      assert.equal(await page.locator('main').count(),1,path);
+      assert.equal(await page.locator('h1').count(),1,path);
+      assert.equal(await page.locator('footer [data-cookie-preferences]').count(),1,path);
+      for(const width of [280,307,390,768,1440]){
+        await page.setViewportSize({width,height:900});
+        assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,path+' overflow at '+width);
+      }
+      await page.evaluate(()=>document.documentElement.style.setProperty('font-size','150%','important'));
+      await page.setViewportSize({width:307,height:900});
+      assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,path+' enlarged text overflow');
+    }
+    await page.setViewportSize({width:1440,height:1000});await page.goto(base+'/layouts/');
+    await mkdir('artifacts/qa',{recursive:true});await page.screenshot({path:'artifacts/qa/layout-gallery.png',fullPage:true});
+  },{javaScriptEnabled:false});
   console.log(`${results.length} browser scenarios passed. Google requests were intercepted.`);
 } finally {
+  clearTimeout(watchdog);
   await browser.close();
   await new Promise(done=>server.close(done));
 }
