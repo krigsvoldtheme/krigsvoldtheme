@@ -87,10 +87,10 @@ npm run dev`;
     <section id="foundation"><h2>Foundation tokens</h2>
       <p>These are the installed core’s exact defaults, including text sizes, line heights, spacing, widths, corners, shadows, focus dimensions, and motion. Responsive expressions are preserved as CSS values. Breakpoint tokens, where present, document the scale; ordinary CSS custom properties cannot be substituted directly into media-query conditions.</p>
       <div class="reference-table" tabindex="0" role="region" aria-label="Published foundation token values"><table><thead><tr><th scope="col">CSS variable</th><th scope="col">Default</th></tr></thead><tbody>{Object.entries(foundation.tokens).map(([key,value])=><tr><th scope="row"><code>--krigsvold-{key}</code></th><td><code>{value}</code></td></tr>)}</tbody></table></div>
-      <p>Source provenance: <a href={`https://github.com/${foundation.sourceRepository}/tree/${foundation.sourceCommit}`}>{foundation.sourceRepository} at {foundation.sourceCommit.slice(0,7)}</a>. The <a href="/design-system.json">JSON specification</a> also includes grouped design definitions, both semantic color modes, and host capabilities.</p>
+      <p>The <a href="/design-system.json">JSON specification</a> also includes grouped design definitions, both semantic color modes, and host capabilities.</p>
     </section>
 
-    <section id="layouts"><h2>Layout compositions</h2><p>The layout system adds stacks, wrapping clusters, bounded grids, sidebars, and split regions, together with complete article, landing, and documentation layouts. See the <a href="/layouts/">working layout gallery and source observations</a> for examples built from the installed packages.</p></section>
+    <section id="layouts"><h2>Layout compositions</h2><p>The layout system adds stacks, wrapping clusters, bounded grids, sidebars, and split regions, together with complete article, landing, and documentation layouts. See the <a href="/layouts/">working layout gallery</a> for examples built from the installed packages.</p></section>
     <section id="astro"><h2>Astro components and starter</h2>
       <p>The installed wrapper supports <code>astro {peerDependencies.astro}</code> with <code>@krigsvold/theme {peerDependencies['@krigsvold/theme']}</code>. Install both peer packages in an existing Astro project:</p>
       <pre><code>npm install @krigsvold/theme @krigsvold/astro</code></pre><pre><code>{example}</code></pre>

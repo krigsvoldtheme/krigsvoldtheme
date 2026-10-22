@@ -1,12 +1,13 @@
 ---
 import HostFooter from '../../components/SiteFooter.astro';
+import HostHeader from '../../components/SiteHeader.astro';
 import CookieConsent from '../../components/CookieConsent.astro';
 import '../../styles/site-chrome.css';
-import { ArticleLayout, SiteHeader, Stack } from '@krigsvold/astro';
+import { ArticleLayout, Stack } from '@krigsvold/astro';
 ---
 <ArticleLayout bodyClass="layout-example" title="A clear account of the work" summary="A short introduction gives the reader enough context to begin." eyebrow="An example article" sidebarLabel="Related reading">
   <meta slot="head" name="example-head" content="forwarded" />
-  <SiteHeader slot="header" name="Krigsvold layout examples" links={[{href:'/layouts/',label:'Home'},{href:'/layout-examples/documentation/',label:'Guide'}]} />
+  <HostHeader slot="header" />
   <p slot="metadata">Example author · <time datetime="2026-01-01">January 1, 2026</time></p>
   <h2 id="question">Begin with the question</h2><p>Long-form content needs a reliable measure and room for supporting evidence. This article shares its design definitions with the landing page, while giving the prose its own space.</p>
   <h2 id="evidence">Present the evidence</h2><p>Figures, references, quotations, and code should remain usable when the browser is narrow or the reader enlarges the text.</p>

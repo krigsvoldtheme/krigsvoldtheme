@@ -1,18 +1,27 @@
 ---
 import HostFooter from '../../components/SiteFooter.astro';
+import HostHeader from '../../components/SiteHeader.astro';
 import CookieConsent from '../../components/CookieConsent.astro';
 import '../../styles/site-chrome.css';
-import { LandingLayout, SiteHeader, Section, Grid, Stack, Card, Button, Split, SectionHeading } from '@krigsvold/astro';
-const links=[{href:'/layouts/',label:'Home',current:true},{href:'/layout-examples/article/',label:'Article'},{href:'/layout-examples/documentation/',label:'Documentation'},{href:'/layouts/',label:'Layout lab'}];
+import { LandingLayout, Section, Grid, Stack, Card, Button, Cluster, Split, SectionHeading } from '@krigsvold/astro';
 ---
 <LandingLayout bodyClass="layout-example" title="Your work, clearly presented." summary="A neutral starting point for a publication, organization, or personal project." eyebrow="A place to begin">
-  <SiteHeader slot="header" name="Krigsvold layout examples" links={links} />
+  <HostHeader slot="header" />
   <Section aria-labelledby="examples"><Stack><SectionHeading title="Choose a composition" id="examples" /><Grid columns={3}>
     <Card><h3>An article</h3><p>Readable prose with optional supporting material.</p><Button href="/layout-examples/article/">Read the article</Button></Card>
     <Card><h3>Documentation</h3><p>A guide with navigation before its reading column.</p><Button href="/layout-examples/documentation/">Open the guide</Button></Card>
     <Card><h3>Structural layouts</h3><p>Responsive arrangements that work within their available space.</p><Button href="/layouts/">Explore layouts</Button></Card>
   </Grid></Stack></Section>
-  <Section mode="dark" aria-labelledby="appearance"><Split><div><h2 id="appearance">Dark appearance</h2><p>Both modes can coexist. Font roles and structural defaults come from the same core.</p></div><Card slot="secondary"><h3>Native controls</h3><label for="example-name">Name</label><input id="example-name" name="name" autocomplete="name" /><Button disabled>Disabled example</Button></Card></Split></Section>
+  <Section mode="dark" aria-labelledby="appearance"><Split><div><h2 id="appearance">Dark appearance</h2><p>Both modes can coexist. Font roles and structural defaults come from the same core.</p></div><Card slot="secondary">
+    <Stack>
+      <h3>Native controls</h3>
+      <Stack space="small" class="krigsvold-ui">
+        <label for="example-name">Name</label>
+        <input id="example-name" name="name" autocomplete="name" />
+      </Stack>
+      <Cluster><Button disabled>Disabled example</Button></Cluster>
+    </Stack>
+  </Card></Split></Section>
   <HostFooter slot="footer" />
 <CookieConsent slot="body-end" />
 </LandingLayout>

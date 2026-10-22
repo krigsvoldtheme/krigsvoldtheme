@@ -335,10 +335,10 @@ try {
     const spec=await response.json();
     assert.equal(spec.packages.core.version,coreVersion);
     assert.equal(spec.packages.astro.version,astroVersion);
-    assert.deepEqual(spec.foundation,foundation);
+    assert.deepEqual(spec.foundation,{origin:foundation.origin,tokens:foundation.tokens,typographyRoles:foundation.typographyRoles});
     assert.deepEqual(spec.design,design);
     assert.deepEqual(spec.capabilities,capabilities);
-    assert.deepEqual(spec.layout,layout);
+    assert.deepEqual(spec.layout,{...layout,sources:layout.sources.map(({url})=>({url}))});
     assert.equal(await page.locator('#foundation tbody tr').count(),Object.keys(foundation.tokens).length);
     assert.equal(await page.locator('#astro tbody tr').count(),17);
     for(const width of [280,307,390,1440]){
