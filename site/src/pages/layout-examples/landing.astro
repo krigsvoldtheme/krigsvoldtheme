@@ -1,12 +1,9 @@
 ---
-import HostFooter from '../../components/SiteFooter.astro';
-import HostHeader from '../../components/SiteHeader.astro';
-import CookieConsent from '../../components/CookieConsent.astro';
-import '../../styles/site-chrome.css';
-import { LandingLayout, Section, Grid, Stack, Card, Button, Cluster, Split, SectionHeading } from '@krigsvold/astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { PageHeader, Section, Grid, Stack, Card, Button, Cluster, Split, SectionHeading } from '@krigsvold/astro';
 ---
-<LandingLayout bodyClass="layout-example" title="Your work, clearly presented." summary="A neutral starting point for a publication, organization, or personal project." eyebrow="A place to begin">
-  <HostHeader slot="header" />
+<BaseLayout title="Your work, clearly presented." description="An example landing page with modular sections and contrasting appearance.">
+  <PageHeader title="Your work, clearly presented." summary="A neutral starting point for a publication, organization, or personal project." eyebrow="A place to begin" />
   <Section aria-labelledby="examples"><Stack><SectionHeading title="Choose a composition" id="examples" /><Grid columns={3}>
     <Card><h3>An article</h3><p>Readable prose with optional supporting material.</p><Button href="/layout-examples/article/">Read the article</Button></Card>
     <Card><h3>Documentation</h3><p>A guide with navigation before its reading column.</p><Button href="/layout-examples/documentation/">Open the guide</Button></Card>
@@ -22,6 +19,4 @@ import { LandingLayout, Section, Grid, Stack, Card, Button, Cluster, Split, Sect
       <Cluster><Button disabled>Disabled example</Button></Cluster>
     </Stack>
   </Card></Split></Section>
-  <HostFooter slot="footer" />
-<CookieConsent slot="body-end" />
-</LandingLayout>
+</BaseLayout>

@@ -352,8 +352,22 @@ try {
     await page.screenshot({path:'artifacts/qa/design-system-mobile.png'});
   });
   await scenario('layout gallery and complete examples work without JavaScript',async({page})=>{
+    const pageChrome=()=>page.evaluate(()=>({
+      styles:['html','body','.mast','.mast .brand','.mast nav','.site-footer','.site-footer > .wrap'].map(selector=>{
+        const style=getComputedStyle(document.querySelector(selector));
+        return ['fontFamily','fontSize','lineHeight','color','backgroundColor','margin','padding','maxWidth'].map(key=>[key,style[key]]);
+      }),
+      links:[...document.querySelectorAll('.mast a')].map(a=>[a.textContent,a.getAttribute('href')]),
+      icons:[...document.querySelectorAll('link[rel="icon"],link[rel="apple-touch-icon"],link[rel="manifest"]')].map(link=>[link.rel,link.getAttribute('href')]),
+      themeColor:document.querySelector('meta[name="theme-color"]').content,
+    }));
+    const sharedChrome=await pageChrome();
     for(const path of ['/layouts/','/layout-examples/article/','/layout-examples/landing/','/layout-examples/documentation/']){
-      console.log('Checking '+path);await page.goto(base+path);
+      console.log('Checking '+path);await page.setViewportSize({width:1440,height:1000});await page.goto(base+path);
+      assert.deepEqual(await pageChrome(),sharedChrome,path+' must use the shared site shell');
+      assert.equal(await page.locator('main#main').count(),1,path+' shares the main landmark and skip target');
+      assert.equal(await page.locator('html').count(),1,path);
+      assert.equal(await page.locator('body').count(),1,path);
       assert.equal(await page.locator('main').count(),1,path);
       assert.equal(await page.locator('h1').count(),1,path);
       assert.equal(await page.locator('footer [data-cookie-preferences]').count(),1,path);

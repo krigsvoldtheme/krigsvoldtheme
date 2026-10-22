@@ -1,16 +1,17 @@
 ---
-import HostFooter from '../../components/SiteFooter.astro';
-import HostHeader from '../../components/SiteHeader.astro';
-import CookieConsent from '../../components/CookieConsent.astro';
-import '../../styles/site-chrome.css';
-import { DocumentationLayout, Stack } from '@krigsvold/astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { PageHeader, Container, Sidebar, Stack } from '@krigsvold/astro';
 ---
-<DocumentationLayout bodyClass="layout-example" title="A guide to your project" summary="Documentation with a reading column and a separate navigation region." sidebarLabel="Guide contents">
-  <HostHeader slot="header" />
-  <nav slot="navigation" aria-label="On this page"><Stack as="ul" space="small"><li><a href="#install">Installation</a></li><li><a href="#compose">Composition</a></li><li><a href="#adapt">Adaptation</a></li></Stack></nav>
-  <h2 id="install">Installation</h2><pre><code>npm install @krigsvold/theme @krigsvold/astro</code></pre>
-  <h2 id="compose">Composition</h2><p>The navigation comes first in source order. At narrower widths it appears above the article; it does not become a hidden menu.</p>
-  <h2 id="adapt">Adaptation</h2><p>Use class hooks and namespaced layout variables for deliberate changes. Content, routes, identity, and application behavior remain yours.</p>
-  <HostFooter slot="footer" />
-<CookieConsent slot="body-end" />
-</DocumentationLayout>
+<BaseLayout title="A guide to your project" description="An example guide with a reading column and a separate navigation region.">
+  <PageHeader title="A guide to your project" summary="Documentation with a reading column and a separate navigation region." />
+  <div class="krigsvold-page-body"><Container>
+    <Sidebar side="start" sidebarLabel="Guide contents">
+      <nav slot="sidebar" aria-label="On this page"><Stack as="ul" space="small"><li><a href="#install">Installation</a></li><li><a href="#compose">Composition</a></li><li><a href="#adapt">Adaptation</a></li></Stack></nav>
+      <article class="krigsvold-prose">
+        <h2 id="install">Installation</h2><pre><code>npm install @krigsvold/theme @krigsvold/astro</code></pre>
+        <h2 id="compose">Composition</h2><p>The navigation comes first in source order. At narrower widths it appears above the article; it does not become a hidden menu.</p>
+        <h2 id="adapt">Adaptation</h2><p>Use class hooks and namespaced layout variables for deliberate changes. Content, routes, identity, and application behavior remain yours.</p>
+      </article>
+    </Sidebar>
+  </Container></div>
+</BaseLayout>
