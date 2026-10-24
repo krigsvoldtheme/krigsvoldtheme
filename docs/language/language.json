@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "family": "krigsvold",
+  "grammarVersion": "0.2",
+  "maturity": "experimental",
+  "source": {
+    "repository": "basuhoward/krigsvold.org",
+    "commit": "a3cf072c516c59ed35814e0fa153028cc91ceecd"
+  },
+  "guidance": {
+    "grammar": "docs/grammar.md",
+    "decisions": "docs/source-decisions.md",
+    "foundations": "docs/foundations.md"
+  },
+  "implementation": {
+    "core": {
+      "version": "2.2.0",
+      "status": "unreleased-candidate",
+      "sourceProfile": "opt-in; existing defaults retained"
+    },
+    "Astro": {
+      "version": "1.2.0",
+      "status": "unreleased-candidate",
+      "core": "^2.2.0",
+      "additions": [
+        "TableOfContents",
+        "ArticleLayout contents slot",
+        "SiteFooter grouped variant"
+      ]
+    },
+    "React": {
+      "version": "0.1.0",
+      "status": "experimental-unpublished",
+      "core": "2.1.0",
+      "repository": "howardjp/design-workbench",
+      "branch": "work/registry-foundations"
+    },
+    "Vue": {
+      "status": "not-implemented"
+    },
+    "Svelte": {
+      "status": "not-implemented"
+    },
+    "native": {
+      "status": "not-implemented"
+    }
+  },
+  "patterns": [
+    {
+      "id": "reading-contents",
+      "basis": "application-extension",
+      "variants": [
+        "index",
+        "inline"
+      ],
+      "rules": [
+        "Contents precedes body",
+        "Depth 2 parents and depth 3 children",
+        "Supporting information remains separate",
+        "Reflow according to available container width"
+      ]
+    },
+    {
+      "id": "grouped-footer",
+      "basis": "source-translation",
+      "rules": [
+        "Host supplies identity and destinations",
+        "Preserve independent family anatomy",
+        "Ownership and contact belong in base slot"
+      ]
+    },
+    {
+      "id": "collection-editor",
+      "basis": "application-extension",
+      "availability": "React specimen only",
+      "states": [
+        "empty",
+        "no-match",
+        "reading",
+        "editing",
+        "saving",
+        "saved",
+        "failed-save",
+        "unsaved-navigation",
+        "undo"
+      ]
+    }
+  ],
+  "openGates": [
+    "Manual assistive-technology review",
+    "Localization and RTL",
+    "Sustained consumer use",
+    "Broader form and data workflow evidence",
+    "Matched origin code specimen"
+  ]
+}

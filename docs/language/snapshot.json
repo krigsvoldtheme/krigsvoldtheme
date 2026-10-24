@@ -1,0 +1,19 @@
+{
+  "repository": "krigsvoldtheme/npm",
+  "commit": "48e3fb921e549881a35864041cb57dbabcdffe03",
+  "status": "unreleased-candidate",
+  "files": {
+    "grammar.md": {
+      "sourcePath": "docs/grammar.md",
+      "sha256": "a53ff02bc082ce272c31c2c4249bbe76e6a5c0b94bec42767ca0208d5bbf2e69"
+    },
+    "decisions.md": {
+      "sourcePath": "docs/source-decisions.md",
+      "sha256": "1e40eaea979fc3f37bed76361b3e61c0da8d4f0b971a23750057ca80149839af"
+    },
+    "language.json": {
+      "sourcePath": "language.json",
+      "sha256": "1f7fc831172fa58497bda229e0ced3539cd491e8ef2f992c8bf417a93c67213f"
+    }
+  }
+}
