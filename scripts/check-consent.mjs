@@ -347,6 +347,22 @@ try {
     await mkdir('artifacts/qa',{recursive:true});
     await page.screenshot({path:'artifacts/qa/design-system-mobile.png'});
   });
+  await scenario('canonical language guidance, framework availability and readable hierarchy',async({page})=>{
+    await page.goto(base+'/design-language/');
+    assert.equal(await page.locator('main h1').count(),1);
+    assert.equal(await page.locator('#support tbody tr').count(),6);
+    const spec=await (await page.request.get(base+'/design-system.json')).json();
+    assert.equal(spec.language.family,'krigsvold');assert.equal(spec.language.implementation.Astro.status,'unreleased-candidate');
+    assert.match(spec.language.canonicalSource.commit,/^[a-f0-9]{40}$/);
+    for(const width of [280,320,768,1440]){
+      await page.setViewportSize({width,height:900});
+      assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,`Language reference overflow at ${width}px`);
+    }
+    await page.screenshot({path:'artifacts/qa/design-language-desktop.png',fullPage:true});
+    await page.setViewportSize({width:320,height:900});await page.addStyleTag({content:'html{font-size:200% !important}'});
+    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,'Language reference overflow with enlarged text');
+    await page.screenshot({path:'artifacts/qa/design-language-mobile.png'});
+  });
   console.log(`${results.length} browser scenarios passed. Google requests were intercepted.`);
 } finally {
   await browser.close();

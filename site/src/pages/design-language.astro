@@ -1,0 +1,34 @@
+---
+import '../styles/design-reference.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import {Content as Grammar} from '../data/language-grammar.md';
+import {Content as Decisions} from '../data/language-decisions.md';
+import language from '../../../docs/language/language.json';
+import snapshot from '../../../docs/language/snapshot.json';
+const canonical=`https://github.com/${snapshot.repository}/tree/${snapshot.commit}`;
+---
+<BaseLayout title="Krigsvold UI grammar" description="Source decisions, experimental grammar, pattern contracts and framework support for Krigsvold.">
+ <article class="design-reference language-reference">
+  <header><p class="reference-label">Krigsvold · Independent UI language</p><h1>A grammar for the work.</h1>
+  <p>Experimental grammar {language.grammarVersion}. Core 2.2.0 and Astro 1.2.0 below are unreleased review candidates. The <a href="/design-system/">installed package reference</a> reports this website’s actual dependencies separately.</p>
+  <p>These are exact copies of the <a href={canonical}>canonical core guidance at {snapshot.commit.slice(0,7)}</a>. Native source objects take priority; translations and new application patterns carry an explicit basis.</p></header>
+  <nav class="reference-nav" aria-label="Language sections"><a href="#support">Framework support</a><a href="#patterns">Pattern contracts</a><a href="#grammar">Grammar</a><a href="#decisions">Source decisions</a></nav>
+  <section id="support"><h2>Framework support and maturity</h2><div class="reference-table" tabindex="0" role="region" aria-label="Framework support"><table><thead><tr><th scope="col">Implementation</th><th scope="col">Version</th><th scope="col">Availability</th></tr></thead><tbody>{Object.entries(language.implementation).map(([name,entry])=><tr><th scope="row">{name}</th><td>{'version' in entry ? entry.version : '—'}</td><td>{entry.status}</td></tr>)}</tbody></table></div>
+  <p>The source profile is opt-in. Existing palette/default contracts and Astro slots remain compatible. React event, state and focus APIs remain specific to React. No new npm release is implied by this page.</p></section>
+  <section id="patterns"><h2>Reading, contents and footer contracts</h2><div class="reference-table" tabindex="0" role="region" aria-label="Pattern provenance"><table><thead><tr><th scope="col">Pattern</th><th scope="col">Basis</th><th scope="col">Rules</th></tr></thead><tbody>{language.patterns.map(pattern=><tr><th scope="row">{pattern.id}</th><td>{pattern.basis}</td><td>{'rules' in pattern ? pattern.rules.join('; ') : 'React specimen only; save, failure, draft protection and undo.'}</td></tr>)}</tbody></table></div>
+  <p>ArticleLayout adds a separate <code>contents</code> slot and retains its supporting <code>sidebar</code>. TableOfContents provides index and inline variants with depth-2 parents and depth-3 children. SiteFooter adds <code>variant="grouped"</code>, labelled groups, and host-owned identity/base slots. Its existing plain variant remains the default.</p>
+  <p><a href={`${canonical}/docs/consolidation.md`}>Candidate APIs, source profile and migration guide ↗</a>. The original-site footer identity and destinations are supplied by the host, rather than embedded in the packages.</p>
+  <p>Host-owned menus follow source behavior: the desktop dropdown remains white on a dark header; below 992px the submenu becomes transparent and in-flow. Astro SiteHeader remains a wrapping link header; this candidate does not introduce a dropdown controller.</p></section>
+  <section id="grammar" class="language-prose"><Grammar /></section>
+  <section id="decisions" class="language-prose"><Decisions /></section>
+  <section><h2>Remaining evidence</h2><ul>{language.openGates.map(gate=><li>{gate}</li>)}</ul><p>Machine-readable <a href="/design-system.json">package and language specification</a>. Source hashes establish provenance; they do not certify design quality or accessibility.</p></section>
+ </article>
+</BaseLayout>
+<style>
+ .language-prose { margin-block:4rem; }
+ .language-prose :global(h1) { font-size:clamp(1.8rem,3vw,2.6rem); margin-block-end:1.5rem; }
+ .language-prose :global(table) { display:block; overflow:auto; max-inline-size:100%; font-family:var(--krigsvold-font-sans); font-size:.94rem; }
+ .language-prose :global(th), .language-prose :global(td) { vertical-align:top; text-align:start; padding:.8rem .9rem; border-block-end:1px solid var(--krigsvold-line); }
+ .language-prose :global(code) { overflow-wrap:anywhere; }
+ .language-prose :global(p), .language-prose :global(li) { max-inline-size:var(--krigsvold-reading-width); }
+</style>

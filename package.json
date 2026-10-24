@@ -8,7 +8,7 @@
     "tokens": "node scripts/generate.mjs",
     "test": "node --test tests/*.test.mjs",
     "dev": "npm run tokens && astro dev --root site",
-    "build": "npm run tokens && astro build --root site",
+    "build": "node scripts/sync-language.mjs --check && npm run tokens && astro build --root site",
     "preview": "astro preview --root site",
     "test:browser": "node scripts/check-consent.mjs"
   },
