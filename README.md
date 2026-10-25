@@ -69,3 +69,7 @@ The public distribution repositories are [krigsvoldtheme/npm](https://github.com
 The published npm packages are `@krigsvold/theme` 2.0.0 and `@krigsvold/astro` 1.0.0. This website consumes exact registry releases with lockfile integrity. Chrome Web Store and Mozilla Add-ons publication are also pending, and Firefox archives are unsigned. ChatGPT/Codex desktop imports under `ports/chatgpt/` use the `codex-theme-v1` format matched to a desktop app export, with Light/Dark copy buttons and `.txt` downloads. Manual Appearance settings remain available as JSON.
 
 Run `npm run build` to generate all formats, including standalone distribution directories under `artifacts/repositories/`. See [distribution maintenance](docs/distributions.md).
+
+## Consolidated language reference
+
+`/design-language/` renders the pinned core grammar, source decisions and framework matrix. `scripts/sync-language.mjs --check` verifies snapshot hashes during every build. This source consolidation does not alter the installed package pins or publish the candidate packages.
