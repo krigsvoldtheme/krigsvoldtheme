@@ -17,14 +17,14 @@
   },
   "implementation": {
     "core": {
-      "version": "2.2.0",
-      "status": "unreleased-candidate",
+      "version": "2.2.1",
+      "status": "experimental",
       "sourceProfile": "opt-in; existing defaults retained"
     },
     "Astro": {
-      "version": "1.2.0",
-      "status": "unreleased-candidate",
-      "core": "^2.2.0",
+      "version": "1.2.1",
+      "status": "experimental",
+      "core": "^2.2.1",
       "additions": [
         "TableOfContents",
         "ArticleLayout contents slot",
@@ -33,7 +33,7 @@
     },
     "React": {
       "version": "0.1.0",
-      "status": "experimental-unpublished",
+      "status": "experimental",
       "core": "2.1.0",
       "repository": "howardjp/design-workbench",
       "branch": "work/registry-foundations"
@@ -251,5 +251,6 @@
       "status": "Open",
       "rule": "Focused references do not establish production fitness or cover all application patterns."
     }
-  ]
+  ],
+  "availability": "Implementation status describes maturity. Check the registry and the separately verified distribution record for publication availability."
 }

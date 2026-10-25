@@ -1,6 +1,6 @@
 {
   "repository": "krigsvoldtheme/npm",
-  "commit": "9834910bf3eb37b314b2eacce00d939112951dd2",
+  "commit": "f567b51abbe199f89cbb09b5a8cb9e77bed1e117",
   "status": "unreleased-candidate",
   "files": {
     "grammar.md": {
@@ -9,11 +9,11 @@
     },
     "decisions.md": {
       "sourcePath": "docs/source-decisions.md",
-      "sha256": "6c4d7c3e169f72e69ffa621636272f86f45a873c55a0e6df58ad50844e68dc61"
+      "sha256": "195ef6ab50efbe8ead64571d101bc63c262130ac335900c5445c3ab13e78fe57"
     },
     "language.json": {
       "sourcePath": "language.json",
-      "sha256": "82afc3fbf230050cca45447531cf34c5fe5c6ae5afeca61df96477468f1422be"
+      "sha256": "ee6e8931bff779ee1ebdfee8566b2ba3287b2631f9c00b26835f5846975d7cb3"
     },
     "coverage.md": {
       "sourcePath": "docs/coverage.md",

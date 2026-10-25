@@ -49,3 +49,7 @@ Core 2.2.0 and Astro 1.2.0 are unreleased candidates. The source profile is an o
 ## Grammar review 0.3
 
 Validated forms and queried results add explicit application contracts for grouping, action scope, committed versus draft queries, current-page selection and modal recovery. These are experimental extensions, with separate family composition choices and shared native behavior. No original palette, mark, header direction or existing component default changes. Read docs/coverage.md and docs/patterns/ for the bounded evidence and remaining vocabulary.
+
+## Framework scope
+
+The source website header observations describe the origin object and its reference-host translation. Astro SiteHeader retains a generic wrapping-link header; it does not claim the source masthead, responsive menu controller or React print behavior. Inspect the target platform API and complete composition rather than transferring another renderer’s props or defaults.
