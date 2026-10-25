@@ -1,7 +1,7 @@
 {
   "mcp": {
     "url": "https://krigsvoldtheme.dev/mcp",
-    "published": false
+    "published": true
   },
   "packages": {
     "core": {
