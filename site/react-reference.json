@@ -4,11 +4,12 @@
     "version": "0.3.0",
     "stage": "preview"
   },
-  "sourceCommit": "4e8509c60eef5e8b36984e6164984152bb4f33c2",
+  "artifactVersion": "0.3.0-nav.1",
+  "sourceCommit": "400aacb6c282a383d7915085125cd7724036b5c3",
   "base": "/react/",
   "readOnlyReference": true,
-  "archive": "krigsvold-react-reference-0.3.0.tar.gz",
-  "sha256": "da8563b78b911f4357671710703215c44456c60e5cb115886a8b2d316bfe5fa7",
-  "bytes": 2597373,
-  "archiveUrl": "https://github.com/howardjp/design-workbench/releases/download/design-v0.3.0/krigsvold-react-reference-0.3.0.tar.gz"
+  "archive": "krigsvold-react-reference-0.3.0-nav.1.tar.gz",
+  "sha256": "cd14a5ffcffb356e58183f51147051f8dddb16a37ab90d32c806fdf3dd5ddbf3",
+  "bytes": 2598366,
+  "archiveUrl": "https://github.com/howardjp/design-workbench/releases/download/design-v0.3.0-nav.1/krigsvold-react-reference-0.3.0-nav.1.tar.gz"
 }

@@ -1,6 +1,5 @@
-/* Origin SiteHeader/site.css at basuhoward/krigsvold.org@a3cf072c516c59ed35814e0fa153028cc91ceecd.
-   Contained documentation translation matches design-workbench@4e8509c's React reference.
-   Build groups this host's framework destinations; it is not a component finder. */
+/* Documentation host: owner-directed white/grey full-width band (25 October 2026).
+   Origin typography, marks and menu behavior remain family-specific. */
 .site-nav-shell { padding-block-start:1.25rem; }
 .mast { position:relative; z-index:50; display:flex; flex-wrap:wrap; align-items:center; max-inline-size:var(--krigsvold-content-width); margin-inline:auto; min-block-size:68px; padding:.55rem .8rem .55rem 1rem; gap:1rem; border:1px solid rgb(255 255 255/.2); border-radius:var(--krigsvold-radius-lg); background:rgb(6 19 37/.84); box-shadow:var(--krigsvold-shadow-sm); backdrop-filter:blur(14px); font:1rem/1.65 var(--krigsvold-font-sans); }
 .mast-identity,.mast .brand { display:flex; align-items:center; gap:.7rem; }
@@ -42,3 +41,18 @@
 }
 @media(prefers-reduced-motion:reduce) { .mast,.mast * { transition-duration:.01ms; } }
 @media print { .site-nav-shell { display:none; } }
+
+/* Owner direction: white light navigation; full-width grey band in dark appearance. */
+body { --documentation-nav-bg:#fff; --documentation-nav-text:var(--krigsvold-color-ink); --documentation-nav-active:var(--krigsvold-color-blue-600); --documentation-nav-border:var(--krigsvold-color-rule); }
+body:has(#workbench[data-krigsvold="dark"]) { --documentation-nav-bg:#2e3947; --documentation-nav-text:#fff; --documentation-nav-active:var(--krigsvold-color-ice-400); --documentation-nav-border:rgb(255 255 255/.2); }
+.site-nav-shell { padding-block-start:0; background:var(--documentation-nav-bg); }
+.mast { max-inline-size:none; margin:0; padding-inline-start:max(1rem,calc((100vw - var(--krigsvold-content-width))/2 + 1rem)); padding-inline-end:max(.8rem,calc((100vw - var(--krigsvold-content-width))/2 + .8rem)); border:0; border-block-end:1px solid var(--documentation-nav-border); border-radius:0; background:var(--documentation-nav-bg); box-shadow:none; backdrop-filter:none; }
+.mast .brand,.mast summary,.mast .mast-link,.mast-toggle { color:var(--documentation-nav-text); }
+.mast :is(summary,.mast-link):is(:hover,:focus-visible,[aria-current],.is-active-section) { color:var(--documentation-nav-active); }
+.mast-toggle { border-color:currentColor; }
+.mast :is(.brand,.mast-link,summary,.mast-toggle):focus-visible { outline-color:var(--documentation-nav-active); }
+@media(max-width:991.98px) {
+ .mast { padding-inline:.8rem; }
+ .mast nav .mast-menu > a { color:var(--documentation-nav-text); }
+ .mast nav .mast-menu > a:is(:hover,:focus-visible) { background:var(--krigsvold-color-ice-100); color:var(--krigsvold-color-ink); }
+}
