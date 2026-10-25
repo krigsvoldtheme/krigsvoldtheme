@@ -1,0 +1,26 @@
+{
+  "mcp": {
+    "url": "https://krigsvoldtheme.dev/mcp",
+    "published": false
+  },
+  "packages": {
+    "core": {
+      "name": "@krigsvold/theme",
+      "version": "2.2.0",
+      "published": true,
+      "tag": "next"
+    },
+    "Astro": {
+      "name": "@krigsvold/astro",
+      "version": "1.2.0",
+      "published": true,
+      "tag": "next"
+    },
+    "React": {
+      "name": "@krigsvold/react",
+      "version": "0.1.0",
+      "published": false,
+      "tag": "next"
+    }
+  }
+}

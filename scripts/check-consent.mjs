@@ -366,6 +366,17 @@ try {
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,'Language reference overflow with enlarged text');
     await page.screenshot({path:'artifacts/qa/design-language-mobile.png'});
   });
+  await scenario('hosted agent setup, optional skill and release availability',async({page})=>{
+    await page.goto(base+'/agents/');
+    assert.equal(await page.locator('main h1').count(),1);
+    assert.equal((await page.getByRole('region',{name:'MCP endpoint',exact:true}).innerText()).trim(),'https://krigsvoldtheme.dev/mcp');
+    assert.equal(await page.getByRole('heading',{name:'ChatGPT',exact:true}).count(),1);
+    assert.equal(await page.getByRole('heading',{name:'Claude',exact:true}).count(),1);
+    const zip=await page.request.get(base+'/agents/krigsvold-builder.zip');assert.equal(zip.ok(),true);assert.equal((await zip.body()).subarray(0,2).toString(),'PK');
+    for(const width of [280,320,768,1440]){await page.setViewportSize({width,height:900});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,`Agent setup overflow at ${width}px`);}
+    await page.setViewportSize({width:320,height:900});await page.addStyleTag({content:'html{font-size:200% !important}'});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,'Agent setup overflow with enlarged text');
+    await page.screenshot({path:'artifacts/qa/agent-setup-mobile.png'});
+  });
   console.log(`${results.length} browser scenarios passed. Google requests were intercepted.`);
 } finally {
   await browser.close();
