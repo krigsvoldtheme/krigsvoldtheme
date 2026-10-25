@@ -4,3 +4,5 @@ dist/
 artifacts/
 site/public/downloads/
 .DS_Store
+
+site/public/react/

@@ -369,13 +369,24 @@ try {
   await scenario('hosted agent setup, optional skill and release availability',async({page})=>{
     await page.goto(base+'/agents/');
     assert.equal(await page.locator('main h1').count(),1);
-    assert.equal((await page.getByRole('region',{name:'MCP endpoint',exact:true}).innerText()).trim(),'https://krigsvoldtheme.dev/mcp');
+    assert.equal((await page.getByRole('region',{name:'MCP endpoint',exact:true}).innerText()).trim(),'https://krigsvolddesign.dev/mcp');
     assert.equal(await page.getByRole('heading',{name:'ChatGPT',exact:true}).count(),1);
     assert.equal(await page.getByRole('heading',{name:'Claude',exact:true}).count(),1);
     const zip=await page.request.get(base+'/agents/krigsvold-builder.zip');assert.equal(zip.ok(),true);assert.equal((await zip.body()).subarray(0,2).toString(),'PK');
     for(const width of [280,320,768,1440]){await page.setViewportSize({width,height:900});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,`Agent setup overflow at ${width}px`);}
     await page.setViewportSize({width:320,height:900});await page.addStyleTag({content:'html{font-size:200% !important}'});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,'Agent setup overflow with enlarged text');
     await page.screenshot({path:'artifacts/qa/agent-setup-mobile.png'});
+  });
+  await scenario('0.3 design home and public React reference preserve the language and local assets',async({page})=>{
+    assert.equal(await page.locator('link[rel="canonical"]').getAttribute('href'),'https://krigsvolddesign.dev/');
+    assert.ok((await page.locator('main').innerText()).includes('0.3 preview'));
+    await page.goto(base+'/react/');assert.equal(await page.locator('main h1').count(),1);
+    const metadata=await (await page.request.get(base+'/react/preview.json')).json();assert.equal(metadata.family,'krigsvold');assert.equal(metadata.preview.version,'0.3.0');
+    await page.goto(base+'/react/?page=agents');assert.equal(await page.locator('main h1').count(),1);
+    assert.equal(await page.getByRole('textbox',{name:'Copyable example source'}).first().inputValue(),'https://krigsvolddesign.dev/mcp');
+    await page.setViewportSize({width:320,height:900});await page.addStyleTag({content:'html{font-size:200% !important}'});
+    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,'Public React reference reflows with enlarged text');
+    await page.screenshot({path:'artifacts/qa/public-react-agents.png'});
   });
   console.log(`${results.length} browser scenarios passed. Google requests were intercepted.`);
 } finally {

@@ -15,7 +15,7 @@ const downloads=[['CSS variables','Scoped Light and Dark themes','krigsvold.css'
 ---
 <BaseLayout>
   <header class="landscape-cover">
-    <div class="cover-copy"><h1>Krigsvold</h1><p class="cover-line">Paper, sea, and ice.</p><p class="cover-description">Two ways to settle into your work.<br />Warm paper by day. Deep navy after dark.</p><a class="cover-link" href="#preview">Find your light <span aria-hidden="true">↘</span></a></div>
+    <div class="cover-copy"><h1>Krigsvold</h1><p class="cover-line">Clear regions. Deliberate decisions.</p><p class="cover-description">A design language for purposeful regions, stable alignment, and explicit state. Build reading experiences, services, and active workspaces with components, task patterns, and agent guidance.</p><a class="cover-link" href="/design-language/">Explore the language <span aria-hidden="true">↘</span></a></div>
     <svg class="palette-landscape" viewBox="0 0 800 520" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
       <path fill="#0A1D35" d="M0 0h800v520H0z"/>
       <circle cx="612" cy="117" r="44" fill="#B58A3B"/>
@@ -28,7 +28,7 @@ const downloads=[['CSS variables','Scoped Light and Dark themes','krigsvold.css'
       <path fill="#061325" d="M0 468 184 419 332 483 578 407 800 458v62H0z"/>
       <path d="m0 489 184-49 148 64 246-76 222 51" stroke="#9ED5E6" stroke-opacity=".4" fill="none"/>
     </svg>
-    <div class="cover-meta"><span>Light + Dark</span><span>88 color roles per theme</span><span>Open source · v{version}</span></div>
+    <div class="cover-meta"><span>Design language · 0.3 preview</span><span>React · Astro · MCP</span><span>Open source · MIT</span></div>
   </header>
   <div class="source-ribbon" aria-label="The twelve source colors; select a color to copy it">{origins.map(([name,hex])=><button type="button" data-copy={hex} style={`--source-color:${hex}`} aria-label={`Copy original ${name.toLowerCase()} ${hex}`} title={`${name} · ${hex}`}><span class="sr-only">{name}: {hex}</span></button>)}</div>
 
