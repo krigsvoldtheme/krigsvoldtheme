@@ -1,0 +1,14 @@
+{
+  "family": "krigsvold",
+  "preview": {
+    "version": "0.3.0",
+    "stage": "preview"
+  },
+  "sourceCommit": "4e8509c60eef5e8b36984e6164984152bb4f33c2",
+  "base": "/react/",
+  "readOnlyReference": true,
+  "archive": "krigsvold-react-reference-0.3.0.tar.gz",
+  "sha256": "da8563b78b911f4357671710703215c44456c60e5cb115886a8b2d316bfe5fa7",
+  "bytes": 2597373,
+  "archiveUrl": "https://github.com/howardjp/design-workbench/releases/download/design-v0.3.0/krigsvold-react-reference-0.3.0.tar.gz"
+}

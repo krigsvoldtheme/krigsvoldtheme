@@ -1,2 +1,2 @@
 import {defineConfig} from 'astro/config';
-export default defineConfig({site:'https://krigsvoldtheme.dev',output:'static',outDir:'../dist'});
+export default defineConfig({site:'https://krigsvolddesign.dev',output:'static',outDir:'../dist'});

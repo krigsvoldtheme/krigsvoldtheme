@@ -1,17 +1,19 @@
+> **Design language 0.3 preview.** Grammar, components, patterns, React references and agent tooling share this home. Package and theme-export versions remain independent. Existing krigsvoldtheme.dev MCP connections remain supported.
+
 ## Package documentation
 
-The public [design system specification](https://krigsvoldtheme.dev/design-system/) covers installation, typography, foundation tokens, Astro components, interaction guidance, integrations, and releases. Its [JSON reference](https://krigsvoldtheme.dev/design-system.json) is generated directly from installed npm exports.
+The public [design system specification](https://krigsvolddesign.dev/design-system/) covers installation, typography, foundation tokens, Astro components, interaction guidance, integrations, and releases. Its [JSON reference](https://krigsvolddesign.dev/design-system.json) is generated directly from installed npm exports.
 
 > This website consumes `@krigsvold/theme` and `@krigsvold/astro`. Canonical design definitions live in [krigsvoldtheme/npm](https://github.com/krigsvoldtheme/npm), extracted from krigsvold.org. `src/palettes.mjs` re-exports the installed core. Both this theme site and krigsvold.org now use those published releases.
 
-# Krigsvold Theme
+# Krigsvold Design Language
 
 **Paper, sea, and ice.**
 
 Krigsvold is an independent Light and Dark color family derived from the owner-supplied Krigsvold website stylesheet. Warm paper, deep navy, glacier blue, and muted bronze form its identity. Its twelve source colors are preserved as reference values; 88 semantic roles per mode adapt them for interfaces, syntax, charts, and terminals.
 
 **Version:** 1.0.0.  
-**Website:** [krigsvoldtheme.dev](https://krigsvoldtheme.dev/).
+**Website:** [krigsvolddesign.dev](https://krigsvolddesign.dev/).
 
 ## Included
 
@@ -66,7 +68,7 @@ Analytics uses the owner's shared `G-FSDET4HG4L` ID only after acceptance. `PUBL
 
 The public distribution repositories are [krigsvoldtheme/npm](https://github.com/krigsvoldtheme/npm), [krigsvoldtheme/vim](https://github.com/krigsvoldtheme/vim), [krigsvoldtheme/emacs](https://github.com/krigsvoldtheme/emacs), [krigsvoldtheme/chrome](https://github.com/krigsvoldtheme/chrome), and [krigsvoldtheme/firefox](https://github.com/krigsvoldtheme/firefox). The editor/browser repositories include color snapshots, dependency-free builds, verification, and installation instructions. The core and Astro packages are versioned independently. Both Light and Dark are included. The website Downloads section serves the archives.
 
-The published npm packages are `@krigsvold/theme` 2.0.0 and `@krigsvold/astro` 1.0.0. This website consumes exact registry releases with lockfile integrity. Chrome Web Store and Mozilla Add-ons publication are also pending, and Firefox archives are unsigned. ChatGPT/Codex desktop imports under `ports/chatgpt/` use the `codex-theme-v1` format matched to a desktop app export, with Light/Dark copy buttons and `.txt` downloads. Manual Appearance settings remain available as JSON.
+The published npm packages are `@krigsvold/theme` 2.2.1 and `@krigsvold/astro` 1.2.1. This website consumes exact registry releases with lockfile integrity. Chrome Web Store and Mozilla Add-ons publication are also pending, and Firefox archives are unsigned. ChatGPT/Codex desktop imports under `ports/chatgpt/` use the `codex-theme-v1` format matched to a desktop app export, with Light/Dark copy buttons and `.txt` downloads. Manual Appearance settings remain available as JSON.
 
 Run `npm run build` to generate all formats, including standalone distribution directories under `artifacts/repositories/`. See [distribution maintenance](docs/distributions.md).
 
