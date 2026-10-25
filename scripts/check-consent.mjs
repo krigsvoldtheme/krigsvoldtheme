@@ -351,6 +351,9 @@ try {
     await page.goto(base+'/design-language/');
     assert.equal(await page.locator('main h1').count(),1);
     assert.equal(await page.locator('#support tbody tr').count(),6);
+    assert.equal(await page.locator('#coverage tbody tr').count(),18);
+    assert.equal(await page.locator('#form-pattern').getByRole('heading',{name:'Validation and state transitions'}).count(),1);
+    assert.equal(await page.locator('#results-pattern').getByRole('heading',{name:'Selection and dialog contract'}).count(),1);
     const spec=await (await page.request.get(base+'/design-system.json')).json();
     assert.equal(spec.language.family,'krigsvold');assert.equal(spec.language.implementation.Astro.status,'unreleased-candidate');
     assert.match(spec.language.canonicalSource.commit,/^[a-f0-9]{40}$/);

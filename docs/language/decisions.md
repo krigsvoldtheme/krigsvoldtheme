@@ -45,3 +45,7 @@ Polar imagery, title/arms, award content, legal policy and analytics remain host
 ## Framework consolidation
 
 Core 2.2.0 and Astro 1.2.0 are unreleased candidates. The source profile is an opt-in import and class; existing core defaults and existing Astro slots remain compatible. New TableOfContents and grouped SiteFooter anatomy are available in the paired candidate packages. React 0.1.0 retains its existing theme 2.1.0 dependency and React-specific events and focus contracts. Framework support is recorded in language.json. These additions do not make the grammar stable.
+
+## Grammar review 0.3
+
+Validated forms and queried results add explicit application contracts for grouping, action scope, committed versus draft queries, current-page selection and modal recovery. These are experimental extensions, with separate family composition choices and shared native behavior. No original palette, mark, header direction or existing component default changes. Read docs/coverage.md and docs/patterns/ for the bounded evidence and remaining vocabulary.

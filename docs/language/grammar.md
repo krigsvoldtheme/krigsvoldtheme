@@ -1,12 +1,12 @@
 # Krigsvold: a grammar of clear regions
 
-Experimental grammar 0.2 · Core 2.2.0 candidate · Astro 1.2.0 candidate · React 0.1.0
+Experimental grammar 0.3 · Core 2.2.0 candidate · Astro 1.2.0 candidate · React 0.1.0
 
 Krigsvold makes complex work legible through purposeful regions, stable alignment, controlled contrast, and precise state. Its clarity must remain approachable when a person is uncertain or an operation fails. Its adopted charter supplies the criteria for these experimental application rules.
 
 ## Source authority and current decisions
 
-Existing origin objects are the baseline. Read the `decisions` MCP reference or the adjacent decisions.md before choosing visual rules. Distinguish observed source roles, a contextual translation, and a new application extension. Do not add a global gold stripe, decorative monospace labels, arbitrary accent rules, or mechanically opposite family layouts. Keep new capabilities only with a stated task purpose. The October 23 audit is a fixed record; the reconciliation ledger records implemented decisions and remaining gaps. This remains an experimental grammar, not a declaration of stability.
+Existing origin objects are the baseline. Read the `decisions` MCP reference or the source-decision profile before choosing visual rules. Distinguish observed source roles, a contextual translation, and a new application extension. Do not add a global gold stripe, decorative monospace labels, arbitrary accent rules, or mechanically opposite family layouts. Keep new capabilities only with a stated task purpose. The October 23 audit is a fixed record; the reconciliation ledger records implemented decisions and remaining gaps. This remains an experimental grammar, not a declaration of stability.
 
 ## Assign each region a job
 
@@ -37,6 +37,22 @@ Before leaving a changed editor, offer an explicit choice and preserve the draft
 A horizontal navbar, side rail, or focused workspace without primary navigation can each be Krigsvold. Choose based on destination count, frequency, available space, and the task's need for persistent context. Vertical navigation is not a language rule. A reading page deserves the same coherent regional structure as an operations console.
 
 At narrow widths, place regions in a meaningful reading order rather than compressing all of them into unusable columns. Keep the current object identifiable and supply a clear return route. Long labels, enlarged text, and translated content must not depend on fixed-width assumptions.
+
+## Choose a grouping, then a density
+
+Assign orientation, query, work, supporting context and commands distinct jobs. Align comparable information within each job. Use a boundary when scope changes; do not repeat a border around every local relationship. A region can be compact internally while remaining clearly separated from the next region.
+
+Use comfortable density for the current reference patterns. A compact mode remains proposed, with no new public density prop. Adjust related padding locally only while preserving readable text, usable targets, visible labels and the field/group/region hierarchy. Source page section spacing does not belong inside an editor. A source index or footer is an object-specific composition; it does not establish a universal application rail or surface.
+
+## Bind actions to committed scope
+
+Put a field's assistance beside that field, object commands beside the object, and collection commands beside a named collection. A pending query and its previous results are different scopes: identify both. Retain input and useful results after failure, with a recovery action that names the failed operation. Selection belongs to stable record identities in a declared result scope; clearing, retaining or extending it must follow a documented transition, not an accidental rerender.
+
+The validated-form and query-results contracts add concrete state transitions, focus destinations and narrow-layout rules. They are application extensions. Shared native keyboard conventions do not make the languages interchangeable, and a shared grammar rule does not imply the same framework API. The coverage ledger distinguishes documented rules, checked reference behavior and open consumer evidence.
+
+## Use layers for their actual purpose
+
+An inline disclosure stays in document flow. A non-modal popup anchors to its trigger and retains the source navigation surface. A modal interrupts the task, names its consequence and uses the native dialog top layer with a clear dismissal route. A backdrop belongs to the modal; it is not required for every overlay. Keep focus visible and return it to a meaningful trigger when a temporary surface closes. Motion never carries the only explanation of a state change.
 
 ## Working pattern: collection and detail workspace
 

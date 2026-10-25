@@ -1,19 +1,31 @@
 {
   "repository": "krigsvoldtheme/npm",
-  "commit": "48e3fb921e549881a35864041cb57dbabcdffe03",
+  "commit": "9834910bf3eb37b314b2eacce00d939112951dd2",
   "status": "unreleased-candidate",
   "files": {
     "grammar.md": {
       "sourcePath": "docs/grammar.md",
-      "sha256": "a53ff02bc082ce272c31c2c4249bbe76e6a5c0b94bec42767ca0208d5bbf2e69"
+      "sha256": "474364df73254ab76c9de385d86b78a1b35bfc2852a2a27bc58cf9f87ef1dd4b"
     },
     "decisions.md": {
       "sourcePath": "docs/source-decisions.md",
-      "sha256": "1e40eaea979fc3f37bed76361b3e61c0da8d4f0b971a23750057ca80149839af"
+      "sha256": "6c4d7c3e169f72e69ffa621636272f86f45a873c55a0e6df58ad50844e68dc61"
     },
     "language.json": {
       "sourcePath": "language.json",
-      "sha256": "1f7fc831172fa58497bda229e0ced3539cd491e8ef2f992c8bf417a93c67213f"
+      "sha256": "82afc3fbf230050cca45447531cf34c5fe5c6ae5afeca61df96477468f1422be"
+    },
+    "coverage.md": {
+      "sourcePath": "docs/coverage.md",
+      "sha256": "11b9be3b81a5d1ad65ecbca458afa264fc5be3d9fa1733ab1387643da3a3e2e4"
+    },
+    "forms.md": {
+      "sourcePath": "docs/patterns/forms.md",
+      "sha256": "03811a1ca4c98230554e0062adc6ec8a69459025342fbc8f1f2385d4dc5fe45c"
+    },
+    "query-results.md": {
+      "sourcePath": "docs/patterns/query-results.md",
+      "sha256": "9858a37dc9651e529eea0c31389d644f77490c97977d3d437af941c72e88d8fc"
     }
   }
 }

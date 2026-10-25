@@ -13,7 +13,7 @@ if(process.argv[2] && process.argv[2] !== '--check') {
 if(!/^[a-f0-9]{40}$/.test(snapshot.commit))throw new Error('Language snapshot must pin a complete canonical commit.');
 for(const [name,file] of Object.entries(snapshot.files))if(hash(await readFile(join(dir,name),'utf8'))!==file.sha256)throw new Error('Language snapshot drift: '+name);
 const headingView=content=>content.replace(/^(#{1,5}) /gm,'$1# ').split(/\n\n+/).map(block=>block.startsWith('|') ? '<div class="reference-table" role="region" tabindex="0" aria-label="Source role decisions">\n\n'+block+'\n\n</div>' : block).join('\n\n');
-for(const name of ['grammar','decisions']) {
+for(const name of ['grammar','decisions','coverage','forms','query-results']) {
  const view='site/src/data/language-'+name+'.md', expected=headingView(await readFile(join(dir,name+'.md'),'utf8'));
  if(process.argv[2] !== '--check') await writeFile(view,expected);
  if(await readFile(view,'utf8')!==expected)throw new Error('Language heading view drift: '+name);

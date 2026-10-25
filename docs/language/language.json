@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "family": "krigsvold",
-  "grammarVersion": "0.2",
+  "grammarVersion": "0.3",
   "maturity": "experimental",
   "source": {
     "repository": "basuhoward/krigsvold.org",
@@ -10,7 +10,10 @@
   "guidance": {
     "grammar": "docs/grammar.md",
     "decisions": "docs/source-decisions.md",
-    "foundations": "docs/foundations.md"
+    "foundations": "docs/foundations.md",
+    "coverage": "docs/coverage.md",
+    "validatedForm": "docs/patterns/forms.md",
+    "queryResults": "docs/patterns/query-results.md"
   },
   "implementation": {
     "core": {
@@ -84,6 +87,52 @@
         "unsaved-navigation",
         "undo"
       ]
+    },
+    {
+      "id": "validated-form",
+      "basis": "application-extension",
+      "availability": "React interactive reference; Astro native-HTML guidance",
+      "states": [
+        "invalid",
+        "pending",
+        "failed-save",
+        "retry",
+        "saved",
+        "changed-reset",
+        "keep",
+        "discard"
+      ],
+      "rules": [
+        "Field/group/region relationships",
+        "Retain values on failure",
+        "Summary links focus controls",
+        "Guard specimen reset; host navigation remains host-owned"
+      ]
+    },
+    {
+      "id": "query-results",
+      "basis": "application-extension",
+      "availability": "React interactive reference; Astro native-HTML guidance",
+      "states": [
+        "draft-query",
+        "pending",
+        "failed-load",
+        "retry",
+        "no-match",
+        "empty-source",
+        "selected",
+        "preparing",
+        "failed-prepare",
+        "prepared",
+        "cancelled"
+      ],
+      "rules": [
+        "Separate draft and committed scope",
+        "Stable record identities",
+        "Current-page selection only",
+        "Cancel invalidates late completion",
+        "Keep all table columns in labelled scrolling region"
+      ]
     }
   ],
   "openGates": [
@@ -92,5 +141,115 @@
     "Sustained consumer use",
     "Broader form and data workflow evidence",
     "Matched origin code specimen"
+  ],
+  "coverage": [
+    {
+      "id": "G01",
+      "domain": "Source authority",
+      "status": "Documented",
+      "rule": "Origin objects, translations and extensions remain distinct."
+    },
+    {
+      "id": "G02",
+      "domain": "Field / group / region spacing",
+      "status": "Rule clarified + reference",
+      "rule": "Use relational roles; do not inherit page-section spacing inside forms."
+    },
+    {
+      "id": "G03",
+      "domain": "Density and targets",
+      "status": "Claim corrected; compact open",
+      "rule": "Comfortable examples only; 44px is a design target, not blanket certification."
+    },
+    {
+      "id": "G04",
+      "domain": "Typography and hierarchy",
+      "status": "Observed roles retained",
+      "rule": "Keep prose, UI, selective display and code roles; no decorative monospace."
+    },
+    {
+      "id": "G05",
+      "domain": "Surfaces and layers",
+      "status": "Rule corrected + reference",
+      "rule": "Modal, popup and inline disclosure have different interaction contracts."
+    },
+    {
+      "id": "G06",
+      "domain": "Action placement and scope",
+      "status": "Rule clarified + reference",
+      "rule": "Commands name and follow their field, object or collection scope."
+    },
+    {
+      "id": "G07",
+      "domain": "Responsive composition",
+      "status": "Reference checks",
+      "rule": "Reflow fields/actions; scroll only genuine comparison surfaces; retain source order."
+    },
+    {
+      "id": "G08",
+      "domain": "Substantial forms",
+      "status": "New experimental contract",
+      "rule": "Validate, retain values, retry and guard specimen reset."
+    },
+    {
+      "id": "G09",
+      "domain": "Query / sort / page",
+      "status": "New experimental contract",
+      "rule": "Draft query differs from applied results; changed query starts page 1."
+    },
+    {
+      "id": "G10",
+      "domain": "Selection",
+      "status": "New bounded contract",
+      "rule": "Binary current-page selection; scope changes reset on commit, failure retains it."
+    },
+    {
+      "id": "G11",
+      "domain": "Pending / failed / empty states",
+      "status": "Reference coverage expanded",
+      "rule": "Keep useful previous content and distinguish no matches from empty source data."
+    },
+    {
+      "id": "G12",
+      "domain": "Focus and recovery",
+      "status": "Reference checks; manual open",
+      "rule": "Summary links, modal dismissal, return trigger and late-response cancellation."
+    },
+    {
+      "id": "G13",
+      "domain": "Top / side / focused frames",
+      "status": "Existing support retained",
+      "rule": "Frame follows task; source navigation direction is not a family restriction."
+    },
+    {
+      "id": "G14",
+      "domain": "Reading / contents / footer",
+      "status": "Existing source contracts retained",
+      "rule": "Contents, body, support and host identity remain separate."
+    },
+    {
+      "id": "G15",
+      "domain": "Cross-framework agreement",
+      "status": "Availability clarified",
+      "rule": "Rules cross frameworks; React state/focus props do not become Astro APIs."
+    },
+    {
+      "id": "G16",
+      "domain": "Figure / footnote / maths / archive vocabulary",
+      "status": "Open",
+      "rule": "Do not infer shipped components from origin CSS."
+    },
+    {
+      "id": "G17",
+      "domain": "Localization / RTL / assistive technology",
+      "status": "Open",
+      "rule": "Long-text checks are partial evidence; no manual or locale certification."
+    },
+    {
+      "id": "G18",
+      "domain": "Sustained use / dashboard breadth",
+      "status": "Open",
+      "rule": "Focused references do not establish production fitness or cover all application patterns."
+    }
   ]
 }
