@@ -355,7 +355,7 @@ try {
     assert.equal(await page.locator('#form-pattern').getByRole('heading',{name:'Validation and state transitions'}).count(),1);
     assert.equal(await page.locator('#results-pattern').getByRole('heading',{name:'Selection and dialog contract'}).count(),1);
     const spec=await (await page.request.get(base+'/design-system.json')).json();
-    assert.equal(spec.language.family,'krigsvold');assert.equal(spec.language.implementation.Astro.status,'unreleased-candidate');
+    assert.equal(spec.language.family,'krigsvold');assert.equal(spec.language.implementation.Astro.status,'experimental');
     assert.match(spec.language.canonicalSource.commit,/^[a-f0-9]{40}$/);
     for(const width of [280,320,768,1440]){
       await page.setViewportSize({width,height:900});
