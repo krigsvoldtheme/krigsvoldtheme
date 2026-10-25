@@ -43,6 +43,8 @@ The generator uses `src/palettes.mjs` and `src/ports.mjs` to create `artifacts/`
 
 For browser checks, install Chromium with `npx playwright install chromium`, then run `npm run build && npm run test:browser`. The tests intercept the Google tag and do not submit real Analytics data.
 
+The documentation navbar and footer follow `SiteHeader.astro`, `SiteFooter.astro`, and `site.css` at `basuhoward/krigsvold.org@a3cf072c516c59ed35814e0fa153028cc91ceecd`. They share the React reference's contained navbar material, original system mark, Roboto typography, bold Roboto Slab headings, white desktop popup, transparent mobile submenu, source footer grid and separate ownership/contact row. The main site's Build disclosure groups its framework destinations; its owner badge, byline and legal links remain specific to this host. Browser checks compare the actual rendered styles and mark bytes against the pinned public React build, then exercise disclosure dismissal, focus recovery, current-page state, responsive footer structure and navigation without JavaScript.
+
 ## Use the colors
 
 ```html
