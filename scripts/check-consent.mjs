@@ -507,6 +507,23 @@ try {
     await page.locator('.mast-menu a[href="/agents/"]').click();
     await page.waitForURL(base+'/agents/');
   },{javaScriptEnabled:false});
+  await scenario('white light navigation and edge-to-edge grey dark navigation match the React reference',async({page})=>{
+    await page.locator('#cookie-banner [data-cookie-reject]').click();
+    const inspect=async(selector)=>page.locator(selector).evaluate(e=>{
+      const style=getComputedStyle(e),rect=e.getBoundingClientRect();
+      return {background:style.backgroundColor,left:rect.left,right:rect.right,width:innerWidth,radius:style.borderRadius};
+    });
+    assert.equal((await inspect('.mast')).background,'rgb(255, 255, 255)');
+    await page.locator('[data-mode="dark"]').click();
+    const dark=await inspect('.mast');
+    assert.equal(dark.background,'rgb(46, 57, 71)');
+    assert.ok(Math.abs(dark.left)<1&&Math.abs(dark.right-dark.width)<1,'Dark header band spans the complete viewport');
+    assert.equal(dark.radius,'0px');
+    await page.goto(base+'/react/?mode=dark');
+    assert.deepEqual(await inspect('.krigsvold-app-header'),dark);
+    await page.goto(base+'/react/?mode=light');
+    assert.equal((await inspect('.krigsvold-app-header')).background,'rgb(255, 255, 255)');
+  });
   console.log(`${results.length} browser scenarios passed. Google requests were intercepted.`);
 } finally {
   await browser.close();
