@@ -1,0 +1,64 @@
+---
+import '../styles/site-header.css';
+const current = Astro.url.pathname;
+const buildLinks = [['/react/', 'React'], ['/design-system/', 'Astro & foundations'], ['/agents/', 'Agent tools']];
+---
+<div class="site-nav-shell">
+  <header class="mast" data-site-header>
+    <div class="mast-identity">
+      <a class="brand" href="/"><img class="brand-mark" src="/krigsvold-mark.svg" width="38" height="38" alt="" /><span>Krigsvold Design</span></a>
+      <button class="mast-toggle" type="button" aria-expanded="false" aria-controls="krigsvold-site-navigation" hidden>Menu</button>
+    </div>
+    <nav id="krigsvold-site-navigation" aria-label="Site">
+      <div class="mast-navigation-links">
+        <a class="mast-link" href="/design-language/" aria-current={current === '/design-language/' ? 'page' : undefined}>The language</a>
+        <details name="krigsvold-site-navigation">
+          <summary class:list={{ 'is-active-section': buildLinks.some(([href]) => href === current) }}>Build <svg class="mast-caret" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m7 10 5 5 5-5" /></svg></summary>
+          <div class="mast-menu" data-krigsvold="light">
+            {buildLinks.map(([href, label]) => <a href={href} aria-current={href === current ? 'page' : undefined}>{label}</a>)}
+          </div>
+        </details>
+        <a class="mast-link" href="https://github.com/krigsvoldtheme/krigsvoldtheme">GitHub ↗</a>
+      </div>
+    </nav>
+  </header>
+</div>
+<script>
+  const header = document.querySelector<HTMLElement>('[data-site-header]');
+  const button = header?.querySelector<HTMLButtonElement>('.mast-toggle');
+  const nav = header?.querySelector<HTMLElement>('nav');
+  if (header && button && nav) {
+    const disclosures = [...nav.querySelectorAll('details')];
+    const setMenu = (open: boolean) => {
+      header.dataset.menuOpen = String(open);
+      button.setAttribute('aria-expanded', String(open));
+      if (!open) disclosures.forEach(details => { details.open = false; });
+    };
+    header.dataset.menuReady = 'true';
+    button.hidden = false;
+    button.addEventListener('click', () => setMenu(button.getAttribute('aria-expanded') !== 'true'));
+    nav.addEventListener('click', event => {
+      if (event.target instanceof Element && event.target.closest('a')) setMenu(false);
+    });
+    disclosures.forEach(details => {
+      details.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && details.open) {
+          event.stopPropagation();
+          details.open = false;
+          details.querySelector('summary')?.focus();
+        }
+      });
+      details.addEventListener('focusout', event => {
+        if (!details.contains(event.relatedTarget as Node | null)) details.open = false;
+      });
+    });
+    window.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && button.getAttribute('aria-expanded') === 'true') {
+        setMenu(false);
+        button.focus();
+      }
+    });
+    matchMedia('(max-width:991.98px)').addEventListener('change', () => setMenu(false));
+    window.addEventListener('pageshow', () => setMenu(false));
+  }
+</script>

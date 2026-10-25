@@ -1,0 +1,28 @@
+/* Source SiteFooter/site.css: identity spanning two tracks, four groups, separate base.
+   Matches the React reference's source translation; this host keeps its owner and legal links. */
+.site-footer { --footer-container:100%; padding:5rem 0 1.5rem; background:var(--krigsvold-color-navy-950); color:rgb(255 255 255/.72); font:400 1rem/1.65 var(--krigsvold-font-sans); }
+.footer-inner { inline-size:100%; max-inline-size:var(--footer-container); padding-inline:.75rem; margin-inline:auto; }
+@media(min-width:576px) { .site-footer { --footer-container:540px; } }
+@media(min-width:768px) { .site-footer { --footer-container:720px; } }
+@media(min-width:992px) { .site-footer { --footer-container:960px; } }
+@media(min-width:1200px) { .site-footer { --footer-container:1140px; } }
+@media(min-width:1400px) { .site-footer { --footer-container:1320px; } }
+.footer-grid { max-inline-size:var(--krigsvold-content-width); margin-inline:auto; display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); column-gap:3rem; row-gap:3rem; align-items:start; }
+.footer-grid > * { min-inline-size:0; }
+.footer-identity { grid-column:span 2; }
+.site-footer a { color:rgb(255 255 255/.9); text-decoration:none; overflow-wrap:anywhere; }
+.site-footer a:hover { text-decoration:underline; }
+.site-footer .footer-owner { display:inline-flex; flex-direction:column; align-items:flex-start; color:white; line-height:1.35; text-decoration:none; }
+.footer-owner img { inline-size:58px; block-size:58px; margin-block-end:1rem; border-radius:3px; }
+.footer-site { font-size:1rem; font-weight:700; }
+.footer-byline { margin-block-start:.18rem; font-size:1.05rem; font-weight:700; }
+.footer-identity > p { margin-block:1.5rem 1rem; }
+.site-footer h2 { margin:0; color:white; font:700 .76rem/1.65 var(--krigsvold-font-sans); letter-spacing:.12em; text-transform:uppercase; }
+.site-footer ul { margin:1rem 0 0; padding:0; list-style:none; }
+.site-footer li { margin-block:.55rem; }
+.site-footer li a { font-size:.88rem; font-weight:500; }
+.footer-base { max-inline-size:var(--krigsvold-content-width); margin:2.5rem auto 0; border-block-start:1px solid rgb(255 255 255/.16); padding-block-start:1.5rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:0 1.5rem; font-size:.8rem; }
+.footer-base p { margin:0 0 1rem; }
+.site-footer :focus-visible { outline-color:var(--krigsvold-color-ice-400); }
+@media(max-width:991.98px) { .footer-grid { grid-template-columns:repeat(4,minmax(0,1fr)); column-gap:1.5rem; } .footer-identity { grid-column:1/-1; max-inline-size:26rem; } }
+@media(max-width:767.98px) { .footer-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .footer-base { display:block; } }

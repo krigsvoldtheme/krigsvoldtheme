@@ -325,6 +325,7 @@ try {
     assert.equal(await page.locator('#npm-title').count(),1);
     assert.equal(await page.locator('.app-ports a[href="https://www.npmjs.com/package/@krigsvold/theme"]').count(),1);
     assert.equal(await page.locator('.app-ports a[href="https://www.npmjs.com/package/@krigsvold/astro"]').count(),1);
+    await page.locator('.mast summary').click();
     await page.locator('.mast nav a[href="/design-system/"]').click();
     assert.equal(await page.getByRole('heading',{name:'Build with Krigsvold.',exact:true}).count(),1);
     const response=await page.request.get(base+'/design-system.json');
@@ -388,6 +389,124 @@ try {
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,'Public React reference reflows with enlarged text');
     await page.screenshot({path:'artifacts/qa/public-react-agents.png'});
   });
+  await scenario('Astro and React share Krigsvold navbar, popup, and mobile submenu rules',async({page})=>{
+    await page.locator('#cookie-banner [data-cookie-reject]').click();
+    const inspect=async(selectors)=>page.evaluate(selectors=>{
+      const pick=(selector,keys,pseudo=null)=>{
+        const element=document.querySelector(selector),style=getComputedStyle(element,pseudo);
+        return Object.fromEntries(keys.map(key=>[key,style[key]]));
+      };
+      return {
+        header:pick(selectors.header,['backgroundColor','border','borderRadius','boxShadow','backdropFilter','paddingTop','paddingRight','paddingBottom','paddingLeft','minHeight','width','height']),
+        brand:pick(selectors.brand,['fontFamily','fontSize','fontWeight','lineHeight','letterSpacing','color','gap']),
+        mark:pick(selectors.brand+' img',['width','height']),
+        label:pick(selectors.summary,['fontFamily','fontSize','fontWeight','lineHeight','letterSpacing','textTransform','paddingTop','paddingBottom','color']),
+        nav:pick(selectors.nav,['gap']),
+        panel:pick(selectors.panel,['backgroundColor','color','position','minWidth','paddingTop','paddingRight','paddingBottom','paddingLeft','border','borderRadius','boxShadow']),
+        pointer:pick(selectors.panel,['display','backgroundColor','width','height'],'::before'),
+        item:pick(selectors.item,['fontFamily','fontSize','fontWeight','lineHeight','color','paddingTop','paddingRight','paddingBottom','paddingLeft']),
+      };
+    },selectors);
+    const astroSelectors={header:'.mast',brand:'.mast .brand',summary:'.mast summary',nav:'.mast-navigation-links',panel:'.mast-menu',item:'.mast-menu > a'};
+    const reactSelectors={header:'.krigsvold-app-header',brand:'.krigsvold-reference-brand',summary:'.krigsvold-app-header summary',nav:'.krigsvold-reference-navigation-links',panel:'.krigsvold-reference-menu',item:'.krigsvold-reference-menu > a'};
+    // Both are the same source object, with destinations specific to each host.
+    await page.locator('.mast summary').click();
+    await page.evaluate(()=>document.fonts.ready);
+    const astro=await inspect(astroSelectors);
+    assert.equal(astro.panel.backgroundColor,'rgb(255, 255, 255)');
+    const astroHeading=await page.locator('main h1').evaluate(e=>({family:getComputedStyle(e).fontFamily,weight:getComputedStyle(e).fontWeight}));
+    const astroMark=await (await page.request.get(base+'/krigsvold-mark.svg')).body();
+    await page.goto(base+'/react/');
+    await page.locator('.krigsvold-app-header summary').first().click();
+    await page.evaluate(()=>document.fonts.ready);
+    const react=await inspect(reactSelectors);
+    assert.deepEqual(astro,react,'Krigsvold navbar material and typography must match across renderers');
+    assert.deepEqual(await page.locator('main h1').evaluate(e=>({family:getComputedStyle(e).fontFamily,weight:getComputedStyle(e).fontWeight})),astroHeading,'Source Roboto Slab headings retain their bold weight');
+    const reactMark=await page.locator('.krigsvold-reference-brand img').getAttribute('src');
+    assert.deepEqual(await (await page.request.get(new URL(reactMark,page.url()).href)).body(),astroMark);
+    await page.setViewportSize({width:768,height:1000});
+    await page.getByRole('button',{name:'Menu',exact:true}).click();
+    if(await page.locator('.krigsvold-app-header details').first().getAttribute('open')===null) await page.locator('.krigsvold-app-header summary').first().click();
+    const reactMobile=await inspect(reactSelectors);
+    await page.goto(base+'/');
+    await page.getByRole('button',{name:'Menu',exact:true}).click();
+    await page.locator('.mast summary').click();
+    const astroMobile=await inspect(astroSelectors);
+    // Expanded height follows each host's destination count and utilities.
+    delete astroMobile.header.height; delete reactMobile.header.height;
+    assert.deepEqual(astroMobile,reactMobile,'Mobile submenu must retain its distinct in-flow material');
+    assert.equal((await inspect(astroSelectors)).panel.backgroundColor,'rgba(0, 0, 0, 0)');
+    await page.keyboard.press('Escape');
+    assert.equal(await page.locator('.mast details').getAttribute('open'),null);
+    assert.equal(await page.locator('.mast summary').evaluate(e=>e===document.activeElement),true);
+    await page.keyboard.press('Escape');
+    assert.equal(await page.getByRole('button',{name:'Menu',exact:true}).getAttribute('aria-expanded'),'false');
+    assert.equal(await page.getByRole('button',{name:'Menu',exact:true}).evaluate(e=>e===document.activeElement),true);
+    await page.setViewportSize({width:1440,height:1000});
+    await page.locator('.mast summary').click();
+    await page.locator('.mast-menu a[href="/agents/"]').focus();
+    await page.keyboard.press('Tab');
+    assert.equal(await page.locator('.mast details').getAttribute('open'),null,'Leaving the popup closes it');
+    await page.locator('.mast summary').click();
+    await page.locator('.mast-menu a[href="/agents/"]').click();
+    await page.waitForURL(base+'/agents/');
+    await page.locator('.mast summary').click();
+    assert.equal(await page.locator('.mast-menu a[aria-current]').innerText(),'Agent tools');
+    await page.screenshot({path:'artifacts/qa/krigsvold-header-desktop.png'});
+    await page.setViewportSize({width:320,height:900});
+    await page.getByRole('button',{name:'Menu',exact:true}).click();
+    await page.locator('.mast summary').click();
+    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
+    await page.screenshot({path:'artifacts/qa/krigsvold-header-mobile.png'});
+  });
+  await scenario('Astro and React footers retain the source grid, type and ownership row',async({page})=>{
+    await page.locator('#cookie-banner [data-cookie-reject]').click();
+    const inspect=async(prefix)=>page.evaluate(prefix=>{
+      const footer=document.querySelector('footer'),style=getComputedStyle(footer);
+      const pick=(selector,keys)=>{
+        const value=getComputedStyle(footer.querySelector(selector));
+        return Object.fromEntries(keys.map(key=>[key,value[key]]));
+      };
+      return {
+        footer:Object.fromEntries(['backgroundColor','color','fontFamily','fontSize','lineHeight','paddingTop','paddingBottom'].map(k=>[k,style[k]])),
+        grid:pick(prefix+'grid',['display','gridTemplateColumns','columnGap','rowGap']),
+        identity:pick(prefix+'identity',['gridColumnStart','gridColumnEnd']),
+        owner:pick(prefix+'owner',['display','flexDirection','lineHeight','color']),
+        mark:pick(prefix+'owner img',['width','height','borderRadius','marginBottom']),
+        heading:pick('h2',['fontFamily','fontSize','fontWeight','letterSpacing','textTransform','lineHeight','color']),
+        link:pick('li a',['fontFamily','fontSize','fontWeight','color']),
+        base:pick(prefix+'base',['display','marginTop','paddingTop','borderTop','fontSize']),
+      };
+    },prefix);
+    const observed=[];
+    for(const width of [1440,900,600,320]){
+      await page.setViewportSize({width,height:1000});
+      observed.push(await inspect('.footer-'));
+      assert.equal(await page.locator('.footer-grid > nav').count(),4);
+      assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
+    }
+    await page.locator('footer').scrollIntoViewIfNeeded();
+    await page.screenshot({path:'artifacts/qa/krigsvold-footer-mobile.png'});
+    await page.goto(base+'/react/');
+    for(const [index,width] of [1440,900,600,320].entries()) {
+      await page.setViewportSize({width,height:1000});
+      assert.deepEqual(await inspect('.krigsvold-reference-footer-'),observed[index],`Source footer rules differ at ${width}px`);
+    }
+    await page.goto(base+'/');
+    await page.setViewportSize({width:1440,height:1000});
+    await page.locator('footer').scrollIntoViewIfNeeded();
+    await page.screenshot({path:'artifacts/qa/krigsvold-footer-desktop.png'});
+  });
+  await scenario('Krigsvold Menu and native Build disclosure remain usable without JavaScript',async({page})=>{
+    await page.setViewportSize({width:320,height:900});
+    assert.equal(await page.getByRole('button',{name:'Menu',exact:true}).isVisible(),false);
+    assert.equal(await page.locator('.mast nav').isVisible(),true);
+    await page.locator('.mast summary').click();
+    assert.equal(await page.locator('.mast-menu').isVisible(),true);
+    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
+    await page.locator('.mast-menu a[href="/agents/"]').click();
+    await page.waitForURL(base+'/agents/');
+  },{javaScriptEnabled:false});
   console.log(`${results.length} browser scenarios passed. Google requests were intercepted.`);
 } finally {
   await browser.close();

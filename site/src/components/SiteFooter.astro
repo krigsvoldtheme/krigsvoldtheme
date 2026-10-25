@@ -1,27 +1,43 @@
+---
+import '../styles/site-footer.css';
+---
 <footer class="site-footer">
-  <div class="wrap footer-grid">
-    <div class="footer-identity">
-      <a class="footer-brand" href="https://jameshoward.us/" aria-label="James Howard website">
-        <img src="/assets/identity/jh-badge-1x1.svg" alt="" width="58" height="58" loading="lazy" />
-        <span class="footer-brand-copy"><strong>krigsvolddesign.dev</strong><span>A website of James Howard</span></span>
-      </a>
-      <p>Copyright © 2026{new Date().getFullYear() > 2026 ? `–${new Date().getFullYear()}` : ''} James P. Howard, II</p>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-identity">
+        <a class="footer-owner" href="https://jameshoward.us/" aria-label="James Howard website">
+          <img src="/assets/identity/jh-badge-1x1.svg" alt="" width="58" height="58" loading="lazy" />
+          <span class="footer-site">krigsvolddesign.dev</span>
+          <span class="footer-byline">A website of James Howard</span>
+        </a>
+        <p>Components, working patterns, and agent guidance grounded in krigsvold.org.</p>
+      </div>
+      <nav aria-label="Footer language"><h2>The language</h2><ul>
+        <li><a href="/design-language/">Principles and decisions</a></li>
+        <li><a href="/design-language/#patterns">Pattern contracts</a></li>
+        <li><a href="/design-language/#decisions">Source decisions</a></li>
+      </ul></nav>
+      <nav aria-label="Footer build"><h2>Build</h2><ul>
+        <li><a href="/react/">React reference</a></li>
+        <li><a href="/design-system/">Astro & foundations</a></li>
+        <li><a href="/agents/">MCP and builder skill</a></li>
+      </ul></nav>
+      <nav aria-label="Related websites"><h2>Elsewhere</h2><ul>
+        <li><a href="https://jameshoward.us/">James Howard</a></li>
+        <li><a href="https://krigsvold.org/">The Count of Krigsvold</a></li>
+        <li><a href="https://martletdesign.dev/">Martlet</a></li>
+      </ul></nav>
+      <nav aria-label="Legal"><h2>Legal</h2><ul>
+        <li><a href="/privacy-and-cookie-notice/">Privacy Notice</a></li>
+        <li><a href="/privacy-and-cookie-notice/#cookie-settings" data-cookie-preferences>Cookie Settings</a></li>
+        <li><a href="https://jameshoward.us/terms-of-use/">Terms of Use</a></li>
+        <li><a href="https://jameshoward.us/copyright/">Copyright</a></li>
+        <li><a href="/privacy-and-cookie-notice/#copyright">Design Licensing</a></li>
+      </ul></nav>
     </div>
-    <div class="footer-links">
-      <nav class="footer-row" aria-label="Related websites">
-        <h2>Elsewhere</h2>
-        <div class="footer-row-links"><a href="https://jameshoward.us/">James Howard</a><a href="https://krigsvold.org/">The Count of Krigsvold</a><a href="https://martletdesign.dev/">Martlet</a></div>
-      </nav>
-      <nav class="footer-row" aria-label="Legal">
-        <h2>Legal</h2>
-        <div class="footer-row-links">
-          <a href="/privacy-and-cookie-notice/">Privacy Notice</a>
-          <a href="/privacy-and-cookie-notice/#cookie-settings" data-cookie-preferences>Cookie Settings</a>
-          <a href="https://jameshoward.us/terms-of-use/">Terms of Use</a>
-          <a href="https://jameshoward.us/copyright/">Copyright</a>
-          <a href="/privacy-and-cookie-notice/#copyright">Design Licensing</a>
-        </div>
-      </nav>
+    <div class="footer-base">
+      <p>Copyright © 2026{new Date().getUTCFullYear() > 2026 ? `–${new Date().getUTCFullYear()}` : ''} James P. Howard, II</p>
+      <p><a href="mailto:count@krigsvold.org">count@krigsvold.org</a></p>
     </div>
   </div>
 </footer>
