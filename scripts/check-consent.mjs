@@ -519,6 +519,7 @@ try {
       if(mode==='dark') await page.locator('[data-mode="dark"]').click();
       await page.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));
       const state=await inspect('.mast','.landscape-cover','.mast .brand');
+      assert.equal(await page.locator('.cover-link').evaluate(e=>getComputedStyle(e).color),'rgb(255, 255, 255)','Hero action remains legible over the dark native surface');
       assert.equal(state.background,mode==='light'?'rgba(6, 19, 37, 0.84)':'rgb(255, 255, 255)');
       assert.equal(state.color,mode==='light'?'rgb(255, 255, 255)':'rgb(23, 32, 42)');
       assert.equal(state.heroTop,0);assert.ok(state.top>state.heroTop&&state.bottom<state.heroBottom,'Menu overlays hero');
