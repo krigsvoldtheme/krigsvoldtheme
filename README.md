@@ -43,7 +43,7 @@ The generator uses `src/palettes.mjs` and `src/ports.mjs` to create `artifacts/`
 
 For browser checks, install Chromium with `npx playwright install chromium`, then run `npm run build && npm run test:browser`. The tests intercept the Google tag and do not submit real Analytics data.
 
-Owner direction on 25 October 2026 supersedes the earlier documentation masthead translation: navigation is white in light mode and uses an edge-to-edge grey band in dark mode. Content remains bounded, and each family retains its mark, typography and interaction rules. Homepage specimen appearance controls also update the navigation band. See [the documentation navigation rule](https://github.com/howardjp/design-workbench/blob/400aacb6c282a383d7915085125cd7724036b5c3/docs/documentation-navigation.md). Browser checks compare the actual Astro and React header surfaces and exercise both appearances, narrow menus, focus recovery and navigation without JavaScript.
+Owner correction restores the origin's contained menu floating over a hero that begins at the top of the page. Light appearance uses the dark menu with white text; dark appearance inverts it to a white menu with dark text. The earlier full-width white/grey band is superseded. Desktop dropdowns stay white, while mobile submenus are transparent and in flow. The workbench's `docs/documentation-navigation.md` records this host rule and its separate Martlet counterpart.
 
 ## Use the colors
 

@@ -507,22 +507,30 @@ try {
     await page.locator('.mast-menu a[href="/agents/"]').click();
     await page.waitForURL(base+'/agents/');
   },{javaScriptEnabled:false});
-  await scenario('white light navigation and edge-to-edge grey dark navigation match the React reference',async({page})=>{
+  await scenario('Krigsvold inverse menus float over the hero in both appearances',async({page})=>{
     await page.locator('#cookie-banner [data-cookie-reject]').click();
-    const inspect=async(selector)=>page.locator(selector).evaluate(e=>{
-      const style=getComputedStyle(e),rect=e.getBoundingClientRect();
-      return {background:style.backgroundColor,left:rect.left,right:rect.right,width:innerWidth,radius:style.borderRadius};
-    });
-    assert.equal((await inspect('.mast')).background,'rgb(255, 255, 255)');
-    await page.locator('[data-mode="dark"]').click();
-    const dark=await inspect('.mast');
-    assert.equal(dark.background,'rgb(46, 57, 71)');
-    assert.ok(Math.abs(dark.left)<1&&Math.abs(dark.right-dark.width)<1,'Dark header band spans the complete viewport');
-    assert.equal(dark.radius,'0px');
-    await page.goto(base+'/react/?mode=dark');
-    assert.deepEqual(await inspect('.krigsvold-app-header'),dark);
-    await page.goto(base+'/react/?mode=light');
-    assert.equal((await inspect('.krigsvold-app-header')).background,'rgb(255, 255, 255)');
+    const inspect=(header,hero,brand)=>page.evaluate(({header,hero,brand})=>{
+      const e=document.querySelector(header),r=e.getBoundingClientRect(),h=document.querySelector(hero).getBoundingClientRect(),s=getComputedStyle(e);
+      return {background:s.backgroundColor,color:getComputedStyle(document.querySelector(brand)).color,top:r.top,bottom:r.bottom,left:r.left,right:r.right,width:document.documentElement.clientWidth,heroTop:h.top,heroBottom:h.bottom,radius:s.borderRadius};
+    },{header,hero,brand});
+    const expected=[];
+    for(const mode of ['light','dark']) {
+      await page.goto(base+'/');
+      if(mode==='dark') await page.locator('[data-mode="dark"]').click();
+      await page.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));
+      const state=await inspect('.mast','.landscape-cover','.mast .brand');
+      assert.equal(state.background,mode==='light'?'rgba(6, 19, 37, 0.84)':'rgb(255, 255, 255)');
+      assert.equal(state.color,mode==='light'?'rgb(255, 255, 255)':'rgb(23, 32, 42)');
+      assert.equal(state.heroTop,0);assert.ok(state.top>state.heroTop&&state.bottom<state.heroBottom,'Menu overlays hero');
+      assert.ok(state.left>0&&state.right<state.width,'Menu remains contained');assert.notEqual(state.radius,'0px');
+      expected.push(state);
+    }
+    for(const [i,mode] of ['light','dark'].entries()) {
+      await page.goto(base+'/react/?mode='+mode);
+      const state=await inspect('.krigsvold-app-header','.krigsvold-reference-cover','.krigsvold-reference-brand');
+      for(const key of ['background','color','top','left','right','radius','heroTop']) assert.equal(state[key],expected[i][key],key+' agrees across renderers');
+      assert.ok(state.bottom<state.heroBottom,'Reference menu overlays hero');
+    }
   });
   console.log(`${results.length} browser scenarios passed. Google requests were intercepted.`);
 } finally {
