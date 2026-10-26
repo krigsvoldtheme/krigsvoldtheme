@@ -35,3 +35,7 @@ At narrow widths the groups and actions stack in source order. Long text and enl
 React composes Field, TextInput, Textarea, Select, Checkbox, Fieldset, Button, ErrorSummary and Dialog. These are existing exports; no new form-controller API is implied. Core supplies typography and spacing roles. Astro can express the same native HTML structure, but validation, transport, draft management and focus transitions remain host code; there is no Astro Form controller in this candidate.
 
 The reference includes validation, pending, failed/retry, saved and discard-dialog examples. Browser assertions cover values, linked errors, focus restoration, reflow and automated accessibility. Real server errors, conflict resolution, authentication, uploads and manual assistive-technology review remain outside this specimen. New controls and full dark mode remain experimental.
+
+## Native HTML styling
+
+For Astro or direct HTML, use core 2.2.3 `@krigsvold/theme/forms.css` (included by `full.css`) and the exact anatomy in `docs/form-styling.md`. The Astro 1.2.2 starter `/form/` is a runnable host-controller example. Read the classes as visual contracts, not controllers. Set native labels, described-by links, invalid states, summary focus, disabled/pending behavior and dialog return focus in host code.

@@ -1,6 +1,6 @@
 # Krigsvold: a grammar of clear regions
 
-Experimental grammar 0.3 · Core 2.2.0 candidate · Astro 1.2.0 candidate · React 0.1.0
+Experimental grammar 0.3 · Core 2.2.3 preview · Astro 1.2.2 preview · React 0.1.0
 
 Krigsvold makes complex work legible through purposeful regions, stable alignment, controlled contrast, and precise state. Its clarity must remain approachable when a person is uncertain or an operation fails. Its adopted charter supplies the criteria for these experimental application rules.
 
@@ -73,3 +73,7 @@ The specimen contains fictional, session-only data. Reload restores initial exam
 Can someone identify the current region, command scope, selected record, and save state without relying on color? Does aligned information support comparison? Are boundaries meaningful rather than repetitive decoration? Does the regional structure remain understandable in a compact table, a form, and a reading experience? Test these questions across complete transitions, not only the populated initial view.
 
 Expected keyboard behavior and accessible semantics need not differ from Martlet. Independence comes from coherent decisions that serve the task, not arbitrary opposites. Manual assistive-technology review, localization, RTL adaptation, and sustained consumer evidence remain open before stability.
+
+## Native HTML form vocabulary
+
+Core 2.2.3 supplies the optional `forms.css` layer, also included by `full.css`. Read `docs/form-styling.md` for exact classes and semantic obligations. These are experimental application extensions; validation, persistence, draft guards, announcements and focus transitions remain host code. No framework implementation is inferred from a token.

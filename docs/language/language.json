@@ -13,18 +13,20 @@
     "foundations": "docs/foundations.md",
     "coverage": "docs/coverage.md",
     "validatedForm": "docs/patterns/forms.md",
-    "queryResults": "docs/patterns/query-results.md"
+    "queryResults": "docs/patterns/query-results.md",
+    "nativeHtml": "docs/native-html.md",
+    "formStyling": "docs/form-styling.md"
   },
   "implementation": {
     "core": {
-      "version": "2.2.1",
+      "version": "2.2.3",
       "status": "experimental",
       "sourceProfile": "opt-in; existing defaults retained"
     },
     "Astro": {
-      "version": "1.2.1",
+      "version": "1.2.2",
       "status": "experimental",
-      "core": "^2.2.1",
+      "core": "^2.2.3",
       "additions": [
         "TableOfContents",
         "ArticleLayout contents slot",
@@ -36,7 +38,8 @@
       "status": "experimental",
       "core": "2.1.0",
       "repository": "howardjp/design-workbench",
-      "branch": "work/registry-foundations"
+      "branch": "work/registry-foundations",
+      "release": "https://github.com/howardjp/design-workbench/releases/tag/react-v0.1.0"
     },
     "Vue": {
       "status": "not-implemented"
