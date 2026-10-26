@@ -48,6 +48,7 @@ body:has(#workbench[data-krigsvold="dark"]) { --documentation-nav-bg:#fff; --doc
 .site-nav-shell { background:transparent; }
 body:has(.landscape-cover) .site-nav-shell { position:absolute; inset:0 0 auto; z-index:50; }
 body .landscape-cover { padding-block-start:9rem; }
+.landscape-cover .cover-link { color:white; }
 .mast { background:var(--documentation-nav-bg); border-color:var(--documentation-nav-border); }
 .mast .brand,.mast summary,.mast .mast-link,.mast-toggle { color:var(--documentation-nav-text); }
 .mast :is(summary,.mast-link):is(:hover,:focus-visible,[aria-current],.is-active-section) { color:var(--documentation-nav-active); }
