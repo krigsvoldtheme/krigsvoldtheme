@@ -38,3 +38,7 @@ Core owns grammar, semantic roles and source profiles. React supplies interactiv
 ## Reference method
 
 The source audit, adopted charter and actual exported APIs govern these decisions. Carbon's [form](https://www.carbondesignsystem.com/building-blocks/core/patterns/forms), [loading](https://www.carbondesignsystem.com/building-blocks/core/patterns/loading) and [filtering](https://www.carbondesignsystem.com/building-blocks/core/patterns/filtering) guidance informed the breadth of questions, not either language's palette or composition. Our search controls retain visible labels under our own grammar. Target sizing follows the distinctions in [W3C SC 2.5.8](https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html), without treating automated checks as overall WCAG certification.
+
+## Independent adoption repair
+
+Core 2.2.3 adds documented native form styling and direct-HTML anatomy. Astro 1.2.2 adds a runnable form specimen with assertion-based submit, validation, failure/retry, reset-dialog, appearance and reflow checks. These are bounded browser checks; manual assistive technology, localization and sustained adoption remain open. The independent Claude report is preserved at howardjp/prism7 commit 6649c63.

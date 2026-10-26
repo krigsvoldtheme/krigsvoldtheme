@@ -5,6 +5,8 @@ import {Content as Grammar} from '../data/language-grammar.md';
 import {Content as Coverage} from '../data/language-coverage.md';
 import {Content as Forms} from '../data/language-forms.md';
 import {Content as Results} from '../data/language-query-results.md';
+import {Content as NativeHtml} from '../data/language-native-html.md';
+import {Content as FormStyling} from '../data/language-form-styling.md';
 import {Content as Decisions} from '../data/language-decisions.md';
 import language from '../../../docs/language/language.json';
 import snapshot from '../../../docs/language/snapshot.json';
@@ -13,9 +15,9 @@ const canonical=`https://github.com/${snapshot.repository}/tree/${snapshot.commi
 <BaseLayout title="Krigsvold UI grammar" description="Source decisions, experimental grammar, pattern contracts and framework support for Krigsvold.">
  <article class="design-reference language-reference">
   <header><p class="reference-label">Krigsvold · Independent UI language</p><h1>A grammar for the work.</h1>
-  <p>Experimental grammar {language.grammarVersion}. Core 2.2.1 and Astro 1.2.1 below are experimental releases under the npm next tag. The <a href="/design-system/">installed package reference</a> reports this website’s actual dependencies separately.</p>
+  <p>Experimental grammar {language.grammarVersion}. Core {language.implementation.core.version} and Astro {language.implementation.Astro.version} below are experimental releases under the npm next tag. The <a href="/design-system/">installed package reference</a> reports this website’s actual dependencies separately.</p>
   <p>These are exact copies of the <a href={canonical}>canonical core guidance at {snapshot.commit.slice(0,7)}</a>. Native source objects take priority; translations and new application patterns carry an explicit basis.</p></header>
-  <nav class="reference-nav" aria-label="Language sections"><a href="#support">Framework support</a><a href="#patterns">Pattern contracts</a><a href="#grammar">Grammar</a><a href="#coverage">Coverage review</a><a href="#form-pattern">Validated forms</a><a href="#results-pattern">Query and selection</a><a href="#decisions">Source decisions</a></nav>
+  <nav class="reference-nav" aria-label="Language sections"><a href="#support">Framework support</a><a href="#patterns">Pattern contracts</a><a href="#grammar">Grammar</a><a href="#coverage">Coverage review</a><a href="#form-pattern">Validated forms</a><a href="#native-html">HTML anatomy</a><a href="#form-styling">Form styling</a><a href="#results-pattern">Query and selection</a><a href="#decisions">Source decisions</a></nav>
   <section id="support"><h2>Framework support and maturity</h2><div class="reference-table" tabindex="0" role="region" aria-label="Framework support"><table><thead><tr><th scope="col">Implementation</th><th scope="col">Version</th><th scope="col">Guidance snapshot status</th></tr></thead><tbody>{Object.entries(language.implementation).map(([name,entry])=><tr><th scope="row">{name}</th><td>{'version' in entry ? entry.version : '—'}</td><td>{entry.status}</td></tr>)}</tbody></table></div>
   <p>The source profile is opt-in. Existing palette/default contracts and Astro slots remain compatible. React event, state and focus APIs remain specific to React. See the separate <a href="/agents/">publication and agent setup record</a> for verified availability.</p></section>
   <section id="patterns"><h2>Pattern contracts and provenance</h2><div class="reference-table" tabindex="0" role="region" aria-label="Pattern provenance"><table><thead><tr><th scope="col">Pattern</th><th scope="col">Basis</th><th scope="col">Rules</th></tr></thead><tbody>{language.patterns.map(pattern=><tr><th scope="row">{pattern.id}</th><td>{pattern.basis}</td><td>{'rules' in pattern ? pattern.rules.join('; ') : 'React specimen only; save, failure, draft protection and undo.'}</td></tr>)}</tbody></table></div>
@@ -25,6 +27,8 @@ const canonical=`https://github.com/${snapshot.repository}/tree/${snapshot.commi
   <section id="grammar" class="language-prose"><Grammar /></section>
   <section id="coverage" class="language-prose"><Coverage /></section>
   <section id="form-pattern" class="language-prose"><Forms /></section>
+  <section id="native-html" class="language-prose"><NativeHtml /></section>
+  <section id="form-styling" class="language-prose"><FormStyling /></section>
   <section id="results-pattern" class="language-prose"><Results /></section>
   <section id="decisions" class="language-prose"><Decisions /></section>
   <section><h2>Remaining evidence</h2><ul>{language.openGates.map(gate=><li>{gate}</li>)}</ul><p>Machine-readable <a href="/design-system.json">package and language specification</a>. Source hashes establish provenance; they do not certify design quality or accessibility.</p></section>

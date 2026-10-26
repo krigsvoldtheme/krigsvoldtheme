@@ -9,21 +9,30 @@
   "packages": {
     "core": {
       "name": "@krigsvold/theme",
-      "version": "2.2.1",
+      "version": "2.2.3",
       "published": true,
       "tag": "next"
     },
     "Astro": {
       "name": "@krigsvold/astro",
-      "version": "1.2.1",
+      "version": "1.2.2",
       "published": true,
-      "tag": "next"
+      "tag": "next",
+      "install": "npm install @krigsvold/theme@2.2.3 @krigsvold/astro@1.2.2 astro"
     },
     "React": {
       "name": "@krigsvold/react",
       "version": "0.1.0",
       "published": false,
-      "tag": "next"
+      "tag": "next",
+      "tarball": {
+        "url": "https://github.com/howardjp/design-workbench/releases/download/react-v0.1.0/krigsvold-react-0.1.0.tgz",
+        "sha256": "d7ffd5de0df1f08370d05d5d7a950b932f912b99cd0a2fcf871795e5e0140246",
+        "available": true,
+        "source": "public GitHub pre-release react-v0.1.0"
+      },
+      "install": "npm install https://github.com/howardjp/design-workbench/releases/download/react-v0.1.0/krigsvold-react-0.1.0.tgz react@19 react-dom@19",
+      "theme": "2.1.0"
     }
   },
   "preview": {

@@ -1,6 +1,7 @@
 {
   "repository": "https://github.com/howardjp/design-workbench",
-  "commit": "4e8509c60eef5e8b36984e6164984152bb4f33c2",
+  "commit": "8d1e9b3e0991ad5568fb3f950e4789d17848cc0b",
   "family": "krigsvold",
-  "catalogReferences": 58
+  "catalogReferences": 61,
+  "sourceDigest": "b103810f87141ae043d37ab8ae747f9341bd42ced80229c3cedaacffa4e3b6c2"
 }
