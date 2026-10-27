@@ -18,6 +18,6 @@ try {
  await rm('site/public/react',{recursive:true,force:true});await mkdir('site/public',{recursive:true});
  execFileSync('tar',['-xzf',archive,'--directory',resolve('site/public'),'--no-same-owner','--no-same-permissions']);
  const metadata=JSON.parse(await readFile('site/public/react/preview.json','utf8'));
- if(metadata.sourceCommit!==reference.sourceCommit||metadata.family!==reference.family||metadata.base!=='/react/')throw new Error('React reference provenance mismatch.');
+ if(metadata.sourceCommit!==reference.sourceCommit||metadata.family!==reference.family||metadata.base!=='/')throw new Error('React reference provenance mismatch.');
  console.log(reference.family+': verified public React '+metadata.preview.version+' from '+reference.sourceCommit);
 }finally{await rm(dir,{recursive:true,force:true});}

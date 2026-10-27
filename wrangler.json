@@ -6,17 +6,6 @@
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS",
-    "run_worker_first": [
-      "/mcp",
-      "/health",
-      "/",
-      "/design-language/*",
-      "/design-system/*",
-      "/design-system.json",
-      "/agents/*",
-      "/privacy-and-cookie-notice/*",
-      "/react",
-      "/react/*"
-    ]
+    "run_worker_first": true
   }
 }

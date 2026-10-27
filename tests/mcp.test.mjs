@@ -18,6 +18,12 @@ test('independent compiled MCP serves family guidance and leaves static site rou
  const redirect=await worker.fetch(new Request('https://krigsvoldtheme.dev/design-language/?from=legacy'));assert.equal(redirect.status,308);assert.equal(redirect.headers.get('location'),'https://krigsvolddesign.dev/design-language/?from=legacy');
  assert.ok(manifest.references.some(r=>r.id==='builder-skill'));
  assert.equal(manifest.distribution.packages.React.tarball.available,true);
+ assert.equal(manifest.platforms.React.published,true);
+ assert.equal(manifest.distribution.reactReference,'https://react.krigsvolddesign.dev/');
+ const oldReact=await worker.fetch(new Request('https://krigsvolddesign.dev/react/?page=start'));
+ assert.equal(oldReact.status,308);assert.equal(oldReact.headers.get('location'),'https://react.krigsvolddesign.dev/?page=start');
+ const asset=await worker.fetch(new Request('https://react.krigsvolddesign.dev/assets/example.js'),{ASSETS:{fetch:request=>new Response(request.url)}});
+ assert.equal(await asset.text(),'https://krigsvolddesign.dev/react/assets/example.js');
  const setup=await rpc('tools/call',{name:'get_reference',arguments:{id:'platform:React'}});assert.ok(JSON.parse(setup.content[0].text).content.includes(manifest.distribution.packages.React.tarball.url));
  const forms=await rpc('tools/call',{name:'get_reference',arguments:{id:'styling:forms'}});assert.ok(JSON.parse(forms.content[0].text).content.includes('krigsvold-error-summary'));
  const astro=await rpc('tools/call',{name:'search_guidance',arguments:{query:'Astro slots',kind:'platform'}});assert.ok(!astro.isError);assert.equal(JSON.parse(astro.content[0].text).results[0].id,'platform:Astro');

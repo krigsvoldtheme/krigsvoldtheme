@@ -23,7 +23,7 @@
     "React": {
       "name": "@krigsvold/react",
       "version": "0.1.0",
-      "published": false,
+      "published": true,
       "tag": "next",
       "tarball": {
         "url": "https://github.com/howardjp/design-workbench/releases/download/react-v0.1.0/krigsvold-react-0.1.0.tgz",
@@ -31,8 +31,12 @@
         "available": true,
         "source": "public GitHub pre-release react-v0.1.0"
       },
-      "install": "npm install https://github.com/howardjp/design-workbench/releases/download/react-v0.1.0/krigsvold-react-0.1.0.tgz react@19 react-dom@19",
-      "theme": "2.1.0"
+      "install": "npm install @krigsvold/react@0.1.0 react@19 react-dom@19",
+      "theme": "2.1.0",
+      "distTags": {
+        "latest": "0.1.0",
+        "next": "0.1.0"
+      }
     }
   },
   "preview": {
@@ -40,5 +44,6 @@
     "stage": "preview"
   },
   "home": "https://krigsvolddesign.dev",
-  "reactReference": "https://krigsvolddesign.dev/react/"
+  "reactReference": "https://react.krigsvolddesign.dev/",
+  "reviewedAt": "2026-10-26"
 }
