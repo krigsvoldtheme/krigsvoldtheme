@@ -61,7 +61,20 @@ async function scenario(name, run, { cookie, gpc=false, javaScriptEnabled=true }
 }
 
 try {
-  await scenario('page and menu use origin container breakpoints',async({page})=>{
+  await scenario('origin link hover and footer treatment', async ({page}) => {
+  await page.goto(base+'/#downloads');
+  const source=page.locator('.source-link');
+  await source.hover();
+  await page.waitForFunction(() => getComputedStyle(document.querySelector('.source-link')).color === 'rgb(10, 29, 53)');
+  const action=page.locator('.terminal-download-links a').first();
+  await action.hover();
+  assert.equal(await action.evaluate(e=>getComputedStyle(e).backgroundColor),'rgb(255, 255, 255)');
+  const footer=page.locator('footer').getByRole('link',{name:'React reference',exact:true});
+  await footer.hover();
+  assert.equal(await footer.evaluate(e=>getComputedStyle(e).textDecorationLine),'none');
+});
+
+await scenario('page and menu use origin container breakpoints',async({page})=>{
     for(const [width,container] of [[320,320],[600,540],[900,720],[1100,960],[1280,1140],[1440,1320]]) {
       await page.setViewportSize({width,height:1000});
       for(const selector of ['.mast','.workbench']) {

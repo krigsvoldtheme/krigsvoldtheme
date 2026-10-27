@@ -57,7 +57,7 @@ body .landscape-cover { padding-block-start:9rem; }
 @media(max-width:991.98px) {
  body { --documentation-nav-bg:rgb(6 19 37/.96); }
  .mast nav .mast-menu > a { color:var(--documentation-nav-text); }
- .mast nav .mast-menu > a:is(:hover,:focus-visible) { background:var(--krigsvold-color-ice-100); color:var(--krigsvold-color-ink); }
+ .mast nav .mast-menu > a:is(:hover,:focus-visible) { background:rgb(158 213 230/.1); color:var(--krigsvold-color-ice-200); }
  body:has(.landscape-cover) .site-nav-shell:has(.mast:not([data-menu-ready])) { position:relative; }
 }
 
@@ -66,3 +66,8 @@ body { --documentation-nav-label:rgb(255 255 255/.88); --documentation-mobile-it
 body:has(#workbench[data-krigsvold="dark"]) { --documentation-nav-label:var(--krigsvold-color-ink); --documentation-mobile-item:var(--krigsvold-color-ink); }
 .mast summary,.mast .mast-link { color:var(--documentation-nav-label); }
 @media(max-width:991.98px) { .mast nav .mast-menu > a { color:var(--documentation-mobile-item); } }
+
+/* Experimental inverse chrome needs dark text on its white mobile surface. */
+@media(max-width:991.98px) {
+ body:has(#workbench[data-krigsvold="dark"]) .mast nav .mast-menu > a:is(:hover,:focus-visible) { background:var(--krigsvold-color-ice-100); color:var(--krigsvold-color-ink); }
+}
