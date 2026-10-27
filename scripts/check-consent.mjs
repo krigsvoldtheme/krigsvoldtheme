@@ -406,6 +406,9 @@ try {
     assert.equal(await page.locator('link[rel="canonical"]').getAttribute('href'),'https://krigsvolddesign.dev/');
     assert.ok((await page.locator('main').innerText()).includes('0.3 preview'));
     await page.goto(reactBase+'/');assert.equal(await page.locator('main h1').count(),1);
+    for(const name of ['krigsvold-builder.zip','krigsvold-agent-tools.tar.gz']) {
+      assert.deepEqual(await (await page.request.get(base+'/agents/'+name)).body(),await (await page.request.get(reactBase+'/agents/'+name)).body(),'Both download locations must expose the same current agent archive');
+    }
     const metadata=await (await page.request.get(reactBase+'/preview.json')).json();assert.equal(metadata.family,'krigsvold');assert.equal(metadata.preview.version,'0.3.0');
     await page.goto(reactBase+'/?page=agents');assert.equal(await page.locator('main h1').count(),1);
     assert.equal(await page.getByRole('textbox',{name:'Copyable example source'}).first().inputValue(),'https://krigsvolddesign.dev/mcp');
