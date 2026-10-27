@@ -60,3 +60,9 @@ body .landscape-cover { padding-block-start:9rem; }
  .mast nav .mast-menu > a:is(:hover,:focus-visible) { background:var(--krigsvold-color-ice-100); color:var(--krigsvold-color-ink); }
  body:has(.landscape-cover) .site-nav-shell:has(.mast:not([data-menu-ready])) { position:relative; }
 }
+
+/* Restore source link opacity independently of the full-white identity. */
+body { --documentation-nav-label:rgb(255 255 255/.88); --documentation-mobile-item:rgb(255 255 255/.76); }
+body:has(#workbench[data-krigsvold="dark"]) { --documentation-nav-label:var(--krigsvold-color-ink); --documentation-mobile-item:var(--krigsvold-color-ink); }
+.mast summary,.mast .mast-link { color:var(--documentation-nav-label); }
+@media(max-width:991.98px) { .mast nav .mast-menu > a { color:var(--documentation-mobile-item); } }

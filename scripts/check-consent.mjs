@@ -74,6 +74,10 @@ try {
     assert.ok(heading.family.includes('Roboto'));
     assert.equal(heading.weight,'600');
     assert.ok(Math.abs(parseFloat(heading.leading)-15.808)<.05);
+    for(const selector of ['.mast .brand','.mast summary','footer h2','footer li a']) {
+      assert.equal(await page.locator(selector).first().evaluate(e=>getComputedStyle(e).webkitFontSmoothing),'antialiased',`${selector} keeps the origin font rendering`);
+    }
+
   });
   await scenario('no decision loads no external services or cookies',async({page,context,requests})=>{
     assert.equal(await page.locator('#cookie-banner').isVisible(),true);
