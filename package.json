@@ -18,7 +18,7 @@
     "bplist-creator": "^0.3.0",
     "bplist-parser": "^0.5.0",
     "playwright": "^1.64.1",
-    "wrangler": "^4.152.0"
+    "wrangler": "^4.153.0"
   },
   "engines": {
     "node": ">=20.19.0"
