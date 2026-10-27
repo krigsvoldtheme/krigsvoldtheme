@@ -58,6 +58,23 @@ async function scenario(name, run, { cookie, gpc=false, javaScriptEnabled=true }
 }
 
 try {
+  await scenario('page and menu use origin container breakpoints',async({page})=>{
+    for(const [width,container] of [[320,320],[600,540],[900,720],[1100,960],[1280,1140],[1440,1320]]) {
+      await page.setViewportSize({width,height:1000});
+      for(const selector of ['.mast','.workbench']) {
+        const actual=await page.locator(selector).evaluate(e=>e.getBoundingClientRect().width);
+        assert.ok(Math.abs(actual-(container-24))<1,`${selector} at ${width}px: ${actual}`);
+      }
+    }
+  });
+  await scenario('footer typography follows the rendered origin cascade',async({page})=>{
+    const heading=await page.locator('footer h2').first().evaluate(e=>{
+      const s=getComputedStyle(e);return {family:s.fontFamily,weight:s.fontWeight,size:s.fontSize,leading:s.lineHeight};
+    });
+    assert.ok(heading.family.includes('Roboto'));
+    assert.equal(heading.weight,'600');
+    assert.ok(Math.abs(parseFloat(heading.leading)-15.808)<.05);
+  });
   await scenario('no decision loads no external services or cookies',async({page,context,requests})=>{
     assert.equal(await page.locator('#cookie-banner').isVisible(),true);
     assert.deepEqual(requests,[]);
