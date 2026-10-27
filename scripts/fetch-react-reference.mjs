@@ -5,7 +5,7 @@ import {tmpdir} from 'node:os';
 import {join,resolve} from 'node:path';
 const reference=JSON.parse(await readFile('site/react-reference.json','utf8'));
 if(!/^[a-f0-9]{64}$/.test(reference.sha256))throw new Error('React reference must pin a SHA-256.');
-if(!reference.archiveUrl.startsWith('https://github.com/howardjp/design-workbench/releases/download/'))throw new Error('Unexpected React reference publisher.');
+if(!['https://github.com/k3jph/design-workbench/releases/download/','https://github.com/howardjp/design-workbench/releases/download/'].some(prefix=>reference.archiveUrl.startsWith(prefix)))throw new Error('Unexpected React reference publisher.');
 const dir=await mkdtemp(join(tmpdir(),'react-reference-'));
 try {
  const bytes=process.env.DESIGN_REACT_ARCHIVE?await readFile(process.env.DESIGN_REACT_ARCHIVE):Buffer.from(await (async()=>{const r=await fetch(reference.archiveUrl,{signal:AbortSignal.timeout(60000)});if(!r.ok)throw new Error('React reference download failed: '+r.status);return r.arrayBuffer();})());

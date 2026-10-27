@@ -1,0 +1,16 @@
+/* krigsvold.org: Bootstrap .container breakpoints and 12px half gutters.
+   Documentation specimens keep their task-specific internal layouts. */
+:root { --documentation-container:100%; }
+@media(min-width:576px) { :root { --documentation-container:540px; } }
+@media(min-width:768px) { :root { --documentation-container:720px; } }
+@media(min-width:992px) { :root { --documentation-container:960px; } }
+@media(min-width:1200px) { :root { --documentation-container:1140px; } }
+@media(min-width:1400px) { :root { --documentation-container:1320px; } }
+body .mast,body .workbench,body .palette-notes {
+  inline-size:calc(100% - 1.5rem);
+  max-inline-size:calc(var(--documentation-container) - 1.5rem);
+  margin-inline:auto;
+}
+body .wrap { inline-size:100%; max-inline-size:var(--documentation-container); padding-inline:.75rem; }
+body .landscape-cover { padding-inline:max(.75rem,calc((100% - var(--documentation-container)) / 2 + .75rem)); }
+body { font-size:1rem; }
