@@ -4,12 +4,12 @@
     "version": "0.3.0",
     "stage": "preview"
   },
-  "artifactVersion": "0.3.0-adoption.3",
-  "sourceCommit": "f702aa0de2c4e50960778bf44acc9a7cd0875150",
+  "artifactVersion": "0.3.0-adoption.4",
+  "sourceCommit": "671ff340f6c156430d8fd3a7b9eb8c50b5f7cf4f",
   "base": "/",
   "readOnlyReference": true,
-  "archive": "krigsvold-react-reference-0.3.0-adoption.3.tar.gz",
-  "sha256": "0b15de11d2d220511d63cc595a7459f694886a84b732fc496db9621c8ccc9dd7",
-  "bytes": 2624539,
-  "archiveUrl": "https://github.com/k3jph/design-workbench/releases/download/design-v0.3.0-adoption.3/krigsvold-react-reference-0.3.0-adoption.3.tar.gz"
+  "archive": "krigsvold-react-reference-0.3.0-adoption.4.tar.gz",
+  "sha256": "62d551bfdf897234c0737e88ae97f957f3f392a3a9e23be9d4543236dd70f8ae",
+  "bytes": 2626904,
+  "archiveUrl": "https://github.com/k3jph/design-workbench/releases/download/design-v0.3.0-adoption.4/krigsvold-react-reference-0.3.0-adoption.4.tar.gz"
 }

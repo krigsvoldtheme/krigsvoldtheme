@@ -1,0 +1,8 @@
+/* Origin ordinary links: krigsvold.org/src/styles/site.css.
+   Scoped to this documentation host; nested dark specimens retain their tokens. */
+body.krigsvold:not([data-krigsvold="dark"]), body.krigsvold #workbench[data-krigsvold="light"] { --krigsvold-link-hover:var(--krigsvold-color-navy-900); }
+body.krigsvold .source-link:hover { color:var(--krigsvold-link-hover); }
+/* Source filled hero action: lighten its surface, preserving dark text. */
+body.krigsvold .terminal-download-links a:hover { background:white; color:var(--krigsvold-color-navy-950); }
+/* Source hero outline action. */
+.landscape-cover .cover-link:hover { background:var(--krigsvold-color-ice-200); color:var(--krigsvold-color-navy-950); }
