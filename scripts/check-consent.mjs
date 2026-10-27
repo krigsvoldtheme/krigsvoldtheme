@@ -566,10 +566,10 @@ try {
     const bytes=await (await page.request.get(new URL(icon,page.url()).href)).body();
     const masterText=await page.locator('footer').innerText();
     await page.goto(reactBase+'/');
-    assert.equal(await page.locator('footer a[aria-label="James Howard website"]').innerText(),owner);
+    assert.equal(await page.locator('footer a[aria-label="James Howard website"]').innerText(),owner.replace('krigsvolddesign.dev','react.krigsvolddesign.dev'));
     const reactIcon=await page.locator('footer a[aria-label="James Howard website"] img').getAttribute('src');
     assert.deepEqual(await (await page.request.get(new URL(reactIcon,page.url()).href)).body(),bytes);
-    assert.equal(await page.locator('footer').innerText(),masterText);
+    assert.equal(await page.locator('footer').innerText(),masterText.replace('krigsvolddesign.dev','react.krigsvolddesign.dev'));
     assert.equal(await page.getByRole('link',{name:'React reference',exact:true}).getAttribute('href'),'https://react.krigsvolddesign.dev/');
   });
   console.log(`${results.length} browser scenarios passed. Google requests were intercepted.`);
