@@ -61,6 +61,12 @@ async function scenario(name, run, { cookie, gpc=false, javaScriptEnabled=true }
 }
 
 try {
+  await scenario('navigation and footer identity refinements', async ({page}) => {
+    assert.equal(await page.locator('.mast nav').getByRole('link',{name:'The Language',exact:true}).count(),1);
+    assert.equal(await page.locator('.mast summary').evaluate(e=>getComputedStyle(e).textTransform),'none');
+    assert.equal(await page.locator('footer a[href="mailto:count@krigsvold.org"]').count(),0);
+  });
+
   await scenario('origin link hover and footer treatment', async ({page}) => {
   await page.goto(base+'/#downloads');
   const source=page.locator('.source-link');
@@ -491,7 +497,7 @@ await scenario('page and menu use origin container breakpoints',async({page})=>{
     await page.locator('.mast-menu a[href="/agents/"]').click();
     await page.waitForURL(base+'/agents/');
     await page.locator('.mast summary').click();
-    assert.equal(await page.locator('.mast-menu a[aria-current]').innerText(),'Agent tools');
+    assert.equal(await page.locator('.mast-menu a[aria-current]').innerText(),'Agent Tools');
     await page.screenshot({path:'artifacts/qa/krigsvold-header-desktop.png'});
     await page.setViewportSize({width:320,height:900});
     await page.getByRole('button',{name:'Menu',exact:true}).click();
