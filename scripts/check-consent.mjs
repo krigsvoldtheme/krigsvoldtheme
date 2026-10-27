@@ -10,7 +10,7 @@ import { resolve, extname, sep } from 'node:path';
 
 const root = resolve('dist');
 const types = { '.html':'text/html', '.js':'application/javascript', '.css':'text/css', '.svg':'image/svg+xml', '.png':'image/png', '.ico':'image/x-icon', '.woff2':'font/woff2', '.webmanifest':'application/manifest+json' };
-const server = createServer(async (req, res) => {
+const serve = root => createServer(async (req, res) => {
   try {
     const pathname = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);
     const path = resolve(root, '.' + pathname + (pathname.endsWith('/') ? 'index.html' : ''));
@@ -20,7 +20,10 @@ const server = createServer(async (req, res) => {
     res.end(content);
   } catch { res.writeHead(404).end(); }
 });
+const server=serve(root), reactServer=serve(resolve('dist/react'));
 await new Promise(done => server.listen(0, '127.0.0.1', done));
+await new Promise(done => reactServer.listen(0, '127.0.0.1', done));
+const reactBase=`http://127.0.0.1:${reactServer.address().port}`;
 const base = `http://127.0.0.1:${server.address().port}`;
 const id = 'G-FSDET4HG4L';
 const tagUrl = `https://www.googletagmanager.com/gtag/js?id=${id}`;
@@ -37,7 +40,7 @@ async function scenario(name, run, { cookie, gpc=false, javaScriptEnabled=true }
   const requests=[], errors=[];
   await context.route('**/*', async route => {
     const url=route.request().url();
-    if (url.startsWith(base+'/')) return route.continue();
+    if (url.startsWith(base+'/') || url.startsWith(reactBase+'/')) return route.continue();
     requests.push(url);
     if (url===tagUrl) return route.fulfill({contentType:'application/javascript',body:'window.__testTagLoaded=true;'});
     return route.abort();
@@ -402,9 +405,12 @@ try {
   await scenario('0.3 design home and public React reference preserve the language and local assets',async({page})=>{
     assert.equal(await page.locator('link[rel="canonical"]').getAttribute('href'),'https://krigsvolddesign.dev/');
     assert.ok((await page.locator('main').innerText()).includes('0.3 preview'));
-    await page.goto(base+'/react/');assert.equal(await page.locator('main h1').count(),1);
-    const metadata=await (await page.request.get(base+'/react/preview.json')).json();assert.equal(metadata.family,'krigsvold');assert.equal(metadata.preview.version,'0.3.0');
-    await page.goto(base+'/react/?page=agents');assert.equal(await page.locator('main h1').count(),1);
+    await page.goto(reactBase+'/');assert.equal(await page.locator('main h1').count(),1);
+    for(const name of ['krigsvold-builder.zip','krigsvold-agent-tools.tar.gz']) {
+      assert.deepEqual(await (await page.request.get(base+'/agents/'+name)).body(),await (await page.request.get(reactBase+'/agents/'+name)).body(),'Both download locations must expose the same current agent archive');
+    }
+    const metadata=await (await page.request.get(reactBase+'/preview.json')).json();assert.equal(metadata.family,'krigsvold');assert.equal(metadata.preview.version,'0.3.0');
+    await page.goto(reactBase+'/?page=agents');assert.equal(await page.locator('main h1').count(),1);
     assert.equal(await page.getByRole('textbox',{name:'Copyable example source'}).first().inputValue(),'https://krigsvolddesign.dev/mcp');
     await page.setViewportSize({width:320,height:900});await page.addStyleTag({content:'html{font-size:200% !important}'});
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,'Public React reference reflows with enlarged text');
@@ -437,7 +443,7 @@ try {
     assert.equal(astro.panel.backgroundColor,'rgb(255, 255, 255)');
     const astroHeading=await page.locator('main h1').evaluate(e=>({family:getComputedStyle(e).fontFamily,weight:getComputedStyle(e).fontWeight}));
     const astroMark=await (await page.request.get(base+'/krigsvold-mark.svg')).body();
-    await page.goto(base+'/react/');
+    await page.goto(reactBase+'/');
     await page.locator('.krigsvold-app-header summary').first().click();
     await page.evaluate(()=>document.fonts.ready);
     const react=await inspect(reactSelectors);
@@ -508,10 +514,10 @@ try {
     }
     await page.locator('footer').scrollIntoViewIfNeeded();
     await page.screenshot({path:'artifacts/qa/krigsvold-footer-mobile.png'});
-    await page.goto(base+'/react/');
+    await page.goto(reactBase+'/');
     for(const [index,width] of [1440,900,600,320].entries()) {
       await page.setViewportSize({width,height:1000});
-      assert.deepEqual(await inspect('.krigsvold-reference-footer-'),observed[index],`Source footer rules differ at ${width}px`);
+      assert.deepEqual(await inspect('.krigsvold-master-footer-'),observed[index],`Source footer rules differ at ${width}px`);
     }
     await page.goto(base+'/');
     await page.setViewportSize({width:1440,height:1000});
@@ -548,14 +554,27 @@ try {
       expected.push(state);
     }
     for(const [i,mode] of ['light','dark'].entries()) {
-      await page.goto(base+'/react/?mode='+mode);
+      await page.goto(reactBase+'/?mode='+mode);
       const state=await inspect('.krigsvold-app-header','.krigsvold-reference-cover','.krigsvold-reference-brand');
       for(const key of ['background','color','top','left','right','radius','heroTop']) assert.equal(state[key],expected[i][key],key+' agrees across renderers');
       assert.ok(state.bottom<state.heroBottom,'Reference menu overlays hero');
     }
   });
+  await scenario('React footer owner identity and provenance match the master site',async({page})=>{
+    const owner=await page.locator('footer a[aria-label="James Howard website"]').innerText();
+    const icon=await page.locator('footer a[aria-label="James Howard website"] img').getAttribute('src');
+    const bytes=await (await page.request.get(new URL(icon,page.url()).href)).body();
+    const masterText=await page.locator('footer').innerText();
+    await page.goto(reactBase+'/');
+    assert.equal(await page.locator('footer a[aria-label="James Howard website"]').innerText(),owner);
+    const reactIcon=await page.locator('footer a[aria-label="James Howard website"] img').getAttribute('src');
+    assert.deepEqual(await (await page.request.get(new URL(reactIcon,page.url()).href)).body(),bytes);
+    assert.equal(await page.locator('footer').innerText(),masterText);
+    assert.equal(await page.getByRole('link',{name:'React reference',exact:true}).getAttribute('href'),'https://react.krigsvolddesign.dev/');
+  });
   console.log(`${results.length} browser scenarios passed. Google requests were intercepted.`);
 } finally {
   await browser.close();
   await new Promise(done=>server.close(done));
+  await new Promise(done=>reactServer.close(done));
 }
