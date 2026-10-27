@@ -71,3 +71,6 @@ body:has(#workbench[data-krigsvold="dark"]) { --documentation-nav-label:var(--kr
 @media(max-width:991.98px) {
  body:has(#workbench[data-krigsvold="dark"]) .mast nav .mast-menu > a:is(:hover,:focus-visible) { background:var(--krigsvold-color-ice-100); color:var(--krigsvold-color-ink); }
 }
+
+/* Documentation navigation uses title-case labels. */
+.mast :is(summary,.mast-link) { text-transform:none; }

@@ -1,7 +1,7 @@
 ---
 import '../styles/site-header.css';
 const current = Astro.url.pathname;
-const buildLinks = [['https://react.krigsvolddesign.dev/', 'React'], ['/design-system/', 'Astro & foundations'], ['/agents/', 'Agent tools']];
+const buildLinks = [['https://react.krigsvolddesign.dev/', 'React'], ['/design-system/', 'Astro & Foundations'], ['/agents/', 'Agent Tools']];
 ---
 <div class="site-nav-shell">
   <header class="mast" data-site-header>
@@ -11,7 +11,7 @@ const buildLinks = [['https://react.krigsvolddesign.dev/', 'React'], ['/design-s
     </div>
     <nav id="krigsvold-site-navigation" aria-label="Site">
       <div class="mast-navigation-links">
-        <a class="mast-link" href="/design-language/" aria-current={current === '/design-language/' ? 'page' : undefined}>The language</a>
+        <a class="mast-link" href="/design-language/" aria-current={current === '/design-language/' ? 'page' : undefined}>The Language</a>
         <details name="krigsvold-site-navigation">
           <summary class:list={{ 'is-active-section': buildLinks.some(([href]) => href === current) }}>Build <svg class="mast-caret" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m7 10 5 5 5-5" /></svg></summary>
           <div class="mast-menu" data-krigsvold="light">
