@@ -4,12 +4,12 @@
     "version": "0.3.0",
     "stage": "preview"
   },
-  "artifactVersion": "0.3.0-adoption.5",
-  "sourceCommit": "afab79ccd5e4044591e8e45fdc8d22f528745670",
+  "artifactVersion": "0.3.0-sha.a6d42669a28f341977e11468c34da90c27b882ba",
+  "sourceCommit": "a6d42669a28f341977e11468c34da90c27b882ba",
   "base": "/",
   "readOnlyReference": true,
-  "archive": "krigsvold-react-reference-0.3.0-adoption.5.tar.gz",
-  "sha256": "9bfe17d4cad74eb3ce36fd968bb7c7e545b25e451006439ab06a92713adef091",
-  "bytes": 2626969,
-  "archiveUrl": "https://github.com/k3jph/design-workbench/releases/download/design-v0.3.0-adoption.5/krigsvold-react-reference-0.3.0-adoption.5.tar.gz"
+  "archive": "krigsvold-react-reference-0.3.0-sha.a6d42669a28f341977e11468c34da90c27b882ba.tar.gz",
+  "sha256": "521c3d476db492fd1e9d26059137487d56adc0e8d0e41be35c265622ca71c853",
+  "bytes": 2627437,
+  "archiveUrl": "https://github.com/k3jph/design-workbench/releases/download/design-v0.3.0-sha.a6d42669a28f341977e11468c34da90c27b882ba/krigsvold-react-reference-0.3.0-sha.a6d42669a28f341977e11468c34da90c27b882ba.tar.gz"
 }
