@@ -4,12 +4,12 @@
     "version": "0.3.0",
     "stage": "preview"
   },
-  "artifactVersion": "0.3.0-sha.474540d25339896a689c663547e4d6ff0d8ed34b",
-  "sourceCommit": "474540d25339896a689c663547e4d6ff0d8ed34b",
+  "artifactVersion": "0.3.0-sha.aafd9a8443e0c6cdc4afd6f973a605faa74b8f2c",
+  "sourceCommit": "aafd9a8443e0c6cdc4afd6f973a605faa74b8f2c",
   "base": "/",
   "readOnlyReference": true,
-  "archive": "krigsvold-react-reference-0.3.0-sha.474540d25339896a689c663547e4d6ff0d8ed34b.tar.gz",
-  "sha256": "8a9e9770a826e709fe6630070add5a303d03572d99fbcce88d74e9d514a466ea",
-  "bytes": 2631351,
-  "archiveUrl": "https://github.com/k3jph/design-workbench/releases/download/design-v0.3.0-sha.474540d25339896a689c663547e4d6ff0d8ed34b/krigsvold-react-reference-0.3.0-sha.474540d25339896a689c663547e4d6ff0d8ed34b.tar.gz"
+  "archive": "krigsvold-react-reference-0.3.0-sha.aafd9a8443e0c6cdc4afd6f973a605faa74b8f2c.tar.gz",
+  "sha256": "6fc383da6a56ff8fce80c972a35fc2898973c7ea884969296d86f376d4af1283",
+  "bytes": 2708407,
+  "archiveUrl": "https://github.com/k3jph/design-workbench/releases/download/design-v0.3.0-sha.aafd9a8443e0c6cdc4afd6f973a605faa74b8f2c/krigsvold-react-reference-0.3.0-sha.aafd9a8443e0c6cdc4afd6f973a605faa74b8f2c.tar.gz"
 }
