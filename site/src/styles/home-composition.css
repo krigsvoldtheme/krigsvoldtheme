@@ -1,0 +1,30 @@
+/* Homepage task composition: host tooling, not a change to the source shell. */
+.download-nav { display:flex; flex-wrap:wrap; gap:.75rem 1.5rem; margin:1.5rem 0 2.5rem; font:700 .95rem/1.5 var(--krigsvold-font-sans); }
+.download-group { padding-block:2.5rem; border-top:1px solid var(--krigsvold-line); scroll-margin-top:7rem; }
+.download-group > header { margin-bottom:1.5rem; max-width:48rem; }
+.download-group > header h3 { margin:0 0 .5rem; font-size:1.65rem; }
+.download-group > header p { margin:0; color:var(--krigsvold-muted); font-size:1rem; }
+.download-group .app-ports { margin:0; gap:1.5rem 2.5rem; }
+.download-group .app-ports article { padding:0; border:0; border-radius:0; }
+.download-group .app-ports h4 { font-size:1.25rem; margin:0 0 .75rem; }
+.download-group .app-ports p { font-size:.95rem; line-height:1.65; }
+.download-group .chatgpt-port { grid-column:auto; }
+.download-group .port-links { font: .9rem/1.6 var(--krigsvold-font-sans); }
+.download-group summary { font:700 .9rem/1.6 var(--krigsvold-font-sans); }
+.terminal-setup { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:2.5rem; align-items:start; }
+.terminal-setup > * { min-width:0; }
+.terminal-setup .zsh-download { display:block; margin:0; padding:0; border:0; }
+.terminal-setup .zsh-download h4 { font-size:1.25rem; margin:0 0 .75rem; }
+.terminal-setup .zsh-files { margin-block:1rem; }
+.download-group .download-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 2.5rem; }
+.download-group .download-list a { min-width:0; }
+.download-group .download-list strong { font-size:1rem; }
+.download-group .download-list small { font-size:.85rem; }
+.download-group :is(.css-instructions,details) { max-width:100%; }
+.download-group pre { max-width:100%; overflow:auto; }
+@media(max-width:850px) { .terminal-setup,.download-group .download-list { grid-template-columns:minmax(0,1fr); } }
+
+@media(min-width:1200px) { .download-group { display:grid; grid-template-columns:minmax(12rem,1fr) minmax(0,3fr); gap:2rem; } .download-group > header { margin:0; } }
+.download-group .app-ports { align-content:start; }
+.download-group .css-instructions { border:0; margin:1.5rem 0 0; padding:0; }
+.download-group h4 { font-family:var(--krigsvold-font-serif); }
