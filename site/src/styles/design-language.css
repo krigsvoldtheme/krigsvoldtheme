@@ -1,0 +1,6 @@
+.language-prose { margin-block:4rem; }
+ .language-prose h1 { font-size:clamp(1.8rem,3vw,2.6rem); margin-block-end:1.5rem; }
+ .language-prose table { display:block; overflow:auto; max-inline-size:100%; font-family:var(--krigsvold-font-sans); font-size:.94rem; }
+ .language-prose th, .language-prose td { vertical-align:top; text-align:start; padding:.8rem .9rem; border-block-end:1px solid var(--krigsvold-line); }
+ .language-prose code { overflow-wrap:anywhere; }
+ .language-prose p, .language-prose li { max-inline-size:var(--krigsvold-reading-width); }

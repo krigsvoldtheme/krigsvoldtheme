@@ -1,17 +1,11 @@
 ---
+import '../styles/shell.css';
 import ThemeLayout from '@krigsvold/astro/Layout.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import CookieConsent from '../components/CookieConsent.astro';
 import Appearance from '../components/Appearance.astro';
-import '../styles/global.css';
-import '../styles/link-behavior.css';
 
-import '../styles/site-chrome.css';
-import '../styles/origin/material-kit.css';
-import '../styles/origin/site.css';
-import '../styles/source-frame.css';
-import '../styles/shell-adapter.css';
 
 const { title = 'Krigsvold · Design language 0.3 preview', description = 'Krigsvold Light and Dark, an independent design language for publishing, services, and applications, with components, patterns and agent tools, in paper, navy, ice, and bronze.' } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);

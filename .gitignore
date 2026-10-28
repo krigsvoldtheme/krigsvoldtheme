@@ -6,3 +6,5 @@ site/public/downloads/
 .DS_Store
 
 site/public/react/
+
+site/public/shell/
