@@ -1,0 +1,93 @@
+{
+  "source": "basuhoward/krigsvold.org",
+  "commit": "a3cf072c516c59ed35814e0fa153028cc91ceecd",
+  "sourcePage": "https://krigsvold.org/what-is-krigsvold/",
+  "comparedPage": "/design-language/",
+  "scope": "Computed geometry and typography only; content, identity and optional imagery intentionally differ. Source capture excludes tracking and seasonal scripts.",
+  "viewports": {
+    "768": {
+      ".site-navbar": {
+        "width": 696,
+        "font": "Roboto, Arial, sans-serif",
+        "size": "16px",
+        "lineHeight": "26.4px",
+        "paddingTop": "8.8px",
+        "paddingBottom": "8.8px",
+        "display": "flex",
+        "columns": "none"
+      },
+      ".page-masthead": {
+        "width": 768,
+        "font": "Roboto, Arial, sans-serif",
+        "size": "16px",
+        "lineHeight": "26.4px",
+        "paddingTop": "160px",
+        "paddingBottom": "67.2px",
+        "display": "flex",
+        "columns": "none"
+      },
+      ".page-masthead h1": {
+        "width": 696,
+        "font": "\"Roboto Slab\", Georgia, serif",
+        "size": "46.08px",
+        "lineHeight": "46.08px",
+        "paddingTop": "0px",
+        "paddingBottom": "0px",
+        "display": "block",
+        "columns": "none"
+      },
+      ".editorial-content": {
+        "width": 720,
+        "font": "Roboto, Arial, sans-serif",
+        "size": "16.96px",
+        "lineHeight": "27.984px",
+        "paddingTop": "0px",
+        "paddingBottom": "0px",
+        "display": "block",
+        "columns": "none"
+      }
+    },
+    "1440": {
+      ".site-navbar": {
+        "width": 1296,
+        "font": "Roboto, Arial, sans-serif",
+        "size": "16px",
+        "lineHeight": "26.4px",
+        "paddingTop": "8.8px",
+        "paddingBottom": "8.8px",
+        "display": "flex",
+        "columns": "none"
+      },
+      ".page-masthead": {
+        "width": 1440,
+        "font": "Roboto, Arial, sans-serif",
+        "size": "16px",
+        "lineHeight": "26.4px",
+        "paddingTop": "160px",
+        "paddingBottom": "67.2px",
+        "display": "flex",
+        "columns": "none"
+      },
+      ".page-masthead h1": {
+        "width": 966,
+        "font": "\"Roboto Slab\", Georgia, serif",
+        "size": "86.4px",
+        "lineHeight": "86.4px",
+        "paddingTop": "0px",
+        "paddingBottom": "0px",
+        "display": "block",
+        "columns": "none"
+      },
+      ".editorial-content": {
+        "width": 880,
+        "font": "Roboto, Arial, sans-serif",
+        "size": "16.96px",
+        "lineHeight": "27.984px",
+        "paddingTop": "0px",
+        "paddingBottom": "0px",
+        "display": "block",
+        "columns": "none"
+      }
+    }
+  }
+}

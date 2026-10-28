@@ -1,0 +1,17 @@
+---
+import { settings, slugify } from '../lib/content.mjs';
+---
+<div class="nav-shell"><div class="container">
+  <nav class="navbar navbar-expand-lg site-navbar" aria-label="Primary navigation">
+    <a class="navbar-brand" href="/"><img src="/assets/img/identity/favicon.svg" alt="" width="34" height="34" /><span>The Count of Krigsvold</span></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#primaryNavigation" aria-controls="primaryNavigation" aria-expanded="false" aria-label="Open navigation"><span class="navbar-toggler-icon" aria-hidden="true"><span class="navbar-toggler-bar bar1"></span><span class="navbar-toggler-bar bar2"></span><span class="navbar-toggler-bar bar3"></span></span></button>
+    <div class="collapse navbar-collapse" id="primaryNavigation">
+      <ul class="navbar-nav ms-auto align-items-lg-center">
+        {settings.main_menu_settings.menu_items.map(item => item.submenu_items ?
+          <li class="nav-item dropdown dropdown-hover"><button class="nav-link" id={`nav-${slugify(item.title)}`} type="button" data-bs-toggle="dropdown" aria-expanded="false">{item.title} <svg class="nav-caret" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m7 10 5 5 5-5" /></svg></button><ul class="dropdown-menu dropdown-menu-end" aria-labelledby={`nav-${slugify(item.title)}`}>{item.submenu_items.map(sub => <li><a class="dropdown-item" href={sub.url}>{sub.title}</a></li>)}</ul></li>
+          : <li class="nav-item"><a class="nav-link" href={item.url}>{item.title}</a></li>)}
+      </ul>
+      <form class="site-search" action="/search/" method="get" role="search"><label class="visually-hidden" for="site-search">Search Krigsvold</label><input id="site-search" type="search" name="q" placeholder="Search" autocomplete="off" /><button type="submit" aria-label="Submit search"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.5" /><path d="m16 16 4.5 4.5" /></svg></button></form>
+    </div>
+  </nav>
+</div></div>

@@ -1,42 +1,11 @@
 ---
-import '../styles/site-footer.css';
+const settings={footer_menu_settings:{menu_items:[
+{title:'The language',submenu_items:[{title:'Principles and decisions',url:'/design-language/'},{title:'Pattern contracts',url:'/design-language/#patterns'}]},
+{title:'Build',submenu_items:[{title:'React reference',url:'https://react.krigsvolddesign.dev/'},{title:'Astro & foundations',url:'/design-system/'},{title:'MCP and builder skill',url:'/agents/'}]},
+{title:'Elsewhere',submenu_items:[{title:'James Howard',url:'https://jameshoward.us/'},{title:'The Count of Krigsvold',url:'https://krigsvold.org/'},{title:'Martlet',url:'https://martletdesign.dev/'}]},
+{title:'Legal',submenu_items:[{title:'Privacy Notice',url:'/privacy-and-cookie-notice/'},{title:'Cookie Settings',url:'/privacy-and-cookie-notice/#cookie-settings',data:{'cookie-preferences':''}},{title:'Terms of Use',url:'https://jameshoward.us/terms-of-use/'},{title:'Copyright',url:'https://jameshoward.us/copyright/'},{title:'Design Licensing',url:'/privacy-and-cookie-notice/#copyright'}]}]}};
 ---
-<footer class="site-footer">
-  <div class="footer-inner">
-    <div class="footer-grid">
-      <div class="footer-identity">
-        <a class="footer-owner" href="https://jameshoward.us/" aria-label="James Howard website">
-          <img src="/assets/identity/jh-badge-1x1.svg" alt="" width="58" height="58" loading="lazy" />
-          <span class="footer-site">krigsvolddesign.dev</span>
-          <span class="footer-byline">A website of James Howard</span>
-        </a>
-        <p>Components, working patterns, and agent guidance grounded in krigsvold.org.</p>
-      </div>
-      <nav aria-label="Footer language"><h2>The language</h2><ul>
-        <li><a href="/design-language/">Principles and decisions</a></li>
-        <li><a href="/design-language/#patterns">Pattern contracts</a></li>
-        <li><a href="/design-language/#decisions">Source decisions</a></li>
-      </ul></nav>
-      <nav aria-label="Footer build"><h2>Build</h2><ul>
-        <li><a href="https://react.krigsvolddesign.dev/">React reference</a></li>
-        <li><a href="/design-system/">Astro & foundations</a></li>
-        <li><a href="/agents/">MCP and builder skill</a></li>
-      </ul></nav>
-      <nav aria-label="Related websites"><h2>Elsewhere</h2><ul>
-        <li><a href="https://jameshoward.us/">James Howard</a></li>
-        <li><a href="https://krigsvold.org/">The Count of Krigsvold</a></li>
-        <li><a href="https://martletdesign.dev/">Martlet</a></li>
-      </ul></nav>
-      <nav aria-label="Legal"><h2>Legal</h2><ul>
-        <li><a href="/privacy-and-cookie-notice/">Privacy Notice</a></li>
-        <li><a href="/privacy-and-cookie-notice/#cookie-settings" data-cookie-preferences>Cookie Settings</a></li>
-        <li><a href="https://jameshoward.us/terms-of-use/">Terms of Use</a></li>
-        <li><a href="https://jameshoward.us/copyright/">Copyright</a></li>
-        <li><a href="/privacy-and-cookie-notice/#copyright">Design Licensing</a></li>
-      </ul></nav>
-    </div>
-    <div class="footer-base">
-      <p>Copyright © 2026{new Date().getUTCFullYear() > 2026 ? `–${new Date().getUTCFullYear()}` : ''} James P. Howard, II</p>
-    </div>
-  </div>
-</footer>
+<footer class="site-footer"><div class="container"><div class="row gy-5 gx-4 gx-lg-5">
+  <div class="col-lg-4"><a class="footer-owner" href="https://jameshoward.us/" aria-label="James Howard website"><img class="footer-owner__badge" src="/assets/identity/jh-badge-1x1.svg" alt="" width="58" height="58" /><span class="footer-owner__site">krigsvolddesign.dev</span><span class="footer-owner__byline">A website of James Howard</span></a><p class="mt-4">Components, working patterns, and agent guidance grounded in krigsvold.org.</p></div>
+  {settings.footer_menu_settings.menu_items.map(item => <div class="col-6 col-md-3 col-lg-2"><h2>{item.title}</h2>{item.submenu_items && <ul>{item.submenu_items.map(sub => <li><a href={sub.url} target={sub.target} rel={[sub.relationship,sub.target==='_blank'?'noopener':null].filter(Boolean).join(' ')||undefined} {...Object.fromEntries(Object.entries(sub.data||{}).map(([key,value])=>['data-'+key,value??'']))}>{sub.title}</a></li>)}</ul>}</div>)}
+</div><div class="site-footer__base"><p>Copyright © 2026–{new Date().getUTCFullYear()} James P. Howard, II</p></div></div></footer>

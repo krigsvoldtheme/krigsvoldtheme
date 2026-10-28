@@ -1,11 +1,13 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageMasthead from '../components/PageMasthead.astro';
 import { analyticsId } from '../data/site-settings.mjs';
 ---
 <BaseLayout title="Privacy and Cookie Notice | Krigsvold" description="How Krigsvold handles optional Google Analytics, cookies, and privacy choices.">
-  <article class="privacy-page">
-    <h1>Privacy and Cookie Notice</h1>
-    <p class="updated">Last updated October 18, 2026.</p>
+<PageMasthead title="Privacy and Cookie Notice" eyebrow="Krigsvold · Notices"><p>Privacy choices and optional analytics.</p><p slot="metadata">Last updated October 18, 2026.</p></PageMasthead>
+  <article class="privacy-page container page-shell editorial-content">
+
+
     <p>Krigsvold is a website operated by James P. Howard, II. You can explore the themes and download the color definitions without an account. This notice explains the information associated with using the website and the choices you can make about optional analytics. Questions may be sent to <a href="mailto:jh@jameshoward.us">jh@jameshoward.us</a>.</p>
 
     <h2>Information processed automatically</h2>

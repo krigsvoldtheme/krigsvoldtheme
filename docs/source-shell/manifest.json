@@ -1,0 +1,21 @@
+{
+  "repository": "basuhoward/krigsvold.org",
+  "commit": "a3cf072c516c59ed35814e0fa153028cc91ceecd",
+  "files": {
+    "src/layouts/Page.astro": "8d9657ed3183903c2dc3569f7fa364fcd2a57f59d02d6681e5e6586d16f754c9",
+    "src/components/SiteHeader.astro": "e37074534082da6609ae1efef6070232a98b0d5642faa9b8e4406c3324bff915",
+    "src/components/SiteFooter.astro": "5fe3c35a861bf0bf3c015618a598b2bb17d5323212531aecc17f04d8dca1e347",
+    "src/components/HomeHero.astro": "da7d9be7be70b86c41837f850f27b87bed4a479966ec7c896bc58a573e899c91",
+    "src/styles/site.css": "fdf68c972aff91a2f6167391d0af64801336af920a4cfba04e7e2db3f0a8ba7d",
+    "assets/css/material-kit.css": "f279a09d5875efb5688153e084b7857873d4697229b1ab68421fadb3718f4976",
+    "assets/js/core/bootstrap.bundle.min.js": "0ff3cadb509482ccb23bb600c5c01eb721877a5cd7187d96c8b0af2135c29ca7"
+  },
+  "sourcePackages": {
+    "@krigsvold/theme": "2.0.0",
+    "@krigsvold/astro": "1.0.0"
+  },
+  "hostPackages": {
+    "@krigsvold/astro": "1.2.2",
+    "@krigsvold/theme": "2.2.3"
+  }
+}

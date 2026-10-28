@@ -1,64 +1,31 @@
 ---
-import '../styles/site-header.css';
-const current = Astro.url.pathname;
-const buildLinks = [['https://react.krigsvolddesign.dev/', 'React'], ['/design-system/', 'Astro & Foundations'], ['/agents/', 'Agent Tools']];
+const settings={main_menu_settings:{menu_items:[{title:'The Language',url:'/design-language/'},{title:'Build',submenu_items:[{title:'React',url:'https://react.krigsvolddesign.dev/'},{title:'Astro & Foundations',url:'/design-system/'},{title:'Agent Tools',url:'/agents/'}]},{title:'Colors',url:'/#palette'},{title:'Downloads',url:'/#downloads'},{title:'GitHub ↗',url:'https://github.com/krigsvoldtheme/krigsvoldtheme'}]}};
+const slugify=(value:string)=>value.toLowerCase().replace(/[^a-z0-9]+/g,'-');
 ---
-<div class="site-nav-shell">
-  <header class="mast" data-site-header>
-    <div class="mast-identity">
-      <a class="brand" href="/"><img class="brand-mark" src="/krigsvold-mark.svg" width="38" height="38" alt="" /><span>Krigsvold Design</span></a>
-      <button class="mast-toggle" type="button" aria-expanded="false" aria-controls="krigsvold-site-navigation" hidden>Menu</button>
+<div class="nav-shell"><div class="container">
+  <nav class="navbar navbar-expand-lg site-navbar mast" aria-label="Primary navigation">
+    <a class="navbar-brand" href="/"><img src="/krigsvold-mark.svg" alt="" width="34" height="34" /><span>Krigsvold Design</span></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#primaryNavigation" aria-controls="primaryNavigation" aria-expanded="false" aria-label="Menu"><span class="navbar-toggler-icon" aria-hidden="true"><span class="navbar-toggler-bar bar1"></span><span class="navbar-toggler-bar bar2"></span><span class="navbar-toggler-bar bar3"></span></span></button>
+    <div class="collapse navbar-collapse" id="primaryNavigation">
+      <ul class="navbar-nav ms-auto align-items-lg-center">
+        {settings.main_menu_settings.menu_items.map(item => item.submenu_items ?
+          <li class="nav-item dropdown dropdown-hover"><button class="nav-link" id={`nav-${slugify(item.title)}`} type="button" data-bs-toggle="dropdown" aria-expanded="false">{item.title} <svg class="nav-caret" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m7 10 5 5 5-5" /></svg></button><ul class="dropdown-menu dropdown-menu-end" aria-labelledby={`nav-${slugify(item.title)}`}>{item.submenu_items.map(sub => <li><a class="dropdown-item" href={sub.url} aria-current={Astro.url.pathname===sub.url ? "page" : undefined}>{sub.title}</a></li>)}</ul></li>
+          : <li class="nav-item"><a class="nav-link" href={item.url} aria-current={Astro.url.pathname===item.url ? "page" : undefined}>{item.title}</a></li>)}
+      </ul>
+      <button type="button" class="appearance-toggle" data-appearance-toggle aria-pressed="false">Dark mode</button>
     </div>
-    <nav id="krigsvold-site-navigation" aria-label="Site">
-      <div class="mast-navigation-links">
-        <a class="mast-link" href="/design-language/" aria-current={current === '/design-language/' ? 'page' : undefined}>The Language</a>
-        <details name="krigsvold-site-navigation">
-          <summary class:list={{ 'is-active-section': buildLinks.some(([href]) => href === current) }}>Build <svg class="mast-caret" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m7 10 5 5 5-5" /></svg></summary>
-          <div class="mast-menu" data-krigsvold="light">
-            {buildLinks.map(([href, label]) => <a href={href} aria-current={href === current ? 'page' : undefined}>{label}</a>)}
-          </div>
-        </details>
-        <a class="mast-link" href="https://github.com/krigsvoldtheme/krigsvoldtheme">GitHub ↗</a>
-      </div>
-    </nav>
-  </header>
-</div>
-<script>
-  const header = document.querySelector<HTMLElement>('[data-site-header]');
-  const button = header?.querySelector<HTMLButtonElement>('.mast-toggle');
-  const nav = header?.querySelector<HTMLElement>('nav');
-  if (header && button && nav) {
-    const disclosures = [...nav.querySelectorAll('details')];
-    const setMenu = (open: boolean) => {
-      header.dataset.menuOpen = String(open);
-      button.setAttribute('aria-expanded', String(open));
-      if (!open) disclosures.forEach(details => { details.open = false; });
-    };
-    header.dataset.menuReady = 'true';
-    button.hidden = false;
-    button.addEventListener('click', () => setMenu(button.getAttribute('aria-expanded') !== 'true'));
-    nav.addEventListener('click', event => {
-      if (event.target instanceof Element && event.target.closest('a')) setMenu(false);
-    });
-    disclosures.forEach(details => {
-      details.addEventListener('keydown', event => {
-        if (event.key === 'Escape' && details.open) {
-          event.stopPropagation();
-          details.open = false;
-          details.querySelector('summary')?.focus();
-        }
-      });
-      details.addEventListener('focusout', event => {
-        if (!details.contains(event.relatedTarget as Node | null)) details.open = false;
-      });
-    });
-    window.addEventListener('keydown', event => {
-      if (event.key === 'Escape' && button.getAttribute('aria-expanded') === 'true') {
-        setMenu(false);
-        button.focus();
-      }
-    });
-    matchMedia('(max-width:991.98px)').addEventListener('change', () => setMenu(false));
-    window.addEventListener('pageshow', () => setMenu(false));
-  }
+  </nav>
+</div></div>
+
+<script is:inline src="/source-shell/bootstrap.bundle.min.js"></script>
+<script is:inline>
+const nav=document.querySelector('.site-navbar');
+nav?.setAttribute('data-navigation-ready','');
+nav?.addEventListener('keydown',event=>{if(event.key==='Escape'){
+ const panel=nav.querySelector('.navbar-collapse'),button=nav.querySelector('.navbar-toggler');
+ if(button?.getAttribute('aria-expanded')==='true'){
+  const close=()=>{bootstrap.Collapse.getOrCreateInstance(panel).hide();button.focus();};
+  if(panel.classList.contains('collapsing'))panel.addEventListener('shown.bs.collapse',close,{once:true});else close();
+ }
+}});
 </script>

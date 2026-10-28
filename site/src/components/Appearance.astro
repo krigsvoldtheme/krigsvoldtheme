@@ -1,0 +1,11 @@
+<script>
+const root=document.documentElement;
+const update=()=>document.querySelectorAll<HTMLButtonElement>('[data-appearance-toggle]').forEach(button=>{
+ const dark=root.dataset.appearance==='dark';button.setAttribute('aria-pressed',String(dark));button.textContent=dark?'Light mode':'Dark mode';
+});
+update();
+document.querySelectorAll('[data-appearance-toggle]').forEach(button=>button.addEventListener('click',()=>{
+ root.dataset.appearance=root.dataset.appearance==='dark'?'light':'dark';
+ try{localStorage.setItem('design-appearance',root.dataset.appearance);}catch{}update();
+}));
+</script>

@@ -93,7 +93,7 @@ function readWorkspaceLocation() {
 }
 for(const link of workspaceLinks) link.addEventListener('click',()=>showWorkspace(link.dataset.workspaceLink));
 // Reveal a hidden section before native anchor scrolling takes place.
-document.querySelector('.cover-link').addEventListener('click',()=>showWorkspace('preview'));
+
 window.addEventListener('hashchange',readWorkspaceLocation);
 showWorkspace('preview');
 readWorkspaceLocation();

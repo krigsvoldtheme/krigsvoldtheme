@@ -1,6 +1,7 @@
 ---
 import '../styles/design-reference.css';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageMasthead from '../components/PageMasthead.astro';
 import { version as coreVersion, foundation, capabilities } from '@krigsvold/theme';
 import { version as astroVersion, peerDependencies } from '@krigsvold/astro/package.json';
 const imports = [
@@ -47,15 +48,12 @@ npm install
 npm run dev`;
 ---
 <BaseLayout title="Krigsvold Design System" description="The published Krigsvold design contract, with package installation, typography, foundation tokens, Astro components, and integration guidance.">
-  <article class="design-reference">
-    <header>
-      <p class="reference-label">Krigsvold · Design system specification</p>
-      <h1>Build with Krigsvold.</h1>
-      <p class="reference-version">Core {coreVersion} · Astro {astroVersion}</p>
+ <PageMasthead title="Build with Krigsvold." eyebrow="Krigsvold · Design system specification"><div class="masthead-description"><p class="reference-version">Core {coreVersion} · Astro {astroVersion}</p>
       <p>Krigsvold’s reusable design comes from <a href={foundation.origin}>krigsvold.org</a>. The core package defines its visual vocabulary; the Astro package supplies layouts and components using those definitions. Your content, identity, navigation, and site behavior belong to your project.</p>
       <p>This reference is built from the exact npm releases installed by this website. Token values and font roles below come directly from those packages.</p>
-      <p class="reference-links"><a href="https://www.npmjs.com/package/@krigsvold/theme">@krigsvold/theme on npm ↗</a><a href="https://www.npmjs.com/package/@krigsvold/astro">@krigsvold/astro on npm ↗</a><a href="/design-system.json" download="krigsvold-design-system.json">Download the specification as JSON ↓</a></p>
-    </header>
+      <p class="reference-links"><a href="https://www.npmjs.com/package/@krigsvold/theme">@krigsvold/theme on npm ↗</a><a href="https://www.npmjs.com/package/@krigsvold/astro">@krigsvold/astro on npm ↗</a><a href="/design-system.json" download="krigsvold-design-system.json">Download the specification as JSON ↓</a></p></div></PageMasthead>
+  <div class="page-shell"><div class="container"><div class="row"><article class="col-xl-8 col-lg-9 editorial-content design-reference">
+
     <nav class="reference-nav" aria-label="Design system sections"><a href="/design-language/">UI grammar and patterns</a><a href="#adoption">Choose your imports</a><a href="#typography">Typography</a><a href="#foundation">Foundation tokens</a><a href="#astro">Astro and starter</a><a href="#behavior">Interaction and accessibility</a><a href="#integrations">Integrations</a><a href="#releases">Customization and releases</a></nav>
 
     <section id="language"><h2>The UI language beyond the package reference</h2><p>The source audit, experimental grammar, contents/sidebar distinction, independent footer anatomy, interaction obligations and framework support now have a <a href="/design-language/">consolidated language reference</a>. Core 2.2.1 and Astro 1.2.1 are experimental releases under the npm next tag; the package versions reported on this page remain the exact installed releases.</p></section>
@@ -105,5 +103,5 @@ npm run dev`;
       <p>The core and Astro packages are versioned independently. The release policy is semantic versioning: compatible fixes are patches, compatible additions are minor releases, and breaking changes to exports, tokens, component APIs, or documented behavior require a major release. Keep a lockfile and review updates against your application. This website pins the versions shown above; the reference changes when those pins change.</p>
       <p>Propose shared visual changes in <a href="https://github.com/krigsvoldtheme/npm">the core repository</a>, with corresponding documentation and verification. Theme software uses the MIT license; fonts retain their bundled license notices. Heraldic artwork, personal identity, and site content are separate from the reusable design system.</p>
     </section>
-  </article>
+  </article></div></div></div>
 </BaseLayout>

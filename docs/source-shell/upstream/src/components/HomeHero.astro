@@ -1,0 +1,28 @@
+---
+const { page } = Astro.props;
+---
+    <header class="home-hero" style={page.featured_image ? `background-image: url(${page.featured_image})` : undefined}>
+      <div class="home-hero__veil"></div>
+      <div class="container home-hero__content">
+        <div class="row align-items-center gy-5 gx-4 gx-lg-5">
+          <div class="col-lg-7">
+            <p class="eyebrow text-white">The Count of Krigsvold</p>
+            <h1>An Antarctic title put to work</h1>
+            <p class="home-hero__lede">Polar education, research support, and evidence-led advocacy focused on Antarctica and its global consequences</p>
+            <div class="d-flex flex-wrap gap-3 mt-4">
+              <a class="btn btn-ice" href="#the-work">See the work</a>
+              <a class="btn btn-outline-light" href={'/fellows/'}>Meet the Fellows</a>
+            </div>
+          </div>
+          <div class="col-lg-5 text-center d-none d-lg-block">
+            <div class="home-hero__identity">
+              <img class="home-hero__arms" src={'/assets/img/identity/primary-logo-light.svg'} alt="Coat of arms" />
+              <p class="home-hero__title">
+                <span>The Count</span>
+                <span>of Krigsvold</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
