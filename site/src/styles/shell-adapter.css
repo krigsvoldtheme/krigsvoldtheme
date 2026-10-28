@@ -61,3 +61,6 @@ html[data-appearance="dark"] .palette-notes { background:var(--paper); color:var
 /* Material Kit's generic gray labels and pink code are not palette-tool roles. */
 body .workbench label { color:var(--krigsvold-text); }
 body .workbench code { color:inherit; }
+/* Fix the source footer role explicitly across host package defaults. */
+.site-footer h2 { font-weight:600; line-height:1.3; }
+html[data-appearance="dark"] .page-masthead :is(.masthead-metadata,.masthead-tags) { color:var(--ink); }

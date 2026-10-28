@@ -1,3 +1,5 @@
+@import '@krigsvold/theme/css';
+@import '@krigsvold/theme/foundation.css';
 /* Canonical site stylesheet. Both renderers consume this order. */
 @import './global.css';
 @import './link-behavior.css';

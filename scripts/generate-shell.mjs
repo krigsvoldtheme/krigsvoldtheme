@@ -13,7 +13,7 @@ async function flatten(path) {
  return out+css.slice(at);
 }
 await mkdir('site/public/shell',{recursive:true});
-const palette=family==='martlet'?`html[data-appearance="dark"] .specimen-book {${Object.entries(themes.dark.tokens).map(([k,v])=>`--martlet-${k}:${v}`).join(';')}}` : '';
+const palette=`html[data-appearance="dark"] body${family==='martlet'?',html[data-appearance="dark"] .specimen-book':''} {${Object.entries(themes.dark.tokens).map(([k,v])=>`--${family}-${k}:${v}`).join(';')}}`;
 await writeFile('site/src/styles/appearance-palette.css',palette+'\n');
 const css=await flatten(resolve('site/src/styles/shell.css'));
 await writeFile(`site/public/shell/${family}-shell.css`,css);
