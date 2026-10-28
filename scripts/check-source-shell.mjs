@@ -15,6 +15,13 @@ await mkdir('artifacts/qa',{recursive:true});const errors=[];const results=[];
 try{
  const context=await browser.newContext();await context.route('**/*',r=>r.request().url().startsWith(base)?r.continue():r.abort());
  const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));
+ await page.goto(base+'/agents/');await page.setViewportSize({width:1440,height:1000});
+ await page.getByRole('button',{name:'Dark mode',exact:true}).click();
+ assert.equal(await page.locator('html').getAttribute('data-appearance'),'dark');
+ await page.goto(base+'/design-language/');
+ assert.equal(await page.getByRole('button',{name:'Light mode',exact:true}).getAttribute('aria-pressed'),'true');
+ await page.getByRole('button',{name:'Light mode',exact:true}).click();
+ assert.equal(await page.locator('html').getAttribute('data-appearance'),'light');
  const masthead=family==='martlet'?'.page-intro':'.page-masthead';
  for(const path of ['/','/design-language/','/design-system/','/agents/','/privacy-and-cookie-notice/']) {
   for(const mode of ['light','dark']) {
