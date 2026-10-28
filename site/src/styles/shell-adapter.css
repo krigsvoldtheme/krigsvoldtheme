@@ -64,3 +64,4 @@ body .workbench code { color:inherit; }
 /* Fix the source footer role explicitly across host package defaults. */
 .site-footer h2 { font-weight:600; line-height:1.3; }
 html[data-appearance="dark"] .page-masthead :is(.masthead-metadata,.masthead-tags) { color:var(--ink); }
+html[data-appearance="dark"] .page-index .eyebrow { color:var(--ice-400); }
