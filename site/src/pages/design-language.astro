@@ -1,5 +1,4 @@
 ---
-import '../styles/design-reference.css';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import {Content as ShellStandard} from '../data/shell-standard.md';
 import PageMasthead from '../components/PageMasthead.astro';
@@ -37,11 +36,3 @@ const canonical=`https://github.com/${snapshot.repository}/tree/${snapshot.commi
   <section><h2>Remaining evidence</h2><ul>{language.openGates.map(gate=><li>{gate}</li>)}</ul><p>Machine-readable <a href="/design-system.json">package and language specification</a>. Source hashes establish provenance; they do not certify design quality or accessibility.</p></section>
  </article></div></div></div>
 </BaseLayout>
-<style>
- .language-prose { margin-block:4rem; }
- .language-prose :global(h1) { font-size:clamp(1.8rem,3vw,2.6rem); margin-block-end:1.5rem; }
- .language-prose :global(table) { display:block; overflow:auto; max-inline-size:100%; font-family:var(--krigsvold-font-sans); font-size:.94rem; }
- .language-prose :global(th), .language-prose :global(td) { vertical-align:top; text-align:start; padding:.8rem .9rem; border-block-end:1px solid var(--krigsvold-line); }
- .language-prose :global(code) { overflow-wrap:anywhere; }
- .language-prose :global(p), .language-prose :global(li) { max-inline-size:var(--krigsvold-reading-width); }
-</style>

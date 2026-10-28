@@ -27,3 +27,9 @@ React references and published package APIs have not changed in this shell rebui
 `baseline.json` records the source page's measured container widths, masthead padding, heading type and line height, and reading/index layout at 1440px and 768px. The browser suite compares the rebuilt language page against these values. Content, wordmarks and optional backgrounds intentionally differ; this is not a pixel-equality claim. Source styles are also checked byte-for-byte against their recorded hashes.
 
 The new browser suite replaces the previous Astro/React chrome-equality assertions because React reconciliation is explicitly deferred. Existing React availability, archive and content checks remain.
+
+## Homepage composition and contrast
+
+The palette previews and download tools own their foreground/background pairs; source global heading, label, and code colors must not leak into those regions. The homepage checks now cover interface/code/terminal previews, palette modes, expanded installation instructions, page appearance, narrow screens, and enlarged text. Automated contrast checks do not establish complete accessibility.
+
+Downloads are grouped by task: web projects, terminal and shell, application themes, and raw palette files. Martlet uses a reading sequence and local pairs. Krigsvold uses aligned category/content regions at wide widths within its existing workbench. These are documentation-host compositions, not changes to the verbatim source shell or React references.

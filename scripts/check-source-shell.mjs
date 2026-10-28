@@ -57,6 +57,32 @@ try{
    results.push({path,mode,passed:true});
   }
  }
+ // Homepage tools are themed islands: test every visible panel, not only chrome.
+ await page.goto(base+'/');
+ for(const appearance of ['light','dark']) {
+  await page.evaluate(mode=>document.documentElement.dataset.appearance=mode,appearance);
+  for(const palette of ['light','dark']) {
+   if(family==='krigsvold') await page.locator(`[data-mode="${palette}"]`).click();
+   else await page.locator(`[data-palette-mode="${palette}"]`).click();
+   for(const panel of (family==='krigsvold'?['preview','palette','downloads']:['all'])) {
+    if(panel!=='all') await page.locator(`[data-workspace-link="${panel}"]`).click();
+    for(const width of [1440,320]) {
+     await page.setViewportSize({width,height:1000});
+     for(const example of (panel==='preview'||panel==='all'?['interface','code','terminal']:['interface'])) {
+      if(panel==='preview'||panel==='all') await page.locator(`[data-example="${example}"]`).click();
+      await page.evaluate(()=>document.querySelectorAll('main details').forEach(e=>e.open=true));
+      await page.addScriptTag({path:axePath});
+      const violations=await page.evaluate(async()=>(await axe.run('main',{runOnly:['color-contrast']})).violations.map(v=>({id:v.id,nodes:v.nodes.map(n=>({target:n.target,summary:n.failureSummary}))})));
+      assert.deepEqual(violations,[],`${appearance}/${palette}/${panel}/${example}/${width} homepage contrast`);
+      assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true,'Expanded homepage overflow');
+     }
+     await page.evaluate(()=>document.documentElement.style.fontSize='200%');
+     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true,'Expanded homepage enlarged text overflow');
+     await page.evaluate(()=>{document.documentElement.style.fontSize='';document.querySelectorAll('main details').forEach(e=>e.open=false)});
+    }
+   }
+  }
+ }
  await page.goto(base+'/design-language/');await page.setViewportSize({width:320,height:900});
  const menu=page.getByRole('button',{name:'Menu',exact:true});await menu.click();await page.keyboard.press('Escape');
  await page.waitForTimeout(400);assert.equal(await menu.getAttribute('aria-expanded'),'false');assert.equal(await menu.evaluate(e=>e===document.activeElement),true);

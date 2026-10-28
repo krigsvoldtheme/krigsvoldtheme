@@ -45,3 +45,23 @@ html[data-appearance="dark"] body .site-navbar .navbar-toggler .navbar-toggler-b
 .design-reference :not(pre)>code { color:var(--krigsvold-text); background:var(--krigsvold-panel2); }
 /* Documentation tools are new content; retain their published code type role. */
 .workbench :is(code,pre,kbd,samp),.foundation-grid code { font-family:var(--krigsvold-font-mono); }
+
+/* Documentation previews own their surface and text, independently of the shell. */
+body .theme-specimen :is(h2,h3,h4) { color:var(--krigsvold-text); }
+body .theme-specimen :is(code,pre) { color:inherit; }
+body .terminal-download h4 { color:inherit; }
+body .terminal-download { color:var(--krigsvold-color-ice-100,#f3f7ff); }
+body .terminal-download h4 { font-size:1.75rem; margin:0 0 1rem; }
+
+body .workbench :is(h2,h3,h4),body .workbench .contrast-result strong { color:var(--krigsvold-text); }
+body .workbench .terminal-download h4 { color:#eef8fa; }
+body .workbench :is(.zsh-download pre,.css-instructions pre) { color:var(--krigsvold-text); }
+body .workbench .download-list a { color:var(--krigsvold-link); }
+html[data-appearance="dark"] .palette-notes { background:var(--paper); color:var(--ink); }
+/* Material Kit's generic gray labels and pink code are not palette-tool roles. */
+body .workbench label { color:var(--krigsvold-text); }
+body .workbench code { color:inherit; }
+/* Fix the source footer role explicitly across host package defaults. */
+.site-footer h2 { font-weight:600; line-height:1.3; }
+html[data-appearance="dark"] .page-masthead :is(.masthead-metadata,.masthead-tags) { color:var(--ink); }
+html[data-appearance="dark"] .page-index .eyebrow { color:var(--ice-400); }
