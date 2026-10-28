@@ -1,12 +1,14 @@
 ---
 import '../styles/design-reference.css';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageMasthead from '../components/PageMasthead.astro';
 import distribution from '../data/distribution.json';
 const endpoint=distribution.mcp.url;
 ---
 <BaseLayout title="Build with Krigsvold and an agent" description="Connect to the independent read-only Krigsvold MCP and retrieve the builder method, grammar, patterns and actual APIs.">
-<article class="design-reference">
-<header><p class="reference-label">Krigsvold · Agent access</p><h1>Build with the language.</h1><p>The MCP serves public design knowledge. No account, API key or local server download is required. Every composition remains subject to the documented experimental limits.</p></header>
+ <PageMasthead title="Build with the language." eyebrow="Krigsvold · Agent access"><div class="masthead-description"><p>The MCP serves public design knowledge. No account, API key or local server download is required. Every composition remains subject to the documented experimental limits.</p></div></PageMasthead>
+<div class="page-shell"><div class="container"><div class="row"><article class="col-xl-8 col-lg-9 editorial-content design-reference">
+
 <section><h2>Connect the MCP</h2><pre tabindex="0" role="region" aria-label="MCP endpoint"><code>{endpoint}</code></pre><p>Read-only tools: <code>get_manifest</code>, <code>search_guidance</code> and <code>get_reference</code>. The server also exposes exact resources, source commits and content hashes. It has no access to the workbench database, drafts or write operations.</p></section>
 <section><h2>Existing connections</h2><p>The canonical endpoint is now <code>{endpoint}</code>. Existing clients at <code>https://krigsvoldtheme.dev/mcp</code> continue to work.</p></section>
 <section><h2>ChatGPT</h2><p>Open Plugins, select the plus button and Add custom MCP server. Enter this endpoint, choose No authentication, review the connection, create the plugin and install it. Select it with @ in a new conversation. Account and workspace permissions apply.</p></section>
@@ -15,5 +17,5 @@ const endpoint=distribution.mcp.url;
 <section><h2>Package publication</h2><div class="reference-table" tabindex="0" role="region" aria-label="Package availability"><table><thead><tr><th scope="col">Package</th><th scope="col">Version</th><th scope="col">Availability</th></tr></thead><tbody>{Object.values(distribution.packages).map(p=><tr><th scope="row">{p.name}</th><td>{p.version}</td><td>{p.published ? 'Published on npm · experimental' : ('tarball' in p && p.tarball.available ? 'Public archive · npm publication pending' : 'Publication pending')}</td></tr>)}</tbody></table></div><p>Install exact versions deliberately. React 0.1.0 is available under both latest and next; publication does not imply API stability. Canonical guidance snapshots retain their original review-time status; this table records release availability separately.</p></section>
 <section><h2>Install the actual platform package</h2><p>The MCP includes installation commands even when this website is unreachable. Retrieve <code>platform:React</code> or <code>platform:Astro</code> before choosing imports. A theme-only reconstruction does not exercise the React components.</p><h3>React</h3><pre tabindex="0" role="region" aria-label="React package installation"><code>{distribution.packages.React.install}</code></pre><p>Alternative GitHub archive SHA-256 (not the npm tarball): <code>{distribution.packages.React.tarball.sha256}</code>. React retains its tested core 2.1.0 dependency.</p><h3>Astro and native HTML</h3><pre tabindex="0" role="region" aria-label="Astro package installation"><code>{`npm install @krigsvold/theme@${distribution.packages.core.version} @krigsvold/astro@${distribution.packages.Astro.version} astro`}</code></pre><p>Core form styling is documented in <code>styling:forms</code>; layout anatomy in <code>platform:HTML</code>. The neutral Astro starter includes a simulated registration form. Validation and persistence remain host responsibilities.</p></section>
 <section><h2>Evidence and limits</h2><p>SDK checks cover modern and legacy HTTP negotiation, tools and resources, source hashes, family isolation, invalid input and unavailable references. Actual installation inside a particular ChatGPT or Claude account is a separate check. Manual assistive-technology review, RTL, compact density and sustained consumer use remain open.</p><p><a href="/design-language/">Grammar and patterns</a> · <a href="/design-system/">Installed package reference</a></p></section>
-</article>
+</article></div></div></div>
 </BaseLayout>

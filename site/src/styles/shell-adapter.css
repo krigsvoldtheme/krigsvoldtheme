@@ -1,0 +1,47 @@
+/* Host adaptations to verbatim krigsvold.org and Material Kit styles. */
+.appearance-toggle { margin-left:1rem; padding:.4rem .5rem; width:auto; min-height:2.75rem; border:1px solid currentColor; background:transparent; color:white; font:700 .83rem/1.5 var(--sans); cursor:pointer; }
+.site-navbar .navbar-brand { text-decoration:none; }
+.site-navbar a[aria-current] { text-decoration:underline; }
+body .design-reference { max-inline-size:none; margin:0; padding:0 12px; background:transparent; color:inherit; }
+body .privacy-page { max-width:760px; }
+.page-masthead .masthead-description,.page-masthead > .container p { max-width:760px; }
+.page-masthead p,.page-masthead a,.page-masthead code { color:inherit; }
+.page-masthead .masthead-metadata { margin-top:1.5rem; font:.88rem/1.65 var(--sans); }
+.page-masthead .masthead-actions { display:flex; flex-wrap:wrap; gap:1rem 2rem; margin-top:1.5rem; }
+.page-masthead .masthead-tags:empty,.masthead-metadata:empty { display:none; }
+.page-masthead a { text-decoration:underline; }
+.page-masthead a:hover { color:var(--ice-400); }
+.design-reference { overflow-wrap:anywhere; }
+/* Source no-JS repair: do not hide primary destinations before enhancement. */
+.site-navbar:not([data-navigation-ready]) .navbar-toggler { display:none; }
+.site-navbar:not([data-navigation-ready]) .navbar-collapse { display:block; }
+.site-navbar:not([data-navigation-ready]) .dropdown-menu { display:block; position:static; }
+body:has(.site-navbar:not([data-navigation-ready])) .nav-shell { position:relative; background:var(--navy-950); }
+/* Deliberate inverse appearance; source light composition remains unchanged. */
+html[data-appearance="dark"] { color-scheme:dark; }
+html[data-appearance="dark"] body { color:var(--krigsvold-color-ice-100); background:var(--navy-950); }
+html[data-appearance="dark"] .page-masthead { background:var(--paper); }
+html[data-appearance="dark"] .page-masthead__veil { background:transparent; }
+html[data-appearance="dark"] .page-masthead :is(h1,p,a,code,.eyebrow) { color:var(--ink)!important; }
+html[data-appearance="dark"] .site-navbar { background:white; border-color:var(--rule); }
+html[data-appearance="dark"] .site-navbar :is(.navbar-brand,.nav-link,.appearance-toggle) { color:var(--ink); }
+html[data-appearance="dark"] .navbar-toggler-bar { background:var(--ink); }
+html[data-appearance="dark"] .design-reference { --krigsvold-text:var(--krigsvold-color-ice-100); --krigsvold-muted:var(--krigsvold-color-ice-400); --krigsvold-link:var(--krigsvold-color-ice-400); --krigsvold-panel2:var(--navy-800); --krigsvold-line:var(--muted); }
+html[data-appearance="dark"] :is(.editorial-content,.privacy-page) :is(h1,h2,h3,h4,p,li,th) { color:inherit; }
+html[data-appearance="dark"] :is(.editorial-content,.privacy-page) a { color:var(--ice-400); }
+html[data-appearance="dark"] .editorial-content thead { background:var(--navy-800); }
+@media(max-width:991.98px) {
+ .site-navbar .navbar-collapse { max-height:70dvh; overflow-y:auto; }
+ html[data-appearance="dark"] .site-navbar .dropdown-item { color:var(--ink); }
+ .appearance-toggle { margin:.75rem 0; }
+}
+@media print { .nav-shell,.site-footer,.reference-nav { display:none; } .page-masthead { background:white!important; color:black!important; min-height:0; padding:1rem 0; } .page-masthead__veil { display:none; } .page-masthead h1 { color:black!important; } }
+/* Bootstrap's transformed decorative edges must not create a root scrollbar;
+   tables and code retain their own overflow regions. */
+html { overflow-x:clip; }
+body { position:relative; overflow-x:clip; }
+html[data-appearance="dark"] body .site-navbar .navbar-toggler .navbar-toggler-bar { background:var(--ink); }
+.design-reference :is(h1,h2,h3) { font-family:var(--serif); }
+.design-reference :not(pre)>code { color:var(--krigsvold-text); background:var(--krigsvold-panel2); }
+/* Documentation tools are new content; retain their published code type role. */
+.workbench :is(code,pre,kbd,samp),.foundation-grid code { font-family:var(--krigsvold-font-mono); }

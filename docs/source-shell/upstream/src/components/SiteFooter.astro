@@ -1,0 +1,7 @@
+---
+import { settings } from '../lib/content.mjs';
+---
+<footer class="site-footer"><div class="container"><div class="row gy-5 gx-4 gx-lg-5">
+  <div class="col-lg-4"><a class="footer-owner" href="https://jameshoward.us"><img class="footer-owner__badge" src="/assets/img/identity/jh-badge-1x1.svg" alt="James Howard" width="58" height="58" /><span class="footer-owner__site">krigsvold.org</span><span class="footer-owner__byline">A website of James Howard</span></a><p class="mt-4">An Antarctic title put to work through education, research support, and evidence-led advocacy</p></div>
+  {settings.footer_menu_settings.menu_items.map(item => <div class="col-6 col-md-3 col-lg-2"><h2>{item.title}</h2>{item.submenu_items && <ul>{item.submenu_items.map(sub => <li><a href={sub.url} target={sub.target} rel={[sub.relationship,sub.target==='_blank'?'noopener':null].filter(Boolean).join(' ')||undefined} {...Object.fromEntries(Object.entries(sub.data||{}).map(([key,value])=>['data-'+key,value??'']))}>{sub.title}</a></li>)}</ul>}</div>)}
+</div><div class="site-footer__base"><p>Copyright © 2023–{new Date().getUTCFullYear()} James P. Howard, II</p><p><a href="mailto:count@krigsvold.org">count@krigsvold.org</a></p></div></div></footer>

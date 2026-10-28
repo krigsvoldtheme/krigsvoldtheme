@@ -2,6 +2,7 @@
 import { themes,heritage } from '../../../src/palettes.mjs';
 import { contrastRatio } from '../../../src/contrast.mjs';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageMasthead from '../components/PageMasthead.astro';
 import { version } from '../../../package.json';
 import ThemeSpecimen from '../components/ThemeSpecimen.astro';
 import AppDownloads from '../components/AppDownloads.astro';
@@ -14,22 +15,11 @@ const category=(key)=>key.startsWith('syntax-')?'syntax':key.startsWith('chart-'
 const downloads=[['CSS variables','Scoped Light and Dark themes','krigsvold.css'],['JSON tokens','The complete color specification','krigsvold.json'],['Light CSS','Light theme on its own','krigsvold-light.css'],['Dark CSS','Dark theme on its own','krigsvold-dark.css'],['VS Code Light','Starter color definition','krigsvold-light-vscode.json'],['VS Code Dark','Starter color definition','krigsvold-dark-vscode.json'],['Terminal Light JSON','Sixteen ANSI colors','krigsvold-light-terminal.json'],['Terminal Dark JSON','Sixteen ANSI colors','krigsvold-dark-terminal.json']];
 ---
 <BaseLayout>
-  <header class="landscape-cover">
-    <div class="cover-copy"><h1>Krigsvold</h1><p class="cover-line">Clear regions. Deliberate decisions.</p><p class="cover-description">A design language for purposeful regions, stable alignment, and explicit state. Build reading experiences, services, and active workspaces with components, task patterns, and agent guidance.</p><a class="cover-link" href="/design-language/">Explore the language <span aria-hidden="true">↘</span></a></div>
-    <svg class="palette-landscape" viewBox="0 0 800 520" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-      <path fill="#0A1D35" d="M0 0h800v520H0z"/>
-      <circle cx="612" cy="117" r="44" fill="#B58A3B"/>
-      <path d="M0 130h800M0 260h800M0 390h800M200 0v520M400 0v520M600 0v520" stroke="#D9EEF4" stroke-opacity=".1" fill="none"/>
-      <path fill="#123456" d="M0 300 195 173 353 260 555 142 800 257v263H0z"/>
-      <path fill="#286A9D" d="m0 390 180-91 119 25 165-168 143 170 193 9v185H0z"/>
-      <path fill="#D9EEF4" d="m144 520 320-364 98 175 117 189z"/>
-      <path fill="#9ED5E6" d="m144 520 320-364-63 262 118 102z"/>
-      <path fill="#EEF8FA" d="m464 156 98 175-161 87z"/>
-      <path fill="#061325" d="M0 468 184 419 332 483 578 407 800 458v62H0z"/>
-      <path d="m0 489 184-49 148 64 246-76 222 51" stroke="#9ED5E6" stroke-opacity=".4" fill="none"/>
-    </svg>
-    <div class="cover-meta"><span>Design language · 0.3 preview</span><span>React · Astro · MCP</span><span>Open source · MIT</span></div>
-  </header>
+  <PageMasthead title="Krigsvold" eyebrow="An opinionated design language" home>
+ <p>A design language for purposeful regions, stable alignment, and explicit state. Build publishing, services, and applications with components, patterns, and agent tools.</p>
+ <p slot="metadata">Design language 0.3 preview · React · Astro · MCP · MIT</p>
+ <div slot="actions" class="masthead-actions"><a href="/design-language/">Explore the language →</a><a href="https://react.krigsvolddesign.dev/">Build with React ↗</a></div>
+ </PageMasthead>
   <div class="source-ribbon" aria-label="The twelve source colors; select a color to copy it">{origins.map(([name,hex])=><button type="button" data-copy={hex} style={`--source-color:${hex}`} aria-label={`Copy original ${name.toLowerCase()} ${hex}`} title={`${name} · ${hex}`}><span class="sr-only">{name}: {hex}</span></button>)}</div>
 
   <div id="workbench" class="workbench" data-krigsvold="light">

@@ -1,0 +1,48 @@
+---
+import ThemeLayout from '@krigsvold/astro/Layout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import CookieConsent from '../components/CookieConsent.astro';
+import Metadata from '../components/Metadata.astro';
+import HomeHero from '../components/HomeHero.astro';
+import HomeContent from '../components/HomeContent.astro';
+import { site, date, plainText } from '../lib/content.mjs';
+import '../styles/site.css';
+const { page } = Astro.props;
+const home=page.layout==='home',fellow=page.kind==='fellow',post=page.kind==='post';
+const title=page.title===site.title?site.title:`${page.title} · ${site.title}`;
+const background=page.featured_image||(post?'/assets/img/news.webp':undefined);
+const consent=site.cookie_consent;
+---
+<ThemeLayout title={title} description={plainText(page.description||site.description)} mainId="main-content" mainTabindex={-1} bodyClass={home?'krigsvold-home':'institutional-page'}>
+  <Metadata slot="head" page={page} />
+  <Fragment slot="header">
+    <SiteHeader />
+    {home ? <HomeHero page={page} /> : <header class:list={['page-masthead',{'page-masthead--plain':!background,'fellow-masthead':fellow}]} style={background?`background-image: url(${background})`:undefined}>
+      <div class="page-masthead__veil"></div><div class="container"><div class="row"><div class={fellow?'col-lg-8':'col-lg-9'}>
+        {fellow ? <p class="eyebrow text-white">{page.year} Count of Krigsvold Fellow</p> : post ? <p class="eyebrow text-white">News · {date(page.date)}</p> : page.eyebrow && <p class="eyebrow text-white">{page.eyebrow}</p>}
+        <h1>{page.title}</h1>
+        {(fellow||page.subtitle) && <p class="page-masthead__subtitle">{fellow?page.summary:page.subtitle}</p>}
+      </div></div></div>
+    </header>}
+  </Fragment>
+  {home ? <HomeContent /> : <div class="page-shell"><div class="container"><div class:list={['row',{'gy-5 gx-4 gx-lg-5':fellow}]}>
+    <article class:list={[fellow?'col-lg-8':'col-xl-8 col-lg-9','editorial-content',{'news-article':post}]}>
+      {!fellow && !post && page.last_reviewed && <p class="review-note">Last reviewed {date(page.last_reviewed)}</p>}
+      <Fragment set:html={page.html} />
+    </article>
+    {fellow && <aside class="col-lg-4 fellow-facts" aria-label="Fellowship details"><p class="eyebrow">At a glance</p><dl><dt>Award year</dt><dd>{page.year}</dd><dt>Institution</dt><dd>{page.institution}</dd><dt>Field site</dt><dd>{page.field_site}</dd><dt>Award</dt><dd>$1,000 graduate research grant</dd></dl>{page.external_url && <a class="quiet-link" href={page.external_url}>Researcher profile <span aria-hidden="true">↗</span></a>}</aside>}
+  </div></div></div>}
+  <SiteFooter slot="footer" />
+  <Fragment slot="body-end">
+    <CookieConsent />
+    <script is:inline src="/assets/js/core/popper.min.js"></script>
+    <script is:inline src="/assets/js/core/bootstrap.min.js"></script>
+    <script is:inline src="/assets/js/material-kit.min.js?v=3.0.4"></script>
+    <script is:inline src="/assets/js/gdpr-cookie.js"></script>
+    <script is:inline define:vars={{consent}}>
+      window.cookieStart(consent.ga_id,consent.cookie_name,consent.duration_days,consent.policy_version);
+    </script>
+    <script>import '../scripts/search.js';</script>
+  </Fragment>
+</ThemeLayout>

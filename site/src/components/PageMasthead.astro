@@ -1,0 +1,12 @@
+---
+// Anatomy copied from krigsvold.org src/layouts/Page.astro.
+interface Props {title:string; eyebrow?:string; subtitle?:string; image?:string; home?:boolean}
+const {title,eyebrow,subtitle,image}=Astro.props;
+---
+<header class:list={['page-masthead',{'page-masthead--plain':!image}]} style={image?`background-image:url(${image})`:undefined}>
+ <div class="page-masthead__veil"></div><div class="container"><div class="row"><div class="col-lg-9">
+ {eyebrow && <p class="eyebrow text-white">{eyebrow}</p>}<h1>{title}</h1>
+ {subtitle && <p class="page-masthead__subtitle">{subtitle}</p>}<slot />
+ <div class="masthead-metadata"><slot name="metadata" /></div><div class="masthead-tags"><slot name="tags" /></div><slot name="actions" />
+ </div></div></div>
+</header>

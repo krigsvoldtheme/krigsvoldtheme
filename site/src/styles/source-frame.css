@@ -6,7 +6,7 @@
 @media(min-width:992px) { :root { --documentation-container:960px; } }
 @media(min-width:1200px) { :root { --documentation-container:1140px; } }
 @media(min-width:1400px) { :root { --documentation-container:1320px; } }
-body .mast,body .workbench,body .palette-notes {
+body .workbench,body .palette-notes {
   inline-size:calc(100% - 1.5rem);
   max-inline-size:calc(var(--documentation-container) - 1.5rem);
   margin-inline:auto;

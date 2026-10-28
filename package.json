@@ -10,11 +10,12 @@
     "dev": "npm run tokens && astro dev --root site",
     "build": "node scripts/fetch-react-reference.mjs && node scripts/sync-language.mjs --check && npm run tokens && astro build --root site",
     "preview": "astro preview --root site",
-    "test:browser": "node scripts/check-consent.mjs",
+    "test:browser": "node scripts/check-consent.mjs && node scripts/check-source-shell.mjs",
     "check:worker": "wrangler deploy --dry-run --outdir artifacts/worker"
   },
   "devDependencies": {
     "astro": "^5.14.0",
+    "axe-core": "4.11.1",
     "bplist-creator": "^0.3.0",
     "bplist-parser": "^0.5.0",
     "playwright": "^1.64.1",
