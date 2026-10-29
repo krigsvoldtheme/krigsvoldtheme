@@ -30,7 +30,7 @@ Light and Dark `.zsh-theme` downloads are available on the website and in `ports
 
 ## Develop
 
-Development requires Node.js 20.19+, npm, and Zsh 5.9+ for the prompt tests.
+Development requires Node.js 22.19+, npm, and Zsh 5.9+ for the prompt tests.
 
 ```sh
 npm install
